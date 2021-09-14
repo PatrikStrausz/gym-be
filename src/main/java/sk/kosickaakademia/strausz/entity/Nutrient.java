@@ -1,5 +1,6 @@
 package sk.kosickaakademia.strausz.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,14 +8,19 @@ import javax.persistence.Id;
 public class Nutrient {
 
     @Id
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "name")
     private String name;
 
-    private String unit_name;
+    @Column(name = "unit_name")
+    private String unitName;
 
-    private String nutrient_nbr;
+    @Column(name = "nutrient_nbr")
+    private String nutrientNbr;
 
+    @Column(name = "rank")
     private String rank;
 
     public int getId() {
@@ -33,20 +39,20 @@ public class Nutrient {
         this.name = name;
     }
 
-    public String getUnit_name() {
-        return unit_name;
+    public String getUnitName() {
+        return unitName;
     }
 
-    public void setUnit_name(String unit_name) {
-        this.unit_name = unit_name;
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
-    public String getNutrient_nbr() {
-        return nutrient_nbr;
+    public String getNutrientNbr() {
+        return nutrientNbr;
     }
 
-    public void setNutrient_nbr(String nutrient_nbr) {
-        this.nutrient_nbr = nutrient_nbr;
+    public void setNutrientNbr(String nutrientNbr) {
+        this.nutrientNbr = nutrientNbr;
     }
 
     public String getRank() {
@@ -55,16 +61,5 @@ public class Nutrient {
 
     public void setRank(String rank) {
         this.rank = rank;
-    }
-
-    @Override
-    public String toString() {
-        return "Nutrient{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", unit_name='" + unit_name + '\'' +
-                ", nutrient_nbr='" + nutrient_nbr + '\'' +
-                ", rank='" + rank + '\'' +
-                '}';
     }
 }

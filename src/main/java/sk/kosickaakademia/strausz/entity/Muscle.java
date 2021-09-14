@@ -1,5 +1,6 @@
 package sk.kosickaakademia.strausz.entity;
 
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,11 +8,14 @@ import javax.persistence.Id;
 public class Muscle {
 
     @Id
+    @Column(name = "id")
     private int id;
 
-    private String image_small;
+    @Column(name = "image_small")
+    private String imageSmall;
 
-    private String image_big;
+    @Column(name = "image_big")
+    private String imageBig;
 
 
     public int getId() {
@@ -23,19 +27,19 @@ public class Muscle {
     }
 
 
-    public String getImage_small() {
-        return image_small;
+    public String getImageSmall() {
+        return imageSmall;
     }
 
-    public void setImage_small(String image_small) {
-        this.image_small = image_small;
+    public void setImageSmall(String imageSmall) {
+        this.imageSmall = imageSmall;
     }
 
-    public String getImage_big() {
-        return image_big;
+    public String getImageBig() {
+        return imageBig;
     }
 
-    public void setImage_big(String image_big) {
-        this.image_big = image_big;
+    public void setImageBig(String imageBig) {
+        this.imageBig = imageBig;
     }
 }

@@ -1,5 +1,6 @@
 package sk.kosickaakademia.strausz.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,13 +8,26 @@ import javax.persistence.Id;
 public class ExerciseMuscle {
 
     @Id
+    @Column(name = "id")
     private int id;
 
-    private int muscle_id;
+    @Column(name = "muscle_id")
+    private int muscleId;
 
-    private int exercise_id;
+    @Column(name = "exercise_id")
+    private int exerciseId;
 
-    private boolean is_main;
+    @Column(name = "is_main")
+    private boolean isMain;
+
+    public ExerciseMuscle() {
+    }
+
+    public ExerciseMuscle(int muscleId, int exerciseId, boolean isMain) {
+        this.muscleId = muscleId;
+        this.exerciseId = exerciseId;
+        this.isMain = isMain;
+    }
 
     public int getId() {
         return id;
@@ -23,27 +37,27 @@ public class ExerciseMuscle {
         this.id = id;
     }
 
-    public int getMuscle_id() {
-        return muscle_id;
+    public int getMuscleId() {
+        return muscleId;
     }
 
-    public void setMuscle_id(int muscle_id) {
-        this.muscle_id = muscle_id;
+    public void setMuscleId(int muscleId) {
+        this.muscleId = muscleId;
     }
 
-    public int getExercise_id() {
-        return exercise_id;
+    public int getExerciseId() {
+        return exerciseId;
     }
 
-    public void setExercise_id(int exercise_id) {
-        this.exercise_id = exercise_id;
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 
-    public boolean isIs_main() {
-        return is_main;
+    public boolean isMain() {
+        return isMain;
     }
 
-    public void setIs_main(boolean is_main) {
-        this.is_main = is_main;
+    public void setMain(boolean main) {
+        isMain = main;
     }
 }

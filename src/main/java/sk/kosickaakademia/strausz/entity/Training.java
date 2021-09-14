@@ -15,21 +15,15 @@ public class Training {
             strategy = GenerationType.SEQUENCE,
             generator = "training_sequence"
     )
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "name")
     private String name;
 
-    private int exercise_id;
+    @Column(name = "exercise_id")
+    private int exerciseId;
 
-
-    public Training() {
-    }
-
-
-    public Training(String name, int exercise_id) {
-        this.name = name;
-        this.exercise_id = exercise_id;
-    }
 
     public int getId() {
         return id;
@@ -47,11 +41,11 @@ public class Training {
         this.name = name;
     }
 
-    public int getExercise_id() {
-        return exercise_id;
+    public int getExerciseId() {
+        return exerciseId;
     }
 
-    public void setExercise_id(int exercise_id) {
-        this.exercise_id = exercise_id;
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 }

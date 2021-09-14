@@ -15,40 +15,50 @@ public class UserDetails {
             strategy = GenerationType.SEQUENCE,
             generator = "user_details_sequence"
     )
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "firstname")
     private String firstname;
 
+    @Column(name = "lastname")
     private String lastname;
 
+    @Column(name = "height")
     private int height;
 
+    @Column(name = "weight")
     private int weight;
 
+    @Column(name = "age")
     private int age;
 
+    @Column(name = "goal")
     private String goal;
 
-    private int user_id;
+    @Column(name = "user_id")
+    private int userId;
 
-    private int training_id;
+    @Column(name = "training_id")
+    private int trainingId;
 
-    private int diet_id;
+    @Column(name = "diet_id")
+    private int dietId;
 
 
     public UserDetails() {
     }
 
-    public UserDetails(String firstname, String lastname, int height, int weight, int age, String goal, int user_id, int training_id, int diet_id) {
+    public UserDetails(String firstname, String lastname, int height, int weight, int age, String goal, int userId, int trainingId, int dietId) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.height = height;
         this.weight = weight;
         this.age = age;
         this.goal = goal;
-        this.user_id = user_id;
-        this.training_id = training_id;
-        this.diet_id = diet_id;
+        this.userId = userId;
+        this.trainingId = trainingId;
+        this.dietId = dietId;
     }
 
     public int getId() {
@@ -107,27 +117,27 @@ public class UserDetails {
         this.goal = goal;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getTraining_id() {
-        return training_id;
+    public int getTrainingId() {
+        return trainingId;
     }
 
-    public void setTraining_id(int training_id) {
-        this.training_id = training_id;
+    public void setTrainingId(int trainingId) {
+        this.trainingId = trainingId;
     }
 
-    public int getDiet_id() {
-        return diet_id;
+    public int getDietId() {
+        return dietId;
     }
 
-    public void setDiet_id(int diet_id) {
-        this.diet_id = diet_id;
+    public void setDietId(int dietId) {
+        this.dietId = dietId;
     }
 }

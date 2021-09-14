@@ -15,38 +15,48 @@ public class Exercise {
             strategy = GenerationType.SEQUENCE,
             generator = "exercise_sequence"
     )
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "exercise_type")
+    private String exerciseType;
 
-    private String exercise_type;
+    @Column(name = "equipment_required")
+    private String equipmentRequired;
 
-    private String equipment_required;
-
+    @Column(name = "mechanics")
     private String mechanics;
 
+    @Column(name = "forcetype")
     private String forcetype;
 
-    private String experience_level;
+    @Column(name = "experience_level")
+    private String experienceLevel;
 
+    @Column(name = "overview")
     private String overview;
 
+    @Column(name = "instructions")
     private String instructions;
 
+    @Column(name = "tips")
     private String tips;
 
+    @Column(name = "image")
     private String image;
 
+    @Column(name = "video")
     private String video;
 
     public Exercise() {
     }
 
-    public Exercise( String exercise_type, String equipment_required, String mechanics, String forcetype, String experience_level, String overview, String instructions, String tips, String image, String video) {
-        this.exercise_type = exercise_type;
-        this.equipment_required = equipment_required;
+    public Exercise(String exerciseType, String equipmentRequired, String mechanics, String forcetype, String experienceLevel, String overview, String instructions, String tips, String image, String video) {
+        this.exerciseType = exerciseType;
+        this.equipmentRequired = equipmentRequired;
         this.mechanics = mechanics;
         this.forcetype = forcetype;
-        this.experience_level = experience_level;
+        this.experienceLevel = experienceLevel;
         this.overview = overview;
         this.instructions = instructions;
         this.tips = tips;
@@ -62,20 +72,20 @@ public class Exercise {
         this.id = id;
     }
 
-    public String getExercise_type() {
-        return exercise_type;
+    public String getExerciseType() {
+        return exerciseType;
     }
 
-    public void setExercise_type(String exercise_type) {
-        this.exercise_type = exercise_type;
+    public void setExerciseType(String exerciseType) {
+        this.exerciseType = exerciseType;
     }
 
-    public String getEquipment_required() {
-        return equipment_required;
+    public String getEquipmentRequired() {
+        return equipmentRequired;
     }
 
-    public void setEquipment_required(String equipment_required) {
-        this.equipment_required = equipment_required;
+    public void setEquipmentRequired(String equipmentRequired) {
+        this.equipmentRequired = equipmentRequired;
     }
 
     public String getMechanics() {
@@ -94,12 +104,12 @@ public class Exercise {
         this.forcetype = forcetype;
     }
 
-    public String getExperience_level() {
-        return experience_level;
+    public String getExperienceLevel() {
+        return experienceLevel;
     }
 
-    public void setExperience_level(String experience_level) {
-        this.experience_level = experience_level;
+    public void setExperienceLevel(String experienceLevel) {
+        this.experienceLevel = experienceLevel;
     }
 
     public String getOverview() {

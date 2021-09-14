@@ -8,9 +8,11 @@ import sk.kosickaakademia.strausz.api.rest.FoodDto;
 import sk.kosickaakademia.strausz.api.rest.FoodListDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.entity.Food;
+import sk.kosickaakademia.strausz.mapper.FoodMapper;
 import sk.kosickaakademia.strausz.repository.FoodRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FoodServiceImpl implements FoodService{
@@ -26,14 +28,22 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public GenericListDto<List<FoodListDto>> getFoods(int page) {
         Page<Food> foods = foodRepository.findAll(PageRequest.of(page, 20));
-        //Mapper premapovat food na foodListDto
+
         //TODO napchat do generic listdto
-        return new GenericListDto<>();
+
+
+        //return new GenericListDto<FoodListDto>(foodListDto);
+    return null;
+
     }
 
+    @Transactional(readOnly = true)
     @Override
     public FoodDto getFoodById(Integer id) {
-        return null;
+        Optional<Food> foodById = foodRepository.findById(id);
+
+        return foodById.map(FoodMapper.INSTANCE::foodToFoodDto).orElse(null);
+
     }
 
     @Transactional

@@ -6,27 +6,54 @@ import javax.persistence.*;
 public class FoodNutrients {
 
     @Id
+    @Column(name = "id")
     private int id;
 
-    private int fdc_id;
+    @Column(name = "fdc_id")
+    private int fdcId;
 
-    private int nutrient_id;
+    @Column(name = "nutrient_id")
+    private int nutrientId;
 
+    @Column(name = "amount")
     private double amount;
 
-    private String data_points;
+    @Column(name = "data_points")
+    private String dataPoints;
 
-    private String derivation_id;
+    @Column(name = "derivation_id")
+    private String derivationId;
 
+    @Column(name = "min")
     private String min;
 
+    @Column(name = "max")
     private String max;
 
+    @Column(name = "median")
     private String median;
 
+    @Column(name = "footnote")
     private String footnote;
 
-    private String min_year_acqured;
+    @Column(name = "min_year_acqured")
+    private String minYearAcqured;
+
+    public FoodNutrients() {
+    }
+
+    public FoodNutrients(int fdcId, int nutrientId, double amount, String dataPoints, String derivationId, String min, String max, String median, String footnote, String minYearAcqured) {
+        this.fdcId = fdcId;
+        this.nutrientId = nutrientId;
+        this.amount = amount;
+        this.dataPoints = dataPoints;
+        this.derivationId = derivationId;
+        this.min = min;
+        this.max = max;
+        this.median = median;
+        this.footnote = footnote;
+        this.minYearAcqured = minYearAcqured;
+    }
 
     public int getId() {
         return id;
@@ -36,20 +63,20 @@ public class FoodNutrients {
         this.id = id;
     }
 
-    public int getFdc_id() {
-        return fdc_id;
+    public int getFdcId() {
+        return fdcId;
     }
 
-    public void setFdc_id(int fdc_id) {
-        this.fdc_id = fdc_id;
+    public void setFdcId(int fdcId) {
+        this.fdcId = fdcId;
     }
 
-    public int getNutrient_id() {
-        return nutrient_id;
+    public int getNutrientId() {
+        return nutrientId;
     }
 
-    public void setNutrient_id(int nutrient_id) {
-        this.nutrient_id = nutrient_id;
+    public void setNutrientId(int nutrientId) {
+        this.nutrientId = nutrientId;
     }
 
     public double getAmount() {
@@ -60,20 +87,20 @@ public class FoodNutrients {
         this.amount = amount;
     }
 
-    public String getData_points() {
-        return data_points;
+    public String getDataPoints() {
+        return dataPoints;
     }
 
-    public void setData_points(String data_points) {
-        this.data_points = data_points;
+    public void setDataPoints(String dataPoints) {
+        this.dataPoints = dataPoints;
     }
 
-    public String getDerivation_id() {
-        return derivation_id;
+    public String getDerivationId() {
+        return derivationId;
     }
 
-    public void setDerivation_id(String derivation_id) {
-        this.derivation_id = derivation_id;
+    public void setDerivationId(String derivationId) {
+        this.derivationId = derivationId;
     }
 
     public String getMin() {
@@ -108,28 +135,11 @@ public class FoodNutrients {
         this.footnote = footnote;
     }
 
-    public String getMin_year_acqured() {
-        return min_year_acqured;
+    public String getMinYearAcqured() {
+        return minYearAcqured;
     }
 
-    public void setMin_year_acqured(String min_year_acqured) {
-        this.min_year_acqured = min_year_acqured;
-    }
-
-    @Override
-    public String toString() {
-        return "FoodNutrients{" +
-                "id=" + id +
-                ", fdc_id=" + fdc_id +
-                ", nutrient_id=" + nutrient_id +
-                ", amount=" + amount +
-                ", data_points='" + data_points + '\'' +
-                ", derivation_id='" + derivation_id + '\'' +
-                ", min='" + min + '\'' +
-                ", max='" + max + '\'' +
-                ", median='" + median + '\'' +
-                ", footnote='" + footnote + '\'' +
-                ", min_year_acqured='" + min_year_acqured + '\'' +
-                '}';
+    public void setMinYearAcqured(String minYearAcqured) {
+        this.minYearAcqured = minYearAcqured;
     }
 }

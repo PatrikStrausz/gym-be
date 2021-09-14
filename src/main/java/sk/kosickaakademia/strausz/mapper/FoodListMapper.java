@@ -3,16 +3,16 @@ package sk.kosickaakademia.strausz.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import sk.kosickaakademia.strausz.api.rest.FoodDto;
+import org.springframework.data.domain.Page;
+import sk.kosickaakademia.strausz.api.rest.FoodListDto;
 import sk.kosickaakademia.strausz.entity.Food;
 
 @Mapper(componentModel="spring")
-public interface FoodMapper {
+public interface FoodListMapper {
 
-    FoodMapper INSTANCE = Mappers.getMapper(FoodMapper.class);
+    FoodListMapper INSTANCE = Mappers.getMapper(FoodListMapper.class);
 
     @Mapping(source = "fdcID",target = "id")
-    FoodDto foodToFoodDto(Food food);
-
+    FoodListDto foodListToFoodListDto(Page<Food> food);
 
 }

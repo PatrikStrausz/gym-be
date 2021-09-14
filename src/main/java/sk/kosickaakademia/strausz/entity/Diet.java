@@ -15,20 +15,21 @@ public class Diet {
             strategy = GenerationType.SEQUENCE,
             generator = "diet_sequence"
     )
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "name")
     private String name;
 
-    private int food_id;
+    @Column(name = "food_id")
+    private int foodId;
 
     public Diet() { }
 
-    public Diet( String name, int food_id) {
+    public Diet(String name, int foodId) {
         this.name = name;
-        this.food_id = food_id;
+        this.foodId = foodId;
     }
-
-
 
     public int getId() {
         return id;
@@ -46,11 +47,11 @@ public class Diet {
         this.name = name;
     }
 
-    public int getFood_id() {
-        return food_id;
+    public int getFoodId() {
+        return foodId;
     }
 
-    public void setFood_id(int food_id) {
-        this.food_id = food_id;
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 }
