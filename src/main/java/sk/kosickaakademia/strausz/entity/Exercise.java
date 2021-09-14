@@ -17,7 +17,6 @@ public class Exercise {
     )
     private int id;
 
-    private String target_muscle_group;
 
     private String exercise_type;
 
@@ -28,8 +27,6 @@ public class Exercise {
     private String forcetype;
 
     private String experience_level;
-
-    private String secondary_muscles;
 
     private String overview;
 
@@ -44,14 +41,12 @@ public class Exercise {
     public Exercise() {
     }
 
-    public Exercise(String target_muscle_group, String exercise_type, String equipment_required, String mechanics, String forcetype, String experience_level, String secondary_muscles, String overview, String instructions, String tips, String image, String video) {
-        this.target_muscle_group = target_muscle_group;
+    public Exercise( String exercise_type, String equipment_required, String mechanics, String forcetype, String experience_level, String overview, String instructions, String tips, String image, String video) {
         this.exercise_type = exercise_type;
         this.equipment_required = equipment_required;
         this.mechanics = mechanics;
         this.forcetype = forcetype;
         this.experience_level = experience_level;
-        this.secondary_muscles = secondary_muscles;
         this.overview = overview;
         this.instructions = instructions;
         this.tips = tips;
@@ -65,14 +60,6 @@ public class Exercise {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getTarget_muscle_group() {
-        return target_muscle_group;
-    }
-
-    public void setTarget_muscle_group(String target_muscle_group) {
-        this.target_muscle_group = target_muscle_group;
     }
 
     public String getExercise_type() {
@@ -113,14 +100,6 @@ public class Exercise {
 
     public void setExperience_level(String experience_level) {
         this.experience_level = experience_level;
-    }
-
-    public String getSecondary_muscles() {
-        return secondary_muscles;
-    }
-
-    public void setSecondary_muscles(String secondary_muscles) {
-        this.secondary_muscles = secondary_muscles;
     }
 
     public String getOverview() {
