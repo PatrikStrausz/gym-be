@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sk.kosickaakademia.strausz.entity.Food;
-import sk.kosickaakademia.strausz.entity.FoodNutrients;
+import sk.kosickaakademia.strausz.entity.FoodNutrient;
 import sk.kosickaakademia.strausz.repository.FoodNutrientRepository;
 
 import java.util.List;
@@ -26,12 +25,12 @@ public class FoodNutrientController {
     }
 
     @GetMapping("food/nutrient")
-    public List<FoodNutrients> getFood(){
+    public List<FoodNutrient> getFood(){
         return foodNutrientRepository.findAll();
     }
 
     @GetMapping("food/nutrient/{id}")
-    public Optional<FoodNutrients> getFood(@PathVariable int id){
+    public Optional<FoodNutrient> getFood(@PathVariable int id){
         return foodNutrientRepository.findById(id);
     }
 }

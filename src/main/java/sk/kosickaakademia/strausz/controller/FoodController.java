@@ -2,8 +2,6 @@ package sk.kosickaakademia.strausz.controller;
 
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.FoodDto;
-import sk.kosickaakademia.strausz.api.rest.FoodListDto;
-import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.service.FoodService;
 
 import java.util.List;
@@ -22,8 +20,15 @@ public class FoodController {
         this.foodService = foodService;
     }
 
-    @GetMapping(path = "/food")
+   /* @GetMapping(path = "/food")
     public GenericListDto<List<FoodListDto>> getFoods(@RequestParam int page){
+        return foodService.getFoods(page);
+    }
+
+    */
+
+    @GetMapping(path = "/food")
+    public List<FoodDto> getFoods(@RequestParam int page){
         return foodService.getFoods(page);
     }
 

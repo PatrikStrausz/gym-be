@@ -1,13 +1,20 @@
 package sk.kosickaakademia.strausz.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "exercise_muscle")
 public class ExerciseMuscle {
 
     @Id
+    @SequenceGenerator(
+            name = "exercise_muscle_sequence",
+            sequenceName = "exercise_muscle_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "exercise_muscle_sequence"
+    )
     @Column(name = "id")
     private int id;
 
@@ -15,7 +22,8 @@ public class ExerciseMuscle {
     private int muscleId;
 
     @Column(name = "exercise_id")
-    private int exerciseId;
+    private int exerciseID;
+
 
     @Column(name = "is_main")
     private boolean isMain;
@@ -23,9 +31,9 @@ public class ExerciseMuscle {
     public ExerciseMuscle() {
     }
 
-    public ExerciseMuscle(int muscleId, int exerciseId, boolean isMain) {
+    public ExerciseMuscle(int muscleId, int exerciseID, boolean isMain) {
         this.muscleId = muscleId;
-        this.exerciseId = exerciseId;
+        this.exerciseID = exerciseID;
         this.isMain = isMain;
     }
 
@@ -37,6 +45,14 @@ public class ExerciseMuscle {
         this.id = id;
     }
 
+    public boolean isMain() {
+        return isMain;
+    }
+
+    public void setMain(boolean main) {
+        isMain = main;
+    }
+
     public int getMuscleId() {
         return muscleId;
     }
@@ -45,19 +61,13 @@ public class ExerciseMuscle {
         this.muscleId = muscleId;
     }
 
-    public int getExerciseId() {
-        return exerciseId;
+    public int getExerciseID() {
+        return exerciseID;
     }
 
-    public void setExerciseId(int exerciseId) {
-        this.exerciseId = exerciseId;
+    public void setExerciseID(int exerciseID) {
+        this.exerciseID = exerciseID;
     }
 
-    public boolean isMain() {
-        return isMain;
-    }
 
-    public void setMain(boolean main) {
-        isMain = main;
-    }
 }

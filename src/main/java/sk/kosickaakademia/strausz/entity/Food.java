@@ -1,8 +1,7 @@
 package sk.kosickaakademia.strausz.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "Food")
 public class Food {
@@ -23,6 +22,17 @@ public class Food {
     @Column(name ="publication_date")
     private String publicationDate;
 
+
+    @ManyToMany(mappedBy = "foodSet")
+    private Set<Diet> dietSet;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "food_nutrient",
+            joinColumns = @JoinColumn(name = "fdc_id"),
+            inverseJoinColumns = @JoinColumn(name = "nutrient_id"))
+    private Set<Nutrient> nutrientSet;
 
 
     public Food(int fdcID, String dataType, String description, String foodCategoryId, String publicationDate) {
@@ -75,5 +85,21 @@ public class Food {
 
     public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    public Set<Diet> getDietSet() {
+        return dietSet;
+    }
+
+    public void setDietSet(Set<Diet> dietSet) {
+        this.dietSet = dietSet;
+    }
+
+    public Set<Nutrient> getNutrientSet() {
+        return nutrientSet;
+    }
+
+    public void setNutrientSet(Set<Nutrient> nutrientSet) {
+        this.nutrientSet = nutrientSet;
     }
 }

@@ -36,14 +36,20 @@ public class UserDetails {
     @Column(name = "goal")
     private String goal;
 
-    @Column(name = "user_id")
-    private int userId;
 
-    @Column(name = "training_id")
-    private int trainingId;
 
-    @Column(name = "diet_id")
-    private int dietId;
+    @OneToOne
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private User user;
+
+    @OneToOne
+    @JoinColumn(name = "training_id",referencedColumnName = "id")
+    private Training training;
+
+    @OneToOne
+    @JoinColumn(name = "diet_id",referencedColumnName = "id")
+    private Diet diet;
+
 
 
     public UserDetails() {
@@ -56,9 +62,7 @@ public class UserDetails {
         this.weight = weight;
         this.age = age;
         this.goal = goal;
-        this.userId = userId;
-        this.trainingId = trainingId;
-        this.dietId = dietId;
+
     }
 
     public int getId() {
@@ -117,27 +121,30 @@ public class UserDetails {
         this.goal = goal;
     }
 
-    public int getUserId() {
-        return userId;
+
+
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getTrainingId() {
-        return trainingId;
+    public Training getTraining() {
+        return training;
     }
 
-    public void setTrainingId(int trainingId) {
-        this.trainingId = trainingId;
+    public void setTraining(Training training) {
+        this.training = training;
     }
 
-    public int getDietId() {
-        return dietId;
+    public Diet getDiet() {
+        return diet;
     }
 
-    public void setDietId(int dietId) {
-        this.dietId = dietId;
+    public void setDiet(Diet diet) {
+        this.diet = diet;
     }
 }

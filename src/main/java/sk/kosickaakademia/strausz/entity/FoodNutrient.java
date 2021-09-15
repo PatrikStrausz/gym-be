@@ -3,7 +3,7 @@ package sk.kosickaakademia.strausz.entity;
 import javax.persistence.*;
 
 @Entity(name = "food_nutrient")
-public class FoodNutrients {
+public class FoodNutrient {
 
     @Id
     @Column(name = "id")
@@ -39,10 +39,10 @@ public class FoodNutrients {
     @Column(name = "min_year_acqured")
     private String minYearAcqured;
 
-    public FoodNutrients() {
+    public FoodNutrient() {
     }
 
-    public FoodNutrients(int fdcId, int nutrientId, double amount, String dataPoints, String derivationId, String min, String max, String median, String footnote, String minYearAcqured) {
+    public FoodNutrient(int fdcId, int nutrientId, double amount, String dataPoints, String derivationId, String min, String max, String median, String footnote, String minYearAcqured) {
         this.fdcId = fdcId;
         this.nutrientId = nutrientId;
         this.amount = amount;
@@ -142,4 +142,6 @@ public class FoodNutrients {
     public void setMinYearAcqured(String minYearAcqured) {
         this.minYearAcqured = minYearAcqured;
     }
+
+
 }

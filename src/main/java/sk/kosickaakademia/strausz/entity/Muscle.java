@@ -1,8 +1,7 @@
 package sk.kosickaakademia.strausz.entity;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.util.Set;
 
 @Entity(name="muscle")
 public class Muscle {
@@ -16,6 +15,12 @@ public class Muscle {
 
     @Column(name = "image_big")
     private String imageBig;
+
+   // @OneToMany(mappedBy = "muscle")
+    //private Set<ExerciseMuscle> exerciseMuscles;
+
+    @ManyToMany(mappedBy = "muscleSet")
+    private Set<Exercise> exerciseSet;
 
 
     public int getId() {
@@ -41,5 +46,13 @@ public class Muscle {
 
     public void setImageBig(String imageBig) {
         this.imageBig = imageBig;
+    }
+
+    public Set<Exercise> getExerciseSet() {
+        return exerciseSet;
+    }
+
+    public void setExerciseSet(Set<Exercise> exerciseSet) {
+        this.exerciseSet = exerciseSet;
     }
 }

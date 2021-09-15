@@ -1,6 +1,7 @@
 package sk.kosickaakademia.strausz.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "training")
 public class Training {
@@ -21,9 +22,22 @@ public class Training {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "exercise_id")
-    private int exerciseId;
+    @ManyToMany
+    @JoinTable(
+            name = "training_exercise",
+            joinColumns = @JoinColumn(name = "training_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercise_id"))
+    private Set<Exercise> exerciseSet;
 
+    @OneToOne(mappedBy = "training")
+    private UserDetails userDetails;
+
+    public Training() {
+    }
+
+    public Training(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -41,11 +55,20 @@ public class Training {
         this.name = name;
     }
 
-    public int getExerciseId() {
-        return exerciseId;
+
+    public Set<Exercise> getExerciseSet() {
+        return exerciseSet;
     }
 
-    public void setExerciseId(int exerciseId) {
-        this.exerciseId = exerciseId;
+    public void setExerciseSet(Set<Exercise> exerciseSet) {
+        this.exerciseSet = exerciseSet;
+    }
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 }
