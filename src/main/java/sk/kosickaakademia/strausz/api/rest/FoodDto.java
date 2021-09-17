@@ -1,13 +1,19 @@
 package sk.kosickaakademia.strausz.api.rest;
 
+import javax.validation.constraints.NotNull;
+
 public class FoodDto {
 
+    @NotNull(message = "id.cannot.be.null")
     private int id;
 
+    @NotNull(message = "description.cannot.be.null")
     private String description;
 
+    @NotNull(message = "foodCategoryId.cannot.be.null")
     private String foodCategoryId;
 
+    @NotNull(message = "publicationDate.cannot.be.null")
     private String publicationDate;
 
 

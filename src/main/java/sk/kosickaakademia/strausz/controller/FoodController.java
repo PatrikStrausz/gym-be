@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.FoodDto;
 import sk.kosickaakademia.strausz.service.FoodService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,8 +33,8 @@ public class FoodController {
         return foodService.getFoods(page);
     }
 
-   @GetMapping("food/{id}")
-    public FoodDto getFood(@PathVariable int id){
+   @GetMapping("/food/{id}")
+    public FoodDto getFood(@Valid @PathVariable int id){
         return foodService.getFoodById(id);
     }
 

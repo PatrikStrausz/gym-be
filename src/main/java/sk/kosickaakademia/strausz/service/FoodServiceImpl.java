@@ -40,14 +40,14 @@ public class FoodServiceImpl implements FoodService{
 
     @Transactional(readOnly = true)
     @Override
-    public  List<FoodDto> getFoods(int page) {
+    public List<FoodDto> getFoods(int page) {
         Page<Food> foods = foodRepository.findAll(PageRequest.of(page, 20));
 
         //TODO napchat do generic listdto
-        List<FoodDto> foodListDto = FoodListMapper.INSTANCE.foodListToFoodListDto(foods);
 
-        return foodListDto;
-        //return null;
+
+        return FoodListMapper.INSTANCE.foodListToFoodListDto(foods);
+
     }
 
     @Transactional(readOnly = true)

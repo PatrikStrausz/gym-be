@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface FoodService {
 
-    //GenericListDto<List<FoodListDto>> getFoods(int page);
-   List<FoodDto> getFoods(int page);
+    //GenericListDto<List<FoodDto>> getFoods(int page);
+    List<FoodDto> getFoods(int page);
 
     FoodDto getFoodById(Integer id);
 
