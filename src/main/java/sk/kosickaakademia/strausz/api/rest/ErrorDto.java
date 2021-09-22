@@ -5,23 +5,23 @@ import java.util.List;
 
 public class ErrorDto{
 
-    private String errorCode;
+    private int errorCode;
 
     private String message;
 
     private List<ConstraintViolation> constraintViolation;
 
-    public ErrorDto(String errorCode, String message, List<ConstraintViolation> constraintViolation) {
+    public ErrorDto(int errorCode, String message, List<ConstraintViolation> constraintViolation) {
         this.errorCode = errorCode;
         this.message = message;
         this.constraintViolation = constraintViolation;
     }
 
-    public String getErrorCode() {
+    public int getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(String errorCode) {
+    public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
     }
 

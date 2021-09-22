@@ -5,11 +5,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.FoodDto;
+import sk.kosickaakademia.strausz.api.rest.FoodListDto;
+import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.entity.Food;
-import sk.kosickaakademia.strausz.mapper.FoodListMapper;
 import sk.kosickaakademia.strausz.mapper.FoodMapper;
 import sk.kosickaakademia.strausz.repository.FoodRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,30 +25,19 @@ public class FoodServiceImpl implements FoodService{
         this.foodRepository = foodRepository;
     }
 
-   /* @Transactional(readOnly = true)
-    @Override
-    public  GenericListDto<List<FoodDto>> getFoods(int page) {
-        Page<Food> foods = foodRepository.findAll(PageRequest.of(page, 20));
-
-        //TODO napchat do generic listdto
-        GenericListDto<List<FoodDto>> foodListDto = FoodListMapper.INSTANCE.foodListToFoodListDto(foods);
-
-        return foodListDto;
-    //return null;
-
-    }
-
-    */
 
     @Transactional(readOnly = true)
     @Override
-    public List<FoodDto> getFoods(int page) {
+    public GenericListDto<List<FoodListDto>> getFoods(int page) {
         Page<Food> foods = foodRepository.findAll(PageRequest.of(page, 20));
 
-        //TODO napchat do generic listdto
 
+        List<FoodListDto> foodListDto = FoodMapper.INSTANCE.foodListToFoodListDto(foods);
 
-        return FoodListMapper.INSTANCE.foodListToFoodListDto(foods);
+        List<List<FoodListDto>> listFoodDto = new ArrayList<>();
+        listFoodDto.add(foodListDto);
+
+        return new GenericListDto<>(listFoodDto);
 
     }
 

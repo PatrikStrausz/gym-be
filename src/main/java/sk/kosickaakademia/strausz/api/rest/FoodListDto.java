@@ -1,22 +1,58 @@
 package sk.kosickaakademia.strausz.api.rest;
 
-import sk.kosickaakademia.strausz.entity.Food;
-
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 public class FoodListDto {
 
-   List<Food> foodList;
+    @NotNull(message = "id.cannot.be.null")
+    private int id;
 
-    public FoodListDto(List<Food> foodList) {
-        this.foodList = foodList;
+    @NotNull(message = "description.cannot.be.null")
+    private String description;
+
+    @NotNull(message = "foodCategoryId.cannot.be.null")
+    private String foodCategoryId;
+
+    @NotNull(message = "publicationDate.cannot.be.null")
+    private String publicationDate;
+
+
+    public FoodListDto(int id, String description, String foodCategoryId, String publicationDate) {
+        this.id = id;
+        this.description = description;
+        this.foodCategoryId = foodCategoryId;
+        this.publicationDate = publicationDate;
     }
 
-    public List<Food> getFoodList() {
-        return foodList;
+    public int getId() {
+        return id;
     }
 
-    public void setFoodList(List<Food> foodList) {
-        this.foodList = foodList;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getFoodCategoryId() {
+        return foodCategoryId;
+    }
+
+    public void setFoodCategoryId(String foodCategoryId) {
+        this.foodCategoryId = foodCategoryId;
+    }
+
+    public String getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(String publicationDate) {
+        this.publicationDate = publicationDate;
     }
 }

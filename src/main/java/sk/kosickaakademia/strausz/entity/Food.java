@@ -3,7 +3,7 @@ package sk.kosickaakademia.strausz.entity;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity(name = "Food")
+@Entity(name = "food")
 public class Food {
 
     @Id
@@ -35,8 +35,7 @@ public class Food {
     private Set<Nutrient> nutrientSet;
 
 
-    public Food(int fdcID, String dataType, String description, String foodCategoryId, String publicationDate) {
-        this.fdcID = fdcID;
+    public Food(String dataType, String description, String foodCategoryId, String publicationDate) {
         this.dataType = dataType;
         this.description = description;
         this.foodCategoryId = foodCategoryId;
