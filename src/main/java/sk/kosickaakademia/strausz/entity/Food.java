@@ -8,7 +8,7 @@ public class Food {
 
     @Id
     @Column(name ="fdc_id")
-    private int fdcID;
+    private Long id;
 
     @Column(name ="data_type")
     private String dataType;
@@ -46,12 +46,8 @@ public class Food {
 
     }
 
-    public int getFdcID() {
-        return fdcID;
-    }
-
-    public void setFdcID(int fdcID) {
-        this.fdcID = fdcID;
+    public Long getId() {
+        return id;
     }
 
     public String getDataType() {

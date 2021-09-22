@@ -8,12 +8,11 @@ import sk.kosickaakademia.strausz.api.rest.FoodDto;
 import sk.kosickaakademia.strausz.api.rest.FoodListDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.entity.Food;
+import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.FoodMapper;
 import sk.kosickaakademia.strausz.repository.FoodRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FoodServiceImpl implements FoodService{
@@ -21,8 +20,11 @@ public class FoodServiceImpl implements FoodService{
 
     private final FoodRepository foodRepository;
 
-    public FoodServiceImpl(FoodRepository foodRepository) {
+    private final FoodMapper foodMapper;
+
+    public FoodServiceImpl(FoodRepository foodRepository, FoodMapper foodMapper) {
         this.foodRepository = foodRepository;
+        this.foodMapper = foodMapper;
     }
 
 
@@ -32,21 +34,19 @@ public class FoodServiceImpl implements FoodService{
         Page<Food> foods = foodRepository.findAll(PageRequest.of(page, 20));
 
 
-        List<FoodListDto> foodListDto = FoodMapper.INSTANCE.foodListToFoodListDto(foods);
+        List<FoodListDto> foodListDto = foodMapper.foodListToFoodListDto(foods);
 
-        List<List<FoodListDto>> listFoodDto = new ArrayList<>();
-        listFoodDto.add(foodListDto);
 
-        return new GenericListDto<>(listFoodDto);
+        return new GenericListDto<>(foodListDto);
 
     }
 
     @Transactional(readOnly = true)
     @Override
     public FoodDto getFoodById(Integer id) {
-        Optional<Food> foodById = foodRepository.findById(id);
+        Food foodById = foodRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("food not found" +id));
 
-        return foodById.map(FoodMapper.INSTANCE::foodToFoodDto).orElse(null);
+        return foodMapper.foodToFoodDto(foodById);
 
     }
 

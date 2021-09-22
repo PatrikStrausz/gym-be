@@ -1,14 +1,11 @@
 package sk.kosickaakademia.strausz.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.FoodDto;
 import sk.kosickaakademia.strausz.api.rest.FoodListDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
-import sk.kosickaakademia.strausz.exception.FoodNotFoundException;
 import sk.kosickaakademia.strausz.service.FoodService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,16 +24,16 @@ public class FoodController {
 
 
     @GetMapping(path = "/food")
-    public GenericListDto<List<FoodListDto>> getFoods(@RequestParam int page){
+    public GenericListDto<List<FoodListDto>> getFoods( @RequestParam(defaultValue = "0",required = false) int page){
         return foodService.getFoods(page);
     }
 
    @GetMapping("/food/{id}")
-    public ResponseEntity<FoodDto> getFood(@Valid @PathVariable int id) throws FoodNotFoundException {
+    public FoodDto getFood(@PathVariable int id)  {
 
-         foodService.getFoodById(id);
+         return foodService.getFoodById(id);
 
-         throw FoodNotFoundException.createWith(id);
+
 
     }
 

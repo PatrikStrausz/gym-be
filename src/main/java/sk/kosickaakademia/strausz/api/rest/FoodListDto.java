@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 public class FoodListDto {
 
     @NotNull(message = "id.cannot.be.null")
-    private int id;
+    private Long id;
 
     @NotNull(message = "description.cannot.be.null")
     private String description;
@@ -17,18 +17,18 @@ public class FoodListDto {
     private String publicationDate;
 
 
-    public FoodListDto(int id, String description, String foodCategoryId, String publicationDate) {
+    public FoodListDto(Long id, String description, String foodCategoryId, String publicationDate) {
         this.id = id;
         this.description = description;
         this.foodCategoryId = foodCategoryId;
         this.publicationDate = publicationDate;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

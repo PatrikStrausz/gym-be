@@ -17,6 +17,11 @@ public class ErrorDto{
         this.constraintViolation = constraintViolation;
     }
 
+    public ErrorDto(int errorCode, String message) {
+        this.errorCode = errorCode;
+        this.message = message;
+    }
+
     public int getErrorCode() {
         return errorCode;
     }
