@@ -6,8 +6,6 @@ import sk.kosickaakademia.strausz.api.rest.FoodListDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.service.FoodService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api")
 public class FoodController {
@@ -24,12 +22,12 @@ public class FoodController {
 
 
     @GetMapping(path = "/food")
-    public GenericListDto<List<FoodListDto>> getFoods( @RequestParam(defaultValue = "0",required = false) int page){
+    public GenericListDto<FoodListDto> getFoods( @RequestParam(defaultValue = "0",required = false) int page){
         return foodService.getFoods(page);
     }
 
    @GetMapping("/food/{id}")
-    public FoodDto getFood(@PathVariable int id)  {
+    public FoodDto getFood(@PathVariable long id)  {
 
          return foodService.getFoodById(id);
 

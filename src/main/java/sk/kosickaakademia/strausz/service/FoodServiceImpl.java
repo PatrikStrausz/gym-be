@@ -30,7 +30,7 @@ public class FoodServiceImpl implements FoodService{
 
     @Transactional(readOnly = true)
     @Override
-    public GenericListDto<List<FoodListDto>> getFoods(int page) {
+    public GenericListDto<FoodListDto> getFoods(int page) {
         Page<Food> foods = foodRepository.findAll(PageRequest.of(page, 20));
 
 
@@ -43,7 +43,7 @@ public class FoodServiceImpl implements FoodService{
 
     @Transactional(readOnly = true)
     @Override
-    public FoodDto getFoodById(Integer id) {
+    public FoodDto getFoodById(Long id) {
         Food foodById = foodRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("food not found" +id));
 
         return foodMapper.foodToFoodDto(foodById);

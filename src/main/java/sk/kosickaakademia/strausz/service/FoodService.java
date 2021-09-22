@@ -4,13 +4,11 @@ import sk.kosickaakademia.strausz.api.rest.FoodDto;
 import sk.kosickaakademia.strausz.api.rest.FoodListDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 
-import java.util.List;
-
 public interface FoodService {
 
-    GenericListDto<List<FoodListDto>> getFoods(int page);
+    GenericListDto<FoodListDto> getFoods(int page);
 
-    FoodDto getFoodById(Integer id);
+    FoodDto getFoodById(Long id);
 
     @Deprecated
     FoodDto create();//param FoodCreateDto
