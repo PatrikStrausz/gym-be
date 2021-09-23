@@ -8,7 +8,6 @@ CREATE TABLE gym_user
     password character varying(255) NOT NULL
 );
 
-
 CREATE TABLE user_details
 (
     id          SERIAL PRIMARY KEY,
