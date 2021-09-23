@@ -44,7 +44,7 @@ public class FoodServiceImpl implements FoodService{
     @Transactional(readOnly = true)
     @Override
     public FoodDto getFoodById(Long id) {
-        Food foodById = foodRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("food not found" +id));
+        Food foodById = foodRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("food with ID ["+id+"] not found "));
 
         return foodMapper.foodToFoodDto(foodById);
 

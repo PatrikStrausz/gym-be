@@ -1,17 +1,17 @@
 package sk.kosickaakademia.strausz.api.rest;
 
 import javax.validation.ConstraintViolation;
-import java.util.List;
+import java.util.Set;
 
-public class ErrorDto{
+public class ErrorDto <T>{
 
     private int errorCode;
 
     private String message;
 
-    private List<ConstraintViolation> constraintViolation;
+    private Set<ConstraintViolation<T>> constraintViolation;
 
-    public ErrorDto(int errorCode, String message, List<ConstraintViolation> constraintViolation) {
+    public ErrorDto(int errorCode, String message, Set<ConstraintViolation<T>> constraintViolation) {
         this.errorCode = errorCode;
         this.message = message;
         this.constraintViolation = constraintViolation;
@@ -38,11 +38,11 @@ public class ErrorDto{
         this.message = message;
     }
 
-    public List<ConstraintViolation> getConstraintViolation() {
+    public Set<ConstraintViolation<T>> getConstraintViolation() {
         return constraintViolation;
     }
 
-    public void setConstraintViolation(List<ConstraintViolation> constraintViolation) {
+    public void setConstraintViolation(Set<ConstraintViolation<T>> constraintViolation) {
         this.constraintViolation = constraintViolation;
     }
 }
