@@ -1,61 +1,48 @@
-package sk.kosickaakademia.strausz.entity;
+package sk.kosickaakademia.strausz.api.rest;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
 
-@Entity(name = "Exercise")
-public class Exercise {
+public class ExerciseDto {
 
-    @Id
-    @Column(name = "id")
-    private int id;
+    @NotNull(message = "id.cannot.be.null")
+    private Integer id;
 
-    @Column(name = "exercise_type")
+    @NotNull(message = "name.cannot.be.null")
+    private String name;
+
+    @NotNull(message = "exerciseType.cannot.be.null")
     private String exerciseType;
 
-    @Column(name = "equipment_required")
+    @NotNull(message = "equipmentRequired.cannot.be.null")
     private String equipmentRequired;
 
-    @Column(name = "mechanics")
+    @NotNull(message = "mechanics.cannot.be.null")
     private String mechanics;
 
-    @Column(name = "forcetype")
+    @NotNull(message = "forcetype.cannot.be.null")
     private String forcetype;
 
-    @Column(name = "experience_level")
+    @NotNull(message = "experienceLevel.cannot.be.null")
     private String experienceLevel;
 
-    @Column(name = "overview")
+    @NotNull(message = "overview.cannot.be.null")
     private String overview;
 
-    @Column(name = "instructions")
+    @NotNull(message = "instructions.cannot.be.null")
     private String instructions;
 
-    @Column(name = "tips")
+    @NotNull(message = "tips.cannot.be.null")
     private String tips;
 
-    @Column(name = "image")
+    @NotNull(message = "image.cannot.be.null")
     private String image;
 
-    @Column(name = "video")
+    @NotNull(message = "video.cannot.be.null")
     private String video;
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "exercise_muscle",
-            joinColumns = @JoinColumn(name = "exercise_id"),
-            inverseJoinColumns = @JoinColumn(name = "muscle_id"))
-    private Set<Muscle> muscleSet;
-
-
-    @ManyToMany(mappedBy = "exerciseSet")
-    private Set<Training> trainingSet;
-
-    public Exercise() {
-    }
-
-    public Exercise(String exerciseType, String equipmentRequired, String mechanics, String forcetype, String experienceLevel, String overview, String instructions, String tips, String image, String video) {
+    public ExerciseDto(Integer id, String name, String exerciseType, String equipmentRequired, String mechanics, String forcetype, String experienceLevel, String overview, String instructions, String tips, String image, String video) {
+        this.id = id;
+        this.name = name;
         this.exerciseType = exerciseType;
         this.equipmentRequired = equipmentRequired;
         this.mechanics = mechanics;
@@ -68,12 +55,20 @@ public class Exercise {
         this.video = video;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getExerciseType() {
@@ -154,21 +149,5 @@ public class Exercise {
 
     public void setVideo(String video) {
         this.video = video;
-    }
-
-    public Set<Muscle> getMuscleSet() {
-        return muscleSet;
-    }
-
-    public void setMuscleSet(Set<Muscle> muscleSet) {
-        this.muscleSet = muscleSet;
-    }
-
-    public Set<Training> getTrainingSet() {
-        return trainingSet;
-    }
-
-    public void setTrainingSet(Set<Training> trainingSet) {
-        this.trainingSet = trainingSet;
     }
 }

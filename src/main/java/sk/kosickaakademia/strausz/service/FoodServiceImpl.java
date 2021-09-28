@@ -15,7 +15,7 @@ import sk.kosickaakademia.strausz.repository.FoodRepository;
 import java.util.List;
 
 @Service
-public class FoodServiceImpl implements FoodService{
+public class FoodServiceImpl implements FoodService {
 
 
     private final FoodRepository foodRepository;
@@ -33,9 +33,7 @@ public class FoodServiceImpl implements FoodService{
     public GenericListDto<FoodListDto> getFoods(int page) {
         Page<Food> foods = foodRepository.findAll(PageRequest.of(page, 20));
 
-
         List<FoodListDto> foodListDto = foodMapper.foodListToFoodListDto(foods);
-
 
         return new GenericListDto<>(foodListDto);
 
@@ -44,15 +42,10 @@ public class FoodServiceImpl implements FoodService{
     @Transactional(readOnly = true)
     @Override
     public FoodDto getFoodById(Long id) {
-        Food foodById = foodRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("food with ID ["+id+"] not found "));
+        Food foodById = foodRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Food with ID [" + id + "] not found "));
 
         return foodMapper.foodToFoodDto(foodById);
 
     }
 
-    @Transactional
-    @Override
-    public FoodDto create() {
-        return null;
-    }
 }

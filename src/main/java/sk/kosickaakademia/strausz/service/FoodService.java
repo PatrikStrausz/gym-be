@@ -10,6 +10,4 @@ public interface FoodService {
 
     FoodDto getFoodById(Long id);
 
-    @Deprecated
-    FoodDto create();//param FoodCreateDto
 }

@@ -6,15 +6,6 @@ import javax.persistence.*;
 public class ExerciseMuscle {
 
     @Id
-    @SequenceGenerator(
-            name = "exercise_muscle_sequence",
-            sequenceName = "exercise_muscle_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "exercise_muscle_sequence"
-    )
     @Column(name = "id")
     private int id;
 
