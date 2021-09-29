@@ -2,35 +2,33 @@ package sk.kosickaakademia.strausz.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import sk.kosickaakademia.strausz.entity.FoodNutrient;
-import sk.kosickaakademia.strausz.repository.FoodNutrientRepository;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
+import sk.kosickaakademia.strausz.api.rest.FoodNutrientDto;
+import sk.kosickaakademia.strausz.api.rest.GenericListDto;
+import sk.kosickaakademia.strausz.service.FoodNutrientService;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api")
 public class FoodNutrientController {
 
 
-    private final FoodNutrientRepository foodNutrientRepository;
+    private final FoodNutrientService foodNutrientService;
 
     @Autowired
-    public FoodNutrientController(FoodNutrientRepository foodNutrientRepository) {
-        this.foodNutrientRepository = foodNutrientRepository;
+    public FoodNutrientController(FoodNutrientService foodNutrientService) {
+        this.foodNutrientService = foodNutrientService;
     }
 
-    @GetMapping("food/nutrient")
-    public List<FoodNutrient> getFood(){
-        return foodNutrientRepository.findAll();
+    @GetMapping(path = "/food/nutrient")
+    public GenericListDto<FoodNutrientDto> getFoodNutrients(@RequestParam(defaultValue = "0", required = false) int page) {
+        return foodNutrientService.getFoodNutrients(page);
     }
 
-    @GetMapping("food/nutrient/{id}")
-    public Optional<FoodNutrient> getFood(@PathVariable int id){
-        return foodNutrientRepository.findById(id);
+    @GetMapping("/food/nutrient/{id}")
+    public FoodNutrientDto getFoodNutrientById(@PathVariable int id) {
+
+        return foodNutrientService.getFoodNutrientById(id);
+
+
     }
 }
