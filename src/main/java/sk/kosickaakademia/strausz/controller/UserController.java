@@ -39,7 +39,7 @@ public class UserController {
         return userService.create(user);
     }
 
-    @PostMapping(path = "/user/delete")
+    @DeleteMapping(path = "/user/delete")
     public UserDto deleteUser(@Valid @RequestBody UserDto user) {
 
         return userService.delete(user);

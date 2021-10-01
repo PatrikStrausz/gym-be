@@ -15,7 +15,7 @@ public class UserDto {
     private String login;
 
     @NotNull(message = "email.cannot.be.null")
-    @Email
+    @Email(message = "Email should be valid")
     private String email;
 
     @NotNull(message = "password.cannot.be.null")

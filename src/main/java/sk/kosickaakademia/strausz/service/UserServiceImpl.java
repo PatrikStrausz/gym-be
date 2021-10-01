@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.userDtoToUser(userDto);
 
+
         userRepository.save(user);
 
         return userMapper.userToUserDto(user);
@@ -65,14 +66,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto delete(UserDto userDto) {
-        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException("User with ID [" + userDto.getId() + "] " + userDto.getLogin() + " not found "));
 
         //TODO find userdetails and delete
+
+        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException("User with ID [" + userDto.getId() + "] " + userDto.getLogin() + " not found "));
+
 
         userRepository.delete(userById);
 
         return userMapper.userToUserDto(userById);
 
     }
+
 
 }

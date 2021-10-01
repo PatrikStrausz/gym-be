@@ -26,8 +26,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    //exception zalogovat ako internal server error
-
 
     Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
@@ -38,8 +36,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         // logger.log(Level.SEVERE, "ERROR " + HttpStatus.INTERNAL_SERVER_ERROR.value() + " " + e.getMessage());
         logger.error("{}", e.getMessage());
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
     }
+
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorDto> handleBusinessException(BusinessException e) {
@@ -55,6 +55,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorDto> handleConstraintViolationException(ConstraintViolationException e) {
+
 
         logger.warn("{}", e.getMessage());
 
@@ -84,4 +85,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), errorMessage));
 
     }
+
+    /*
+    @ExceptionHandler(SQLException.class)
+    public ResponseEntity<ErrorDto> handleInternalServerError(SQLException e) {
+
+        logger.info("______________________________________________");
+        logger.error("{}", e.getMessage());
+        logger.error("{}", e.getErrorCode());
+        logger.error("{}", e.getSQLState());
+        logger.error("{}", e.getLocalizedMessage());
+        logger.error("{}", e.getCause());
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
+
+    }
+
+     */
 }

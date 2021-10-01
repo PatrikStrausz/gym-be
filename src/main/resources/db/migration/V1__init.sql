@@ -1,21 +1,21 @@
 CREATE TABLE gym_user
 (
     id       SERIAL PRIMARY KEY,
-    login    character varying(255) NOT NULL,
-    email    character varying(255) NOT NULL,
-    password character varying(255) NOT NULL
+    login    VARCHAR(100) NOT NULL,
+    email    VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE user_details
 (
     id          SERIAL PRIMARY KEY,
-    firstname   character varying(255) NOT NULL,
-    lastname    character varying(255) NOT NULL,
-    height      integer                NOT NULL,
-    weight      integer                NOT NULL,
-    age         integer                NOT NULL,
-    goal        character varying(255) NOT NULL,
-    user_id     integer                NOT NULL,
+    firstname   VARCHAR(100) NOT NULL,
+    lastname    VARCHAR(100) NOT NULL,
+    height      integer      NOT NULL,
+    weight      integer      NOT NULL,
+    age         integer      NOT NULL,
+    goal        VARCHAR(100) NOT NULL,
+    user_id     integer      NOT NULL,
     training_id integer,
     diet_id     integer
 
@@ -25,7 +25,7 @@ CREATE TABLE user_details
 CREATE TABLE diet
 (
     id   integer PRIMARY KEY,
-    name character varying(255)
+    name VARCHAR(100)
 );
 
 
@@ -41,7 +41,7 @@ CREATE TABLE food_diet
 CREATE TABLE training
 (
     id   integer PRIMARY KEY,
-    name character varying(255)
+    name VARCHAR(100)
 );
 
 
@@ -55,12 +55,12 @@ CREATE TABLE training_exercise
 CREATE TABLE exercise
 (
     id                 integer PRIMARY KEY,
-    name               character varying(255),
-    exercise_type      character varying(255),
-    equipment_required character varying(255),
-    mechanics          character varying(255),
-    forcetype          character varying(255),
-    experience_level   character varying(255),
+    name               VARCHAR(100),
+    exercise_type      VARCHAR(100),
+    equipment_required VARCHAR(100),
+    mechanics          VARCHAR(100),
+    forcetype          VARCHAR(100),
+    experience_level   VARCHAR(100),
     overview           TEXT,
     instructions       TEXT,
     tips               TEXT,
@@ -72,10 +72,10 @@ CREATE TABLE exercise
 CREATE TABLE food
 (
     fdc_id           integer PRIMARY KEY,
-    data_type        character varying(255),
-    description      character varying(255),
-    food_category_id character varying(255),
-    publication_date character varying(255)
+    data_type        VARCHAR(100),
+    description      VARCHAR(100),
+    food_category_id VARCHAR(100),
+    publication_date VARCHAR(100)
 );
 
 
@@ -96,13 +96,13 @@ CREATE TABLE food_nutrient
     fdc_id           integer NOT NULL,
     nutrient_id      integer NOT NULL,
     amount           double precision,
-    data_points      character varying(255),
-    derivation_id    character varying(255),
-    min              character varying(255),
-    max              character varying(255),
-    median           character varying(255),
-    footnote         character varying(255),
-    min_year_acqured character varying(255)
+    data_points      VARCHAR(100),
+    derivation_id    VARCHAR(100),
+    min              VARCHAR(100),
+    max              VARCHAR(100),
+    median           VARCHAR(100),
+    footnote         VARCHAR(100),
+    min_year_acqured VARCHAR(100)
 
 );
 
@@ -112,18 +112,18 @@ CREATE TABLE muscle
 (
 
     id          integer PRIMARY KEY,
-    name        character varying(255) NOT NULL,
-    image_small TEXT                   NOT NULL,
-    image_big   TEXT                   NOT NULL
+    name        VARCHAR(100) NOT NULL,
+    image_small TEXT         NOT NULL,
+    image_big   TEXT         NOT NULL
 );
 
 CREATE TABLE public.nutrient
 (
     id           integer PRIMARY KEY,
-    name         character varying(255),
-    unit_name    character varying(255),
-    nutrient_nbr character varying(255),
-    rank         character varying(255)
+    name         VARCHAR(100),
+    unit_name    VARCHAR(100),
+    nutrient_nbr VARCHAR(100),
+    rank         VARCHAR(100)
 );
 
 
