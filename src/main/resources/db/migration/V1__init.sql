@@ -1,5 +1,3 @@
-
-
 CREATE TABLE gym_user
 (
     id       SERIAL PRIMARY KEY,
@@ -157,3 +155,14 @@ ALTER TABLE food_nutrient
     ADD CONSTRAINT fn_fk_nutrient FOREIGN KEY (nutrient_id) REFERENCES nutrient (id) ON DELETE CASCADE;
 
 
+CREATE SEQUENCE user_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY gym_user.id;
+
+CREATE SEQUENCE user_details_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY user_details.id;
