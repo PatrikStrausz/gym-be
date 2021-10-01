@@ -6,15 +6,6 @@ import javax.persistence.*;
 public class UserDetails {
 
     @Id
-    @SequenceGenerator(
-            name = "user_details_sequence",
-            sequenceName = "user_details_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_details_sequence"
-    )
     @Column(name = "id")
     private int id;
 
@@ -37,19 +28,17 @@ public class UserDetails {
     private String goal;
 
 
-
     @OneToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "training_id",referencedColumnName = "id")
+    @JoinColumn(name = "training_id", referencedColumnName = "id")
     private Training training;
 
     @OneToOne
-    @JoinColumn(name = "diet_id",referencedColumnName = "id")
+    @JoinColumn(name = "diet_id", referencedColumnName = "id")
     private Diet diet;
-
 
 
     public UserDetails() {
@@ -120,8 +109,6 @@ public class UserDetails {
     public void setGoal(String goal) {
         this.goal = goal;
     }
-
-
 
 
     public User getUser() {

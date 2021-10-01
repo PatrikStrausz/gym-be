@@ -20,4 +20,22 @@ public interface UserDetailsMapper {
 
 
     List<UserDetails> userDetailsListDtoToUserDetailsList(List<UserDetailsDto> userDetailsDtoList);
+
+    //TODO premapovat usera na user id
+
+
+  /*  Integer UserToUserId(User user);
+
+
+    User UserIdToUser(Integer id);
+
+    Integer TrainingToTrainingId(Training training);
+
+    Training TrainingIdToTraining(Integer id);
+
+    Integer DietToDietId(Diet diet);
+
+    Diet DietIdToDiet(Integer id);
+*/
+
 }

@@ -31,6 +31,17 @@ public class UserDetailsDto {
     private String goal;
 
 
+   /* @NotNull(message = "userId.cannot.be.null")
+    private Integer user;
+
+
+    @NotNull(message = "trainingId.cannot.be.null")
+    private Integer training;
+
+    @NotNull(message = "dietId.cannot.be.null")
+    private Integer diet;
+*/
+
     @NotNull(message = "userId.cannot.be.null")
     private User user;
 
@@ -41,18 +52,6 @@ public class UserDetailsDto {
     @NotNull(message = "dietId.cannot.be.null")
     private Diet diet;
 
-    public UserDetailsDto(int id, String firstname, String lastname, int height, int weight, int age, String goal, User user, Training training, Diet diet) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.height = height;
-        this.weight = weight;
-        this.age = age;
-        this.goal = goal;
-        this.user = user;
-        this.training = training;
-        this.diet = diet;
-    }
 
     public int getId() {
         return id;
@@ -109,6 +108,7 @@ public class UserDetailsDto {
     public void setGoal(String goal) {
         this.goal = goal;
     }
+
 
     public User getUser() {
         return user;

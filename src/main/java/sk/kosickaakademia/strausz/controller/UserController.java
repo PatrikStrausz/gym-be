@@ -6,6 +6,8 @@ import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDto;
 import sk.kosickaakademia.strausz.service.UserService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -29,4 +31,19 @@ public class UserController {
 
 
     }
+
+
+    @PostMapping(path = "/user/create")
+    public UserDto createUser(@Valid @RequestBody UserDto user) {
+
+        return userService.create(user);
+    }
+
+    @PostMapping(path = "/user/delete")
+    public UserDto deleteUser(@Valid @RequestBody UserDto user) {
+
+        return userService.delete(user);
+    }
 }
+
+

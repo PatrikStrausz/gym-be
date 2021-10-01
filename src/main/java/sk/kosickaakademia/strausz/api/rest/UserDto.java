@@ -23,13 +23,6 @@ public class UserDto {
     private String password;
 
 
-    public UserDto(@NotNull(message = "id.cannot.be.null") int id, @NotNull(message = "login.cannot.be.null") @Size(min = 6, message = "login.must.be.equal.or.greater.than.6.characters") String login, @NotNull(message = "email.cannot.be.null") @Email String email, @NotNull(message = "password.cannot.be.null") @Size(min = 8, message = "password.must.be.equal.or.greater.than.8.characters") String password) {
-        this.id = id;
-        this.login = login;
-        this.email = email;
-        this.password = password;
-    }
-
     public int getId() {
         return id;
     }
