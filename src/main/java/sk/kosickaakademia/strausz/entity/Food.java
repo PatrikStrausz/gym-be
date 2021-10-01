@@ -7,23 +7,23 @@ import java.util.Set;
 public class Food {
 
     @Id
-    @Column(name ="fdc_id")
+    @Column(name = "fdc_id")
     private Long id;
 
-    @Column(name ="data_type")
+    @Column(name = "data_type")
     private String dataType;
 
-    @Column(name ="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name ="food_category_id")
+    @Column(name = "food_category_id")
     private String foodCategoryId;
 
-    @Column(name ="publication_date")
+    @Column(name = "publication_date")
     private String publicationDate;
 
 
-    @ManyToMany(mappedBy = "foodSet")
+    @ManyToMany(mappedBy = "foodSet", fetch = FetchType.EAGER)
     private Set<Diet> dietSet;
 
 

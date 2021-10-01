@@ -1,11 +1,9 @@
 package sk.kosickaakademia.strausz.api.rest;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class GenericListDto<T> {
-
-    @NotNull(message = "data.cannot.be.null")
+    
     private List<T> data;
 
     public GenericListDto() {

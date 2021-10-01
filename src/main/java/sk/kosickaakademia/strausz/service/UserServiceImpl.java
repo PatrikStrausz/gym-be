@@ -42,4 +42,37 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.userToUserDto(userById);
     }
+
+    @Transactional
+    @Override
+    public UserDto create(UserDto userDto) {
+
+
+        User user = userMapper.userDtoToUser(userDto);
+
+        userRepository.save(user);
+
+        return userMapper.userToUserDto(user);
+
+        //TODO
+        //1. vytvorit usera
+        //2. premapovat
+        //injectnut training repo
+        //vyhladaj training podla id z dto a setnut to do usera
+        //save
+
+    }
+
+    @Override
+    public UserDto delete(UserDto userDto) {
+        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException("User with ID [" + userDto.getId() + "] " + userDto.getLogin() + " not found "));
+
+        //TODO find userdetails and delete
+
+        userRepository.delete(userById);
+
+        return userMapper.userToUserDto(userById);
+
+    }
+
 }
