@@ -31,8 +31,7 @@ public class UserController {
 
 
     }
-
-
+    
     @PostMapping(path = "/user/create")
     public UserDto createUser(@Valid @RequestBody UserDto user) {
 
@@ -43,6 +42,19 @@ public class UserController {
     public UserDto deleteUser(@Valid @RequestBody UserDto user) {
 
         return userService.delete(user);
+    }
+
+
+    @DeleteMapping(path = "/user/delete/{id}")
+    public UserDto deleteUser(@PathVariable int id) {
+
+        return userService.deleteById(id);
+    }
+
+    @PatchMapping("/user/patch")
+    public UserDto patchUser(@Valid @RequestBody UserDto user) {
+
+        return userService.update(user);
     }
 }
 

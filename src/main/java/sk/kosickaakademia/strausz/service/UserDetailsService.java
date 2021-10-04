@@ -8,4 +8,6 @@ public interface UserDetailsService {
     GenericListDto<UserDetailsDto> getUserDetails(int page);
 
     UserDetailsDto getUserDetailsById(Integer id);
+
+    UserDetailsDto create(UserDetailsDto userDetailsDto);
 }

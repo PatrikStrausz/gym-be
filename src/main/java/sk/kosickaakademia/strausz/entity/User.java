@@ -2,7 +2,7 @@ package sk.kosickaakademia.strausz.entity;
 
 import javax.persistence.*;
 
-@Entity(name = "gym_user")
+@Entity(name = "users")
 public class User {
 
     @Id
@@ -34,6 +34,13 @@ public class User {
     public User() {
     }
 
+
+    public User(int id, String login, String email, String password) {
+        this.id = id;
+        this.login = login;
+        this.email = email;
+        this.password = password;
+    }
 
     public User(String login, String email, String password) {
         this.login = login;

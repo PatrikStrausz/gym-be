@@ -1,4 +1,4 @@
-CREATE TABLE gym_user
+CREATE TABLE users
 (
     id       SERIAL PRIMARY KEY,
     login    VARCHAR(100) NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE public.nutrient
 
 
 ALTER TABLE user_details
-    ADD CONSTRAINT ud_fk_user FOREIGN KEY (user_id) REFERENCES gym_user (id) ON DELETE CASCADE;
+    ADD CONSTRAINT ud_fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
 ALTER TABLE user_details
     ADD CONSTRAINT ud_fk_training FOREIGN KEY (training_id) REFERENCES training (id) ON DELETE CASCADE;
 ALTER TABLE user_details
@@ -159,7 +159,7 @@ CREATE SEQUENCE user_sequence
     START 1
     INCREMENT 1
     MINVALUE 1
-    OWNED BY gym_user.id;
+    OWNED BY users.id;
 
 CREATE SEQUENCE user_details_sequence
     START 1

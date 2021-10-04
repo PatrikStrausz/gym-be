@@ -1,9 +1,5 @@
 package sk.kosickaakademia.strausz.api.rest;
 
-import sk.kosickaakademia.strausz.entity.Diet;
-import sk.kosickaakademia.strausz.entity.Training;
-import sk.kosickaakademia.strausz.entity.User;
-
 import javax.validation.constraints.NotNull;
 
 public class UserDetailsDto {
@@ -43,14 +39,14 @@ public class UserDetailsDto {
 */
 
     @NotNull(message = "userId.cannot.be.null")
-    private User user;
+    private Integer user;
 
 
     @NotNull(message = "trainingId.cannot.be.null")
-    private Training training;
+    private Integer training;
 
     @NotNull(message = "dietId.cannot.be.null")
-    private Diet diet;
+    private Integer diet;
 
 
     public int getId() {
@@ -110,27 +106,27 @@ public class UserDetailsDto {
     }
 
 
-    public User getUser() {
+    public Integer getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Integer user) {
         this.user = user;
     }
 
-    public Training getTraining() {
+    public Integer getTraining() {
         return training;
     }
 
-    public void setTraining(Training training) {
+    public void setTraining(Integer training) {
         this.training = training;
     }
 
-    public Diet getDiet() {
+    public Integer getDiet() {
         return diet;
     }
 
-    public void setDiet(Diet diet) {
+    public void setDiet(Integer diet) {
         this.diet = diet;
     }
 }

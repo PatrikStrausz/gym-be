@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public UserDto getUserById(Integer id) {
-        User userById = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User with ID [" + id + "] not found "));
+        User userById = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("[GET]:  User with ID [" + id + "] not found "));
 
         return userMapper.userToUserDto(userById);
     }
@@ -55,13 +55,7 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.userToUserDto(user);
 
-        //TODO
-        //1. vytvorit usera
-        //2. premapovat
-        //injectnut training repo
-        //vyhladaj training podla id z dto a setnut to do usera
-        //save
-
+      
     }
 
     @Override
@@ -69,13 +63,37 @@ public class UserServiceImpl implements UserService {
 
         //TODO find userdetails and delete
 
-        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException("User with ID [" + userDto.getId() + "] " + userDto.getLogin() + " not found "));
+        //   User user = userMapper.userDtoToUser(userDto);
+
+        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException("[DELETE]: User with ID [" + userDto.getId() + "] not found "));
 
 
         userRepository.delete(userById);
 
         return userMapper.userToUserDto(userById);
 
+    }
+
+    @Override
+    public UserDto deleteById(Integer id) {
+
+
+        User userById = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("[DELETE{ID}]: User with ID [" + id + "] not found "));
+
+        userRepository.deleteById(userById.getId());
+
+        return userMapper.userToUserDto(userById);
+    }
+
+    @Override
+    public UserDto update(UserDto userDto) {
+        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException("[UPDATE]: User with ID [" + userDto.getId() + "] not found "));
+
+        User user = new User(userById.getId(), userDto.getLogin(), userDto.getEmail(), userDto.getPassword());
+
+        userRepository.save(user);
+
+        return userMapper.userToUserDto(user);
     }
 
 
