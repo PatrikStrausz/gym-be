@@ -8,12 +8,12 @@ public class TrainingExerciseDto {
     private int id;
 
     @NotNull(message = "exerciseId.cannot.be.null")
-    private int exerciseId;
+    private Integer exerciseId;
 
     @NotNull(message = "trainingId.cannot.be.null")
-    private int trainingId;
+    private Integer trainingId;
 
-    public TrainingExerciseDto(int id, int exerciseId, int trainingId) {
+    public TrainingExerciseDto(int id, Integer exerciseId, Integer trainingId) {
         this.id = id;
         this.exerciseId = exerciseId;
         this.trainingId = trainingId;
@@ -28,19 +28,19 @@ public class TrainingExerciseDto {
         this.id = id;
     }
 
-    public int getExerciseId() {
+    public Integer getExerciseId() {
         return exerciseId;
     }
 
-    public void setExerciseId(int exerciseId) {
+    public void setExerciseId(Integer exerciseId) {
         this.exerciseId = exerciseId;
     }
 
-    public int getTrainingId() {
+    public Integer getTrainingId() {
         return trainingId;
     }
 
-    public void setTrainingId(int trainingId) {
+    public void setTrainingId(Integer trainingId) {
         this.trainingId = trainingId;
     }
 }

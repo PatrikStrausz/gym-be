@@ -6,6 +6,11 @@ CREATE TABLE users
     password VARCHAR(100) NOT NULL
 );
 
+ALTER TABLE users
+    ADD Constraint unq_login UNIQUE (login);
+ALTER TABLE users
+    ADD Constraint unq_email UNIQUE (email);
+
 CREATE TABLE user_details
 (
     id          SERIAL PRIMARY KEY,
@@ -117,7 +122,7 @@ CREATE TABLE muscle
     image_big   TEXT         NOT NULL
 );
 
-CREATE TABLE public.nutrient
+CREATE TABLE nutrient
 (
     id           integer PRIMARY KEY,
     name         VARCHAR(100),

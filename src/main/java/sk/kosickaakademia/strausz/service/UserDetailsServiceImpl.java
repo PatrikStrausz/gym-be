@@ -5,6 +5,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDetailsDto;
+import sk.kosickaakademia.strausz.entity.Diet;
+import sk.kosickaakademia.strausz.entity.Training;
 import sk.kosickaakademia.strausz.entity.User;
 import sk.kosickaakademia.strausz.entity.UserDetails;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
@@ -15,7 +17,6 @@ import sk.kosickaakademia.strausz.repository.UserDetailsRepository;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -49,10 +50,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserDetails userDetailsById = userDetailsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("[GET]: User with ID [" + id + "] not found "));
 
 
-        // return userDetailsMapper.userDetailsToUserDetailsDto(userDetailsById);
-
-        Optional<User> userId = userRepository.findById(userDetailsById.getUser().getId());
-
         return userDetailsMapper.userDetailsToUserDetailsDto(userDetailsById);
     }
 
@@ -61,25 +58,31 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UserDetails userDetails = userDetailsMapper.userDetailsDtoToUserDetails(userDetailsDto);
 
-      /*  Optional<Training> trainingById = trainingRepository.findById(userDetails.getTraining().getId());
-        Optional<User> userId = userRepository.findById(userDetails.getUser().getId());
-        Optional<Diet> dietId = dietRepository.findById(userDetails.getDiet().getId());
 
-        userDetails.setUser(userId.get());
-        userDetails.setTraining(trainingById.get());
-        userDetails.setDiet(dietId.get());
+        Training trainingById = trainingRepository.findById(userDetailsDto.getTrainingId()).orElseThrow(() -> new EntityNotFoundException("[CREATE]: TrainingID [" + userDetailsDto.getTrainingId() + " ] not found "));
+        User userId = userRepository.findById(userDetailsDto.getUserId()).orElseThrow(() -> new EntityNotFoundException("[CREATE]: UserID [" + userDetailsDto.getUserId() + " ] not found "));
+        Diet dietId = dietRepository.findById(userDetailsDto.getDietId()).orElseThrow(() -> new EntityNotFoundException("[CREATE]: DietID [" + userDetailsDto.getDietId() + " ] not found "));
 
-*/
+        userDetails.setUser(userId);
+        userDetails.setTraining(trainingById);
+        userDetails.setDiet(dietId);
+
         userDetailsRepository.save(userDetails);
 
-        //TODO
-        //1. vytvorit usera
-        //2. premapovat
-        //injectnut training repo
-        //vyhladaj training podla id z dto a setnut to do usera
-        //save
-
-
         return userDetailsMapper.userDetailsToUserDetailsDto(userDetails);
+    }
+
+    @Override
+    public UserDetailsDto update(UserDetailsDto userDetailsDto) {
+        UserDetails userDetailsById = userDetailsRepository.findById(userDetailsDto.getId()).orElseThrow(() -> new EntityNotFoundException("[UPDATE]: UserDetails with ID [" + userDetailsDto.getId() + "] not found "));
+
+        UserDetails updateUserDetails =
+                new UserDetails(userDetailsById.getId(), userDetailsDto.getFirstname(), userDetailsDto.getLastname()
+                        , userDetailsDto.getHeight(), userDetailsDto.getWeight(), userDetailsDto.getAge(), userDetailsDto.getGoal());
+
+
+        userDetailsRepository.save(updateUserDetails);
+
+        return userDetailsMapper.userDetailsToUserDetailsDto(updateUserDetails);
     }
 }

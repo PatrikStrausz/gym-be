@@ -32,12 +32,18 @@ public class UserDetailsController {
 
     }
 
-    @PostMapping("/user/details/create")
+    @PostMapping("/user/details")
     public UserDetailsDto createUserDetails(@Valid @RequestBody UserDetailsDto userDetailsDto) {
 
         return userDetailsService.create(userDetailsDto);
 
 
+    }
+
+    @PutMapping("/user/details")
+    public UserDetailsDto patchUserDetails(@Valid @RequestBody UserDetailsDto userDetailsDto) {
+
+        return userDetailsService.update(userDetailsDto);
     }
 
 }

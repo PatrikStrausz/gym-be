@@ -31,27 +31,20 @@ public class UserController {
 
 
     }
-    
-    @PostMapping(path = "/user/create")
+
+    @PostMapping(path = "/user")
     public UserDto createUser(@Valid @RequestBody UserDto user) {
 
         return userService.create(user);
     }
-
-    @DeleteMapping(path = "/user/delete")
-    public UserDto deleteUser(@Valid @RequestBody UserDto user) {
-
-        return userService.delete(user);
-    }
-
-
-    @DeleteMapping(path = "/user/delete/{id}")
+    
+    @DeleteMapping(path = "/user/{id}")
     public UserDto deleteUser(@PathVariable int id) {
 
         return userService.deleteById(id);
     }
 
-    @PatchMapping("/user/patch")
+    @PutMapping("/user")
     public UserDto patchUser(@Valid @RequestBody UserDto user) {
 
         return userService.update(user);

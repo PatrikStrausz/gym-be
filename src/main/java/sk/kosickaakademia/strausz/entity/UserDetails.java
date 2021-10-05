@@ -44,7 +44,17 @@ public class UserDetails {
     public UserDetails() {
     }
 
-    public UserDetails(String firstname, String lastname, int height, int weight, int age, String goal, int userId, int trainingId, int dietId) {
+    public UserDetails(int id, String firstname, String lastname, int height, int weight, int age, String goal) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.goal = goal;
+    }
+
+    public UserDetails(String firstname, String lastname, int height, int weight, int age, String goal) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.height = height;

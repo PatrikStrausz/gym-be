@@ -27,26 +27,15 @@ public class UserDetailsDto {
     private String goal;
 
 
-   /* @NotNull(message = "userId.cannot.be.null")
-    private Integer user;
-
-
-    @NotNull(message = "trainingId.cannot.be.null")
-    private Integer training;
-
-    @NotNull(message = "dietId.cannot.be.null")
-    private Integer diet;
-*/
-
     @NotNull(message = "userId.cannot.be.null")
-    private Integer user;
+    private Integer userId;
 
 
     @NotNull(message = "trainingId.cannot.be.null")
-    private Integer training;
+    private Integer trainingId;
 
     @NotNull(message = "dietId.cannot.be.null")
-    private Integer diet;
+    private Integer dietId;
 
 
     public int getId() {
@@ -106,27 +95,27 @@ public class UserDetailsDto {
     }
 
 
-    public Integer getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(Integer user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer getTraining() {
-        return training;
+    public Integer getTrainingId() {
+        return trainingId;
     }
 
-    public void setTraining(Integer training) {
-        this.training = training;
+    public void setTrainingId(Integer trainingId) {
+        this.trainingId = trainingId;
     }
 
-    public Integer getDiet() {
-        return diet;
+    public Integer getDietId() {
+        return dietId;
     }
 
-    public void setDiet(Integer diet) {
-        this.diet = diet;
+    public void setDietId(Integer dietId) {
+        this.dietId = dietId;
     }
 }

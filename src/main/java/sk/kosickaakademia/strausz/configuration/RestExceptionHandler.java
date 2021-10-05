@@ -67,7 +67,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         List<ConstraintViolationDto> constraintViolationDtos = new ArrayList<>();
         constraintViolationDtos.add(dto);
-        //TODO zistit, vytvorit list s ConstraintViolationDto
+       
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage(), constraintViolationDtos));
 

@@ -55,22 +55,6 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.userToUserDto(user);
 
-      
-    }
-
-    @Override
-    public UserDto delete(UserDto userDto) {
-
-        //TODO find userdetails and delete
-
-        //   User user = userMapper.userDtoToUser(userDto);
-
-        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException("[DELETE]: User with ID [" + userDto.getId() + "] not found "));
-
-
-        userRepository.delete(userById);
-
-        return userMapper.userToUserDto(userById);
 
     }
 

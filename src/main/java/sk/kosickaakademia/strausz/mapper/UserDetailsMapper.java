@@ -12,17 +12,17 @@ import java.util.List;
 public interface UserDetailsMapper {
 
 
-    @Mapping(target = "user", source = "user.id")
-    @Mapping(target = "diet", source = "diet.id")
-    @Mapping(target = "training", source = "training.id")
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "dietId", source = "diet.id")
+    @Mapping(target = "trainingId", source = "training.id")
     UserDetailsDto userDetailsToUserDetailsDto(UserDetails userDetails);
 
 
     List<UserDetailsDto> userDetailsListToUserDetailsDtoList(Page<UserDetails> userDetails);
 
-    @Mapping(target = "user.id", source = "user")
-    @Mapping(target = "diet.id", source = "diet")
-    @Mapping(target = "training.id", source = "training")
+    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "diet.id", source = "dietId")
+    @Mapping(target = "training.id", source = "trainingId")
     UserDetails userDetailsDtoToUserDetails(UserDetailsDto entity);
 
 

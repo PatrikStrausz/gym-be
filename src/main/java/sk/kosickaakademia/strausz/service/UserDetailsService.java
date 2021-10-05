@@ -10,4 +10,6 @@ public interface UserDetailsService {
     UserDetailsDto getUserDetailsById(Integer id);
 
     UserDetailsDto create(UserDetailsDto userDetailsDto);
+
+    UserDetailsDto update(UserDetailsDto userDetailsDto);
 }
