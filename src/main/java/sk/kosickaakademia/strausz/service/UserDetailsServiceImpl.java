@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDetailsDto;
 import sk.kosickaakademia.strausz.entity.Diet;
@@ -36,6 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userDetailsMapper = userDetailsMapper;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public GenericListDto<UserDetailsDto> getUserDetails(int page) {
         Page<UserDetails> userDetails = userDetailsRepository.findAll(PageRequest.of(page, 20));
@@ -45,6 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new GenericListDto<>(userDetailsDtoList);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserDetailsDto getUserDetailsById(Integer id) {
         UserDetails userDetailsById = userDetailsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("[GET]: User with ID [" + id + "] not found "));
@@ -53,6 +56,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userDetailsMapper.userDetailsToUserDetailsDto(userDetailsById);
     }
 
+    @Transactional
     @Override
     public UserDetailsDto create(UserDetailsDto userDetailsDto) {
 
@@ -72,6 +76,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userDetailsMapper.userDetailsToUserDetailsDto(userDetails);
     }
 
+    @Transactional
     @Override
     public UserDetailsDto update(UserDetailsDto userDetailsDto) {
         UserDetails userDetailsById = userDetailsRepository.findById(userDetailsDto.getId()).orElseThrow(() -> new EntityNotFoundException("[UPDATE]: UserDetails with ID [" + userDetailsDto.getId() + "] not found "));

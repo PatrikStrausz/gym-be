@@ -2,6 +2,7 @@ package sk.kosickaakademia.strausz.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
@@ -20,9 +21,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional(readOnly = true)
@@ -51,6 +55,8 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.userDtoToUser(userDto);
 
 
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
         userRepository.save(user);
 
         return userMapper.userToUserDto(user);
@@ -58,6 +64,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Transactional
     @Override
     public UserDto deleteById(Integer id) {
 
@@ -69,6 +76,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.userToUserDto(userById);
     }
 
+    @Transactional
     @Override
     public UserDto update(UserDto userDto) {
         User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException("[UPDATE]: User with ID [" + userDto.getId() + "] not found "));
