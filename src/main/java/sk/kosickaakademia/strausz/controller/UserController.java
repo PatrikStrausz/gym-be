@@ -1,6 +1,7 @@
 package sk.kosickaakademia.strausz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDto;
@@ -33,18 +34,21 @@ public class UserController {
     }
 
     @PostMapping(path = "/user")
+    @PreAuthorize("hasAuthority('create:items')")
     public UserDto createUser(@Valid @RequestBody UserDto user) {
 
         return userService.create(user);
     }
-    
+
     @DeleteMapping(path = "/user/{id}")
+    @PreAuthorize("hasAuthority('delete:items')")
     public UserDto deleteUser(@PathVariable int id) {
 
         return userService.deleteById(id);
     }
 
     @PutMapping("/user")
+    @PreAuthorize("hasAuthority('update:items')")
     public UserDto patchUser(@Valid @RequestBody UserDto user) {
 
         return userService.update(user);
