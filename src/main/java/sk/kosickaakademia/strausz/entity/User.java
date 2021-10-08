@@ -1,6 +1,9 @@
 package sk.kosickaakademia.strausz.entity;
 
+import sk.kosickaakademia.strausz.utils.Provider;
+
 import javax.persistence.*;
+
 
 @Entity(name = "users")
 public class User {
@@ -27,9 +30,13 @@ public class User {
     @Column(name = "password")
     private String password;
 
-
     @OneToOne(mappedBy = "user")
     private UserDetails userDetails;
+
+
+    @Column(name = "provider")
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 
     public User() {
     }
@@ -88,4 +95,13 @@ public class User {
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
     }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
 }

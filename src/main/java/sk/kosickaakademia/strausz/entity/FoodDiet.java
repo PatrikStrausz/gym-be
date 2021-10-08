@@ -1,21 +1,14 @@
 package sk.kosickaakademia.strausz.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity(name = "food_diet")
 public class FoodDiet {
 
     @Id
     @Column(name = "id")
-    @SequenceGenerator(
-            name = "food_diet_sequence",
-            sequenceName = "food_diet_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "food_diet_sequence"
-    )
     private int id;
 
     @Column(name = "food_id")
@@ -23,7 +16,6 @@ public class FoodDiet {
 
     @Column(name = "diet_id")
     private int dietId;
-
 
 
     public FoodDiet() {

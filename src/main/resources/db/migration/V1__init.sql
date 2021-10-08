@@ -3,7 +3,8 @@ CREATE TABLE users
     id       SERIAL PRIMARY KEY,
     login    VARCHAR(100) NOT NULL,
     email    VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL
+    password VARCHAR(100) NOT NULL,
+    provider VARCHAR(100)
 );
 
 ALTER TABLE users
@@ -76,7 +77,7 @@ CREATE TABLE exercise
 
 CREATE TABLE food
 (
-    fdc_id           integer PRIMARY KEY,
+    fdc_id           bigint PRIMARY KEY,
     data_type        VARCHAR(100),
     description      VARCHAR(100),
     food_category_id VARCHAR(100),
@@ -171,3 +172,12 @@ CREATE SEQUENCE user_details_sequence
     INCREMENT 1
     MINVALUE 1
     OWNED BY user_details.id;
+
+CREATE SEQUENCE food_diet_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY food_diet.id;
+
+
+

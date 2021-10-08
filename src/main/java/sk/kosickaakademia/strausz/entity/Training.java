@@ -7,15 +7,6 @@ import java.util.Set;
 public class Training {
 
     @Id
-    @SequenceGenerator(
-            name = "training_sequence",
-            sequenceName = "training_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "training_sequence"
-    )
     @Column(name = "id")
     private int id;
 

@@ -7,15 +7,6 @@ import java.util.Set;
 public class Diet {
 
     @Id
-    @SequenceGenerator(
-            name = "diet_sequence",
-            sequenceName = "diet_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "diet_sequence"
-    )
     @Column(name = "id")
     private int id;
 
@@ -34,7 +25,8 @@ public class Diet {
     @OneToOne(mappedBy = "diet")
     private UserDetails userDetails;
 
-    public Diet() { }
+    public Diet() {
+    }
 
     public Diet(String name) {
         this.name = name;
