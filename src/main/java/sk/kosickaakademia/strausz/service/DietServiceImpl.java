@@ -10,6 +10,7 @@ import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.DietMapper;
 import sk.kosickaakademia.strausz.repository.DietRepository;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class DietServiceImpl implements DietService {
 
     @Override
     public DietDto getDietById(Integer id) {
-        Diet dietById = dietRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Diet with ID [" + id + "] not found "));
+        Diet dietById = dietRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Diet with ID [{0}] not found ", id)));
 
         return dietMapper.dietToDietDto(dietById);
     }

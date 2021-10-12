@@ -33,12 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String issuer;
 
-    private final CustomOAuth2UserService oauthUserService;
-
-    public WebSecurityConfig(CustomOAuth2UserService oauthUserService) {
-        this.oauthUserService = oauthUserService;
-    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

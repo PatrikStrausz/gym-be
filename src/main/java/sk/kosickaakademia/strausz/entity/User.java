@@ -1,6 +1,6 @@
 package sk.kosickaakademia.strausz.entity;
 
-import sk.kosickaakademia.strausz.utils.Provider;
+import enums.Provider;
 
 import javax.persistence.*;
 

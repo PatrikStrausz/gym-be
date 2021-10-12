@@ -12,6 +12,7 @@ import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.FoodMapper;
 import sk.kosickaakademia.strausz.repository.FoodRepository;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @Service
@@ -42,7 +43,7 @@ public class FoodServiceImpl implements FoodService {
     @Transactional(readOnly = true)
     @Override
     public FoodDto getFoodById(Long id) {
-        Food foodById = foodRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Food with ID [" + id + "] not found "));
+        Food foodById = foodRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Food with ID [{0}] not found ", id)));
 
         return foodMapper.foodToFoodDto(foodById);
 

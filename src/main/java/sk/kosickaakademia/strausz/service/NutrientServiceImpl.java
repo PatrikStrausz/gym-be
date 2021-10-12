@@ -10,6 +10,7 @@ import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.NutrientMapper;
 import sk.kosickaakademia.strausz.repository.NutrientRepository;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class NutrientServiceImpl implements NutrientService {
 
     @Override
     public NutrientDto getNutrientById(Integer id) {
-        Nutrient nutrientById = nutrientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Diet with ID [" + id + "] not found "));
+        Nutrient nutrientById = nutrientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Nutrient with ID [{0}] not found ", id)));
 
         return nutrientMapper.nutrientToNutrientDto(nutrientById);
     }

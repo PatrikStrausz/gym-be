@@ -10,6 +10,7 @@ import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.TrainingExerciseMapper;
 import sk.kosickaakademia.strausz.repository.TrainingExerciseRepository;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class TrainingExerciseServiceImpl implements TrainingExerciseService {
 
     @Override
     public TrainingExerciseDto getTrainingExerciseById(Integer id) {
-        TrainingExercise trainingExerciseById = trainingExerciseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Training with ID [" + id + "] not found "));
+        TrainingExercise trainingExerciseById = trainingExerciseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Training exercise with ID [{0}] not found ", id)));
 
         return trainingExerciseMapper.trainingExerciseToTrainingExerciseDto(trainingExerciseById);
     }

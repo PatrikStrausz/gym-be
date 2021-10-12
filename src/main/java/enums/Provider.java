@@ -1,4 +1,4 @@
-package sk.kosickaakademia.strausz.utils;
+package enums;
 
 public enum Provider {
     LOCAL, GOOGLE

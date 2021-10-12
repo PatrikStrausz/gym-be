@@ -12,6 +12,7 @@ import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.UserMapper;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @Service
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public UserDto getUserById(Integer id) {
-        User userById = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("[GET]:  User with ID [" + id + "] not found "));
+        User userById = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET]:  User with ID [{0}] not found ", id)));
 
         return userMapper.userToUserDto(userById);
     }
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
     public UserDto deleteById(Integer id) {
 
 
-        User userById = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("[DELETE{ID}]: User with ID [" + id + "] not found "));
+        User userById = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[DELETE]: User with ID [{0}] not found ", id)));
 
         userRepository.deleteById(userById.getId());
 
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto update(UserDto userDto) {
-        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException("[UPDATE]: User with ID [" + userDto.getId() + "] not found "));
+        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
 
         User user = new User(userById.getId(), userDto.getLogin(), userDto.getEmail(), userDto.getPassword());
 

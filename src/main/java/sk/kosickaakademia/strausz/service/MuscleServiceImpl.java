@@ -10,6 +10,7 @@ import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.MuscleMapper;
 import sk.kosickaakademia.strausz.repository.MuscleRepository;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class MuscleServiceImpl implements MuscleService {
 
     @Override
     public MuscleDto getMuscleById(Integer id) {
-        Muscle muscleById = muscleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Diet with ID [" + id + "] not found "));
+        Muscle muscleById = muscleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Muscle with ID [{0}] not found ", id)));
 
         return muscleMapper.muscleToMuscleDto(muscleById);
     }
