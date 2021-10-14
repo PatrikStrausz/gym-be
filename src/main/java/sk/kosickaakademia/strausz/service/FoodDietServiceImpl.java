@@ -37,7 +37,9 @@ public class FoodDietServiceImpl implements FoodDietService {
 
     @Override
     public FoodDietDto getFoodDietById(Integer id) {
-        FoodDiet foodById = foodDietRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Food diet with ID [{0}] not found ", id)));
+        FoodDiet foodById = foodDietRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET] Food diet with ID [{0}] not found ", id)));
 
         return foodDietMapper.foodDietToFoodDietDto(foodById);
     }

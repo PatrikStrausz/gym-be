@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDto;
+import sk.kosickaakademia.strausz.entity.Role;
 import sk.kosickaakademia.strausz.entity.User;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.UserMapper;
+import sk.kosickaakademia.strausz.repository.RoleRepository;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
 import java.text.MessageFormat;
@@ -19,13 +21,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     private final UserMapper userMapper;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
     }
@@ -43,7 +47,9 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public UserDto getUserById(Integer id) {
-        User userById = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET]:  User with ID [{0}] not found ", id)));
+        User userById = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET]:  User with ID [{0}] not found ", id)));
 
         return userMapper.userToUserDto(userById);
     }
@@ -70,7 +76,9 @@ public class UserServiceImpl implements UserService {
     public UserDto deleteById(Integer id) {
 
 
-        User userById = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[DELETE]: User with ID [{0}] not found ", id)));
+        User userById = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[DELETE]: User with ID [{0}] not found ", id)));
 
         userRepository.deleteById(userById.getId());
 
@@ -80,13 +88,25 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto update(UserDto userDto) {
-        User userById = userRepository.findById(userDto.getId()).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
+        User userById = userRepository.findById(userDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
 
-        User user = new User(userById.getId(), userDto.getLogin(), userDto.getEmail(), userDto.getPassword());
+        User user = new User(userById.getId(), userDto.getUsername(), userDto.getEmail(), userDto.getPassword());
 
         userRepository.save(user);
 
         return userMapper.userToUserDto(user);
+    }
+
+
+    @Transactional
+    @Override
+    public void addRoleToUser(String login, String roleName) {
+        User user = userRepository.findByUsername(login);
+        Role role = roleRepository.findByName(roleName);
+
+        user.getRoles().add(role);
     }
 
 

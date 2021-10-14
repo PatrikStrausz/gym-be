@@ -15,4 +15,7 @@ public interface UserService {
     UserDto deleteById(Integer id);
 
     UserDto update(UserDto userDto);
+
+
+    void addRoleToUser(String username, String roleName);
 }

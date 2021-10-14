@@ -15,9 +15,10 @@ POST http://localhost:8080/api/user
 Content-Type: application/json
 
 {
-  "login": "jano28",
+  "username": "jano28",
   "email": "jano@gmail.com",
-  "password": "sadsffafdsa"
+  "password": "sadsffafdsa",
+  "role": 1
 }
 
 ###
@@ -33,10 +34,11 @@ PUT http://localhost:8080/api/user
 Content-Type: application/json
 
 {
-  "id": 3,
-  "login": "jano99",
+  "id": 1,
+  "username": "jano99",
   "email": "jano@gmail.com",
-  "password": "sadsffafdsa"
+  "password": "sadsffafdsa",
+  "role": 1
 }
 
 ###

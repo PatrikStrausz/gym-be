@@ -30,7 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserDetailsMapper userDetailsMapper;
 
-    public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository, UserRepository userRepository, TrainingRepository trainingRepository, DietRepository dietRepository, UserDetailsMapper userDetailsMapper) {
+    public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository, UserRepository userRepository
+            , TrainingRepository trainingRepository, DietRepository dietRepository, UserDetailsMapper userDetailsMapper) {
         this.userDetailsRepository = userDetailsRepository;
         this.userRepository = userRepository;
         this.trainingRepository = trainingRepository;
@@ -51,7 +52,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetailsDto getUserDetailsById(Integer id) {
-        UserDetails userDetailsById = userDetailsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET]: User with ID [{0}] not found ", id)));
+        UserDetails userDetailsById = userDetailsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET]: User with ID [{0}] not found ", id)));
 
 
         return userDetailsMapper.userDetailsToUserDetailsDto(userDetailsById);
@@ -64,9 +67,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserDetails userDetails = userDetailsMapper.userDetailsDtoToUserDetails(userDetailsDto);
 
 
-        Training trainingById = trainingRepository.findById(userDetailsDto.getTrainingId()).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
-        User userId = userRepository.findById(userDetailsDto.getUserId()).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
-        Diet dietId = dietRepository.findById(userDetailsDto.getDietId()).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[CREATE]: DietID [{0}] not found ", userDetailsDto.getDietId())));
+        Training trainingById = trainingRepository.findById(userDetailsDto.getTrainingId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
+
+        User userId = userRepository.findById(userDetailsDto.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
+
+        Diet dietId = dietRepository.findById(userDetailsDto.getDietId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[CREATE]: DietID [{0}] not found ", userDetailsDto.getDietId())));
 
         userDetails.setUser(userId);
         userDetails.setTraining(trainingById);
@@ -80,7 +91,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     @Override
     public UserDetailsDto update(UserDetailsDto userDetailsDto) {
-        UserDetails userDetailsById = userDetailsRepository.findById(userDetailsDto.getId()).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[UPDATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
+        UserDetails userDetailsById = userDetailsRepository.findById(userDetailsDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[UPDATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
 
         UserDetails updateUserDetails =
                 new UserDetails(userDetailsById.getId(), userDetailsDto.getFirstname(), userDetailsDto.getLastname()

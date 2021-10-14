@@ -20,7 +20,8 @@ public class TrainingExerciseServiceImpl implements TrainingExerciseService {
 
     private final TrainingExerciseMapper trainingExerciseMapper;
 
-    public TrainingExerciseServiceImpl(TrainingExerciseRepository trainingExerciseRepository, TrainingExerciseMapper trainingExerciseMapper) {
+    public TrainingExerciseServiceImpl(TrainingExerciseRepository trainingExerciseRepository
+            , TrainingExerciseMapper trainingExerciseMapper) {
         this.trainingExerciseRepository = trainingExerciseRepository;
         this.trainingExerciseMapper = trainingExerciseMapper;
     }
@@ -29,14 +30,17 @@ public class TrainingExerciseServiceImpl implements TrainingExerciseService {
     public GenericListDto<TrainingExerciseDto> getTrainingExercises(int page) {
         Page<TrainingExercise> trainingExercises = trainingExerciseRepository.findAll(PageRequest.of(page, 20));
 
-        List<TrainingExerciseDto> trainingExerciseDtoList = trainingExerciseMapper.trainingExerciseListToTrainingExerciseListDto(trainingExercises);
+        List<TrainingExerciseDto> trainingExerciseDtoList = trainingExerciseMapper
+                .trainingExerciseListToTrainingExerciseListDto(trainingExercises);
 
         return new GenericListDto<>(trainingExerciseDtoList);
     }
 
     @Override
     public TrainingExerciseDto getTrainingExerciseById(Integer id) {
-        TrainingExercise trainingExerciseById = trainingExerciseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Training exercise with ID [{0}] not found ", id)));
+        TrainingExercise trainingExerciseById = trainingExerciseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET] Training exercise with ID [{0}] not found ", id)));
 
         return trainingExerciseMapper.trainingExerciseToTrainingExerciseDto(trainingExerciseById);
     }

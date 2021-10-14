@@ -36,7 +36,9 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public ExerciseDto getExerciseById(Integer id) {
-        Exercise exerciseById = exerciseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Exercise with ID [{0}] not found ", id)));
+        Exercise exerciseById = exerciseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET] Exercise with ID [{0}] not found ", id)));
 
         return exerciseMapper.exerciseToExerciseDto(exerciseById);
     }

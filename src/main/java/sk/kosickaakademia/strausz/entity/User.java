@@ -1,13 +1,16 @@
 package sk.kosickaakademia.strausz.entity;
 
-import enums.Provider;
-
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 @Entity(name = "users")
 public class User {
 
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private final Collection<Role> roles = new ArrayList<>();
     @Id
     @SequenceGenerator(
             name = "user_sequence",
@@ -20,37 +23,28 @@ public class User {
     )
     @Column(name = "id")
     private int id;
-
-    @Column(name = "login")
-    private String login;
-
+    @Column(name = "username")
+    private String username;
     @Column(name = "email")
     private String email;
-
     @Column(name = "password")
     private String password;
-
     @OneToOne(mappedBy = "user")
     private UserDetails userDetails;
-
-
-    @Column(name = "provider")
-    @Enumerated(EnumType.STRING)
-    private Provider provider;
 
     public User() {
     }
 
 
-    public User(int id, String login, String email, String password) {
+    public User(int id, String username, String email, String password) {
         this.id = id;
-        this.login = login;
+        this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    public User(String login, String email, String password) {
-        this.login = login;
+    public User(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }
@@ -64,12 +58,12 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     public String getEmail() {
@@ -96,12 +90,7 @@ public class User {
         this.userDetails = userDetails;
     }
 
-    public Provider getProvider() {
-        return provider;
+    public Collection<Role> getRoles() {
+        return roles;
     }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
 }

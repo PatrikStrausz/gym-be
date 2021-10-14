@@ -20,7 +20,8 @@ public class ExerciseMuscleServiceImpl implements ExerciseMuscleService {
 
     private final ExerciseMuscleMapper exerciseMuscleMapper;
 
-    public ExerciseMuscleServiceImpl(ExerciseMuscleRepository exerciseMuscleRepository, ExerciseMuscleMapper exerciseMuscleMapper) {
+    public ExerciseMuscleServiceImpl(ExerciseMuscleRepository exerciseMuscleRepository
+            , ExerciseMuscleMapper exerciseMuscleMapper) {
         this.exerciseMuscleRepository = exerciseMuscleRepository;
         this.exerciseMuscleMapper = exerciseMuscleMapper;
     }
@@ -29,14 +30,17 @@ public class ExerciseMuscleServiceImpl implements ExerciseMuscleService {
     public GenericListDto<ExerciseMuscleDto> getExerciseMuscles(int page) {
         Page<ExerciseMuscle> exercises = exerciseMuscleRepository.findAll(PageRequest.of(page, 20));
 
-        List<ExerciseMuscleDto> exerciseDtoList = exerciseMuscleMapper.exerciseMuscleListToExerciseMuscleListDto(exercises);
+        List<ExerciseMuscleDto> exerciseDtoList = exerciseMuscleMapper
+                .exerciseMuscleListToExerciseMuscleListDto(exercises);
 
         return new GenericListDto<>(exerciseDtoList);
     }
 
     @Override
     public ExerciseMuscleDto getExerciseMuscleById(Integer id) {
-        ExerciseMuscle exerciseMuscleById = exerciseMuscleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Exercise muscle with ID [{0}] not found ", id)));
+        ExerciseMuscle exerciseMuscleById = exerciseMuscleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET] Exercise muscle with ID [{0}] not found ", id)));
 
         return exerciseMuscleMapper.exerciseMuscleToExerciseMuscleDto(exerciseMuscleById);
     }

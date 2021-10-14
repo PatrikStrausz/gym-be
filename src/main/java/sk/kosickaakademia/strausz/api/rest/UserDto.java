@@ -10,9 +10,9 @@ public class UserDto {
     @NotNull(message = "id.cannot.be.null")
     private int id;
 
-    @NotNull(message = "login.cannot.be.null")
+    @NotNull(message = "username.cannot.be.null")
     @Size(min = 6, message = "login.must.be.equal.or.greater.than.6.characters")
-    private String login;
+    private String username;
 
     @NotNull(message = "email.cannot.be.null")
     @Email(message = "Email should be valid")
@@ -31,12 +31,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

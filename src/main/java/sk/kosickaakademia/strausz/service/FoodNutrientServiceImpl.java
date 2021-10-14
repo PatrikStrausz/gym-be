@@ -20,7 +20,8 @@ public class FoodNutrientServiceImpl implements FoodNutrientService {
 
     private final FoodNutrientMapper foodNutrientMapper;
 
-    public FoodNutrientServiceImpl(FoodNutrientRepository foodNutrientRepository, FoodNutrientMapper foodNutrientMapper) {
+    public FoodNutrientServiceImpl(FoodNutrientRepository foodNutrientRepository
+            , FoodNutrientMapper foodNutrientMapper) {
         this.foodNutrientRepository = foodNutrientRepository;
         this.foodNutrientMapper = foodNutrientMapper;
     }
@@ -29,14 +30,17 @@ public class FoodNutrientServiceImpl implements FoodNutrientService {
     public GenericListDto<FoodNutrientDto> getFoodNutrients(int page) {
         Page<FoodNutrient> foodNutrients = foodNutrientRepository.findAll(PageRequest.of(page, 20));
 
-        List<FoodNutrientDto> foodNutrientDtoList = foodNutrientMapper.foodNutrientListToFoodNutrientListDto(foodNutrients);
+        List<FoodNutrientDto> foodNutrientDtoList = foodNutrientMapper
+                .foodNutrientListToFoodNutrientListDto(foodNutrients);
 
         return new GenericListDto<>(foodNutrientDtoList);
     }
 
     @Override
     public FoodNutrientDto getFoodNutrientById(Integer id) {
-        FoodNutrient foodNutrientById = foodNutrientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Food nutrient with ID [{0}] not found ", id)));
+        FoodNutrient foodNutrientById = foodNutrientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET] Food nutrient with ID [{0}] not found ", id)));
 
         return foodNutrientMapper.foodNutrientToFoodNutrientDto(foodNutrientById);
     }

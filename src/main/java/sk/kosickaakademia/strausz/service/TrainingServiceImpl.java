@@ -42,7 +42,9 @@ public class TrainingServiceImpl implements TrainingService {
     @Transactional(readOnly = true)
     @Override
     public TrainingDto getTrainingById(Integer id) {
-        Training trainingById = trainingRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Training with ID [{0}] not found ", id)));
+        Training trainingById = trainingRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET] Training with ID [{0}] not found ", id)));
 
         return trainingMapper.trainingToTrainingDto(trainingById);
     }

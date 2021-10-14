@@ -36,7 +36,9 @@ public class MuscleServiceImpl implements MuscleService {
 
     @Override
     public MuscleDto getMuscleById(Integer id) {
-        Muscle muscleById = muscleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("[GET] Muscle with ID [{0}] not found ", id)));
+        Muscle muscleById = muscleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET] Muscle with ID [{0}] not found ", id)));
 
         return muscleMapper.muscleToMuscleDto(muscleById);
     }
