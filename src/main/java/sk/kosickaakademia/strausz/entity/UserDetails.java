@@ -144,4 +144,20 @@ public class UserDetails {
     public void setDiet(Diet diet) {
         this.diet = diet;
     }
+
+    @Override
+    public String toString() {
+        return "UserDetails{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", age=" + age +
+                ", goal='" + goal + '\'' +
+                ", user=" + user +
+                ", training=" + training +
+                ", diet=" + diet +
+                '}';
+    }
 }

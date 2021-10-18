@@ -1,5 +1,6 @@
 package sk.kosickaakademia.strausz.security.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,9 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import sk.kosickaakademia.strausz.security.JWTAuthenticationFilter;
-import sk.kosickaakademia.strausz.security.JWTAuthorizationFilter;
 import sk.kosickaakademia.strausz.security.MyUserDetailsServiceImpl;
+import sk.kosickaakademia.strausz.security.jwt.JWTAuthenticationFilter;
+import sk.kosickaakademia.strausz.security.jwt.JWTAuthorizationFilter;
 
 import static sk.kosickaakademia.strausz.security.SecurityConstants.SIGN_UP_URL;
 
@@ -39,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), objectMapper()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
@@ -57,6 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
     @Bean
