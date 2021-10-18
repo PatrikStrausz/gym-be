@@ -46,9 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //TODO dole mas @Bean pre PasswordEncoder a tu vytvaras instanciu znova
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
 
     @Override

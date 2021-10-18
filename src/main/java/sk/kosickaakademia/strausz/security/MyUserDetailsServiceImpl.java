@@ -8,9 +8,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import sk.kosickaakademia.strausz.configuration.RestExceptionHandler;
+import sk.kosickaakademia.strausz.entity.User;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class MyUserDetailsServiceImpl implements UserDetailsService {
@@ -26,25 +28,28 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = userRepository.findByUsername(username);
-//        if (user == null) {
-//            logger.error("User not found in the database");
-//            throw new UsernameNotFoundException("User not found in the database");
-//        } else {
-//            logger.error(MessageFormat.format("User found in the database: {0}", user));
-//        }
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            logger.error("User not found in the database");
+            throw new UsernameNotFoundException("User not found in the database");
+        } else {
+            logger.info("User found in the database: {}", user);
+        }
 
-//        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-//        user.getRoles().forEach(role ->
-//                authorities.add(new SimpleGrantedAuthority(role.getName())));
+      /*  Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        user.getRoleSet().forEach(role ->
+                authorities.add(new SimpleGrantedAuthority(role.getName())));
+*/
 
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
         //TODO implement commented
-        //TODO do not use message formater in logger - it already supports "parameters"
-        //logger.error("User found in the database: {}", user);
+
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
 
         //heslo: "test" -> "$2a$12$I07eYzu.wLDRja4dvRRJ3e3zo7bNoxnpZFeDKaoUDA6ZH0lLoWdyO"
-        return new org.springframework.security.core.userdetails.User("test",
+      /*  return new org.springframework.security.core.userdetails.User("test",
                 "$2a$12$I07eYzu.wLDRja4dvRRJ3e3zo7bNoxnpZFeDKaoUDA6ZH0lLoWdyO", List.of(
-                new SimpleGrantedAuthority("USER")));
+                new SimpleGrantedAuthority("USER")));*/
     }
 }

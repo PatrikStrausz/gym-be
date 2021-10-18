@@ -16,6 +16,5 @@ public interface UserService {
 
     UserDto update(UserDto userDto);
 
-
-    void addRoleToUser(String username, String roleName);
+    
 }

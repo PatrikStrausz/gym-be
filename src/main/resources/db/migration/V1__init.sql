@@ -18,13 +18,12 @@ CREATE TABLE role
     name VARCHAR(100)
 );
 
-/*CREATE TABLE user_role
-(
-    id      SERIAL PRIMARY KEY,
-    user_id integer,
-    role_id integer
-);
-*/
+INSERT INTO role (id, name)
+VALUES (1, 'ADMIN');
+INSERT INTO role (id, name)
+VALUES (2, 'USER');
+
+
 
 CREATE TABLE user_details
 (
@@ -174,13 +173,6 @@ ALTER TABLE exercise_muscle
 ALTER TABLE food_nutrient
     ADD CONSTRAINT fn_fk_nutrient FOREIGN KEY (nutrient_id) REFERENCES nutrient (id) ON DELETE CASCADE;
 
-/*
-ALTER TABLE user_role
-    ADD CONSTRAINT ur_fk_users FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
-
-ALTER TABLE user_role
-    ADD CONSTRAINT ur_fk_role FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE;
-*/
 
 
 CREATE SEQUENCE user_sequence
@@ -201,10 +193,6 @@ CREATE SEQUENCE food_diet_sequence
     MINVALUE 1
     OWNED BY food_diet.id;
 
-/*CREATE SEQUENCE user_role_sequence
-    START 1
-    INCREMENT 1
-    MINVALUE 1
-    OWNED BY user_role.id;
-*/
+
+
 

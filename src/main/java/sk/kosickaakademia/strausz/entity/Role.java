@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity(name = "role")
 public class Role {
@@ -14,6 +15,9 @@ public class Role {
     @Column(name = "name")
     private String name;
 
+
+    @OneToOne(mappedBy = "role")
+    private User user;
 
     public Role() {
 
@@ -39,5 +43,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,16 +1,12 @@
 package sk.kosickaakademia.strausz.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 
 
 @Entity(name = "users")
 public class User {
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private final Collection<Role> roles = new ArrayList<>();
     @Id
     @SequenceGenerator(
             name = "user_sequence",
@@ -31,6 +27,10 @@ public class User {
     private String password;
     @OneToOne(mappedBy = "user")
     private UserDetails userDetails;
+
+    @OneToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Role role;
 
     public User() {
     }
@@ -90,7 +90,11 @@ public class User {
         this.userDetails = userDetails;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

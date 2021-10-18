@@ -3,17 +3,16 @@ package sk.kosickaakademia.strausz.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.logging.log4j.LogManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import sk.kosickaakademia.strausz.api.rest.TokenDto;
 import sk.kosickaakademia.strausz.api.rest.UserLoginDto;
+import sk.kosickaakademia.strausz.exception.CannotCreateDtoException;
+import sk.kosickaakademia.strausz.exception.InvalidCredentialsException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +27,8 @@ import static sk.kosickaakademia.strausz.security.SecurityConstants.SECRET;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -44,7 +45,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             //}
             //TODO use DTO as input = UserLoginDto
             //TODO do not create instance of ObjectMapper every authentication
-            UserLoginDto creds = new ObjectMapper()
+            UserLoginDto creds = objectMapper
                     .readValue(req.getInputStream(), UserLoginDto.class);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -54,10 +55,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             );
         } catch (IOException e) {
             //TODO throw specific exception - cannot create DTO from string BAD_REQUEST
-            throw new RuntimeException(e);
+            throw new CannotCreateDtoException(e.getMessage());
         } catch (AuthenticationException e) {
             //TODO throw specific exception - invalid username or password BAD_REQUEST
-            throw new RuntimeException(e);
+            throw new InvalidCredentialsException(e.getMessage());
         }
     }
 
@@ -72,7 +73,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
 
         //TODO return JSON with token (use ObjectMapper and DTO)
-        res.getWriter().write(token);
+        //res.getWriter().write(token);
+
+
+        TokenDto tokenDto = new TokenDto();
+        tokenDto.setToken(token);
+
+        res.getWriter().write(tokenDto.getToken());
+
+        logger.info("TOKEN: " + tokenDto.getToken());
+
         res.getWriter().flush();
     }
 }

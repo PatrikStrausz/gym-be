@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import sk.kosickaakademia.strausz.api.rest.ConstraintViolationDto;
 import sk.kosickaakademia.strausz.api.rest.ErrorDto;
 import sk.kosickaakademia.strausz.exception.BusinessException;
+import sk.kosickaakademia.strausz.exception.CannotCreateDtoException;
+import sk.kosickaakademia.strausz.exception.InvalidCredentialsException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -37,7 +39,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         logger.error("{}", e.getMessage());
 
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
     }
 
 
@@ -48,7 +51,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         logger.error("{}", e.getMessage());
 
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
 
     }
 
@@ -63,26 +67,53 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ConstraintViolation<?> next = constraintViolations.iterator().next();
 
 
-        ConstraintViolationDto dto = new ConstraintViolationDto(next.getInvalidValue(), next.getMessage(), next.getConstraintDescriptor());
+        ConstraintViolationDto dto = new ConstraintViolationDto(next.getInvalidValue()
+                , next.getMessage(), next.getConstraintDescriptor());
 
         List<ConstraintViolationDto> constraintViolationDtos = new ArrayList<>();
         constraintViolationDtos.add(dto);
-       
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage(), constraintViolationDtos));
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage(), constraintViolationDtos));
+
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ErrorDto> handleInvalidCredentialsException(InvalidCredentialsException e) {
+
+
+        logger.error("{}", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+    }
+
+    @ExceptionHandler(CannotCreateDtoException.class)
+    public ResponseEntity<ErrorDto> handleCannotCreateDtoException(CannotCreateDtoException e) {
+
+
+        logger.error("{}", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
 
     }
 
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex
+            , HttpHeaders headers, HttpStatus status, WebRequest request) {
         String errorMessage = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
-        List<String> validationList = ex.getBindingResult().getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
+        List<String> validationList = ex.getBindingResult().getFieldErrors().stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
 
         logger.warn("Validation error list : " + validationList);
         logger.warn("Error message : " + errorMessage);
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), errorMessage));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), errorMessage));
 
     }
 

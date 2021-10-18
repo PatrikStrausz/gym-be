@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
+
     private final UserMapper userMapper;
 
     private final PasswordEncoder passwordEncoder;
@@ -61,9 +62,14 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.userDtoToUser(userDto);
 
-
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
+        Role roleById = roleRepository.findById(userDto.getRoleId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[CREATE]: RoleID [{0}] not found ", userDto.getRoleId())));
+
+
+        user.setRole(roleById);
         userRepository.save(user);
 
         return userMapper.userToUserDto(user);
@@ -97,16 +103,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return userMapper.userToUserDto(user);
-    }
-
-
-    @Transactional
-    @Override
-    public void addRoleToUser(String login, String roleName) {
-        User user = userRepository.findByUsername(login);
-        Role role = roleRepository.findByName(roleName);
-
-        user.getRoles().add(role);
     }
 
 
