@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import sk.kosickaakademia.strausz.api.rest.TokenDto;
 import sk.kosickaakademia.strausz.api.rest.UserLoginDto;
-import sk.kosickaakademia.strausz.exception.CannotCreateDtoException;
+import sk.kosickaakademia.strausz.exception.InvalidLoginDataException;
 import sk.kosickaakademia.strausz.exception.InvalidCredentialsException;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
@@ -54,11 +54,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             new ArrayList<>())
             );
         } catch (IOException e) {
-
-            throw new CannotCreateDtoException(e.getMessage());
+            throw new InvalidLoginDataException("Error while parsing login data", e); //TODO takto nejako to ma vzyerat
         } catch (AuthenticationException e) {
 
-            throw new InvalidCredentialsException(e.getMessage());
+            throw new InvalidCredentialsException(e.getMessage()); //TODO ak je message null?
         }
     }
 

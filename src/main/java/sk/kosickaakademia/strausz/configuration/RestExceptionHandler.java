@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import sk.kosickaakademia.strausz.api.rest.ConstraintViolationDto;
 import sk.kosickaakademia.strausz.api.rest.ErrorDto;
 import sk.kosickaakademia.strausz.exception.BusinessException;
-import sk.kosickaakademia.strausz.exception.CannotCreateDtoException;
+import sk.kosickaakademia.strausz.exception.InvalidLoginDataException;
 import sk.kosickaakademia.strausz.exception.InvalidCredentialsException;
 
 import javax.validation.ConstraintViolation;
@@ -90,11 +90,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-    @ExceptionHandler(CannotCreateDtoException.class)
-    public ResponseEntity<ErrorDto> handleCannotCreateDtoException(CannotCreateDtoException e) {
+    @ExceptionHandler(InvalidLoginDataException.class)
+    public ResponseEntity<ErrorDto> handleCannotCreateDtoException(InvalidLoginDataException e) {
 
 
-        logger.error("{}", e.getMessage());
+        logger.error("{}", e.getMessage()); //TODO staci warning
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));

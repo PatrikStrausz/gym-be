@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,15 +55,17 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .build()
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
-
+            //TODO preco je kontrola vykonavana 2x
             Map<String, Claim> claims =
                     JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                             .build()
                             .verify(token.replace(TOKEN_PREFIX, ""))
                             .getClaims();
+            //TODO handling pre exceptions - verify
 
             Collection<? extends GrantedAuthority> authorities
-                    = Arrays.stream(claims.get(ROLES_KEY).toString().split(","))
+                    = claims.get(ROLES_KEY).asList(String.class).stream() //TODO preco split ak je na to API + zatvorky naviac
+                    .map(s -> "ROLE_" + s) //TODO prefix ROLE_
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
 
