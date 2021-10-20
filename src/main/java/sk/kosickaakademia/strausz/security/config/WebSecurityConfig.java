@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import sk.kosickaakademia.strausz.repository.UserRepository;
 import sk.kosickaakademia.strausz.security.MyUserDetailsServiceImpl;
 import sk.kosickaakademia.strausz.security.jwt.JWTAuthenticationFilter;
 import sk.kosickaakademia.strausz.security.jwt.JWTAuthorizationFilter;
@@ -23,14 +25,17 @@ import static sk.kosickaakademia.strausz.security.SecurityConstants.SIGN_UP_URL;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private final MyUserDetailsServiceImpl userDetailsService;
+    private final UserRepository userRepository;
 
 
-    public WebSecurityConfig(MyUserDetailsServiceImpl userDetailsService) {
+    public WebSecurityConfig(MyUserDetailsServiceImpl userDetailsService, UserRepository userRepository) {
         this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
     }
 
 
@@ -40,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), objectMapper()))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), objectMapper(), userRepository))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

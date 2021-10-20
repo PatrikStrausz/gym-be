@@ -36,20 +36,10 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
             logger.info("User found in the database: {}", user);
         }
 
-      /*  Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoleSet().forEach(role ->
-                authorities.add(new SimpleGrantedAuthority(role.getName())));
-*/
-
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
-        //TODO implement commented
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
 
-        //heslo: "test" -> "$2a$12$I07eYzu.wLDRja4dvRRJ3e3zo7bNoxnpZFeDKaoUDA6ZH0lLoWdyO"
-      /*  return new org.springframework.security.core.userdetails.User("test",
-                "$2a$12$I07eYzu.wLDRja4dvRRJ3e3zo7bNoxnpZFeDKaoUDA6ZH0lLoWdyO", List.of(
-                new SimpleGrantedAuthority("USER")));*/
     }
 }
