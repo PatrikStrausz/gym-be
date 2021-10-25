@@ -2,7 +2,12 @@ package sk.kosickaakademia.strausz.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,9 +28,11 @@ import static sk.kosickaakademia.strausz.security.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
+
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
     }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest req,
@@ -38,51 +45,62 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
+
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
+
     }
 
     // Reads the JWT from the Authorization header, and then uses JWT to validate the token
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
 
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            //TODO preco je kontrola vykonavana 2x
-            Map<String, Claim> claims =
-                    JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                            .build()
-                            .verify(token.replace(TOKEN_PREFIX, ""))
-                            .getClaims();
-            //TODO handling pre exceptions - verify
+        try {
+            if (token != null) {
 
-            Collection<? extends GrantedAuthority> authorities
-                    = claims.get(ROLES_KEY).asList(String.class).stream() //TODO preco split ak je na to API + zatvorky naviac
-                    .map(s -> "ROLE_" + s) //TODO prefix ROLE_
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
+                DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                        .build()
+                        .verify(token.replace(TOKEN_PREFIX, ""));
 
-            logger.info("AUTHORITIES :" + authorities);
+                String user = decodedJWT.getSubject();
 
-            if (user != null) {
-                // new arraylist means authorities
+                Map<String, Claim> claims = decodedJWT.getClaims();
 
-                // return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                //TODO handling pre exceptions - verify
 
-                return new UsernamePasswordAuthenticationToken(user, null, authorities);
+                Collection<? extends GrantedAuthority> authorities
+                        = claims.get(ROLES_KEY).asList(String.class).stream()
+                        .map(s -> "ROLE_" + s)
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
+
+                logger.info("AUTHORITIES :" + authorities);
+
+                if (user != null) {
+
+                    return new UsernamePasswordAuthenticationToken(user, null, authorities);
+                }
+
+                return null;
             }
 
             return null;
+
+        } catch (SignatureVerificationException e) {
+            throw new SignatureVerificationException(Algorithm.HMAC512(SECRET.getBytes()), e);
+        } catch (TokenExpiredException e) {
+
+            throw new TokenExpiredException(e.getMessage());
+        } catch (AlgorithmMismatchException e) {
+            throw new AlgorithmMismatchException(e.getMessage());
+        } catch (JWTVerificationException e) {
+            throw new JWTVerificationException(e.getMessage());
         }
 
-        return null;
 
     }
+
 }

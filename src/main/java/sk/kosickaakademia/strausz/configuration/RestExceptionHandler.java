@@ -1,5 +1,6 @@
 package sk.kosickaakademia.strausz.configuration;
 
+import com.auth0.jwt.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -14,8 +15,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import sk.kosickaakademia.strausz.api.rest.ConstraintViolationDto;
 import sk.kosickaakademia.strausz.api.rest.ErrorDto;
 import sk.kosickaakademia.strausz.exception.BusinessException;
-import sk.kosickaakademia.strausz.exception.InvalidLoginDataException;
 import sk.kosickaakademia.strausz.exception.InvalidCredentialsException;
+import sk.kosickaakademia.strausz.exception.InvalidLoginDataException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -35,7 +36,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDto> handleInternalServerError(Exception e) {
 
-        // logger.log(Level.SEVERE, "ERROR " + HttpStatus.INTERNAL_SERVER_ERROR.value() + " " + e.getMessage());
+
         logger.error("{}", e.getMessage());
 
 
@@ -47,7 +48,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorDto> handleBusinessException(BusinessException e) {
 
-        // logger.log(Level.SEVERE, "ERROR " + HttpStatus.BAD_REQUEST.value() + " " + e.getMessage());
+
         logger.error("{}", e.getMessage());
 
 
@@ -85,16 +86,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         logger.error("{}", e.getMessage());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new ErrorDto(HttpStatus.FORBIDDEN.value(), e.getMessage()));
 
     }
 
+
     @ExceptionHandler(InvalidLoginDataException.class)
-    public ResponseEntity<ErrorDto> handleCannotCreateDtoException(InvalidLoginDataException e) {
+    public ResponseEntity<ErrorDto> handleInvalidLoginDataException(InvalidLoginDataException e) {
 
 
-        logger.error("{}", e.getMessage()); //TODO staci warning
+        logger.warn("{}", e.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
@@ -117,20 +119,94 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-    /*
-    @ExceptionHandler(SQLException.class)
-    public ResponseEntity<ErrorDto> handleInternalServerError(SQLException e) {
 
-        logger.info("______________________________________________");
+    @ExceptionHandler(SignatureVerificationException.class)
+    public ResponseEntity<ErrorDto> SignatureVerificationException(SignatureVerificationException e) {
+
+
         logger.error("{}", e.getMessage());
-        logger.error("{}", e.getErrorCode());
-        logger.error("{}", e.getSQLState());
-        logger.error("{}", e.getLocalizedMessage());
-        logger.error("{}", e.getCause());
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
 
     }
 
-     */
+    @ExceptionHandler(TokenExpiredException.class)
+    public ResponseEntity<ErrorDto> TokenExpiredException(TokenExpiredException e) {
+
+
+        logger.error("{}", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+    }
+
+    @ExceptionHandler(AlgorithmMismatchException.class)
+    public ResponseEntity<ErrorDto> AlgorithmMismatchException(AlgorithmMismatchException e) {
+
+
+        logger.error("{}", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+    }
+
+    @ExceptionHandler(InvalidClaimException.class)
+    public ResponseEntity<ErrorDto> InvalidClaimException(InvalidClaimException e) {
+
+
+        logger.error("{}", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+    }
+
+    @ExceptionHandler(JWTCreationException.class)
+    public ResponseEntity<ErrorDto> JWTCreationException(JWTCreationException e) {
+
+
+        logger.error("{}", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+    }
+
+    @ExceptionHandler(JWTDecodeException.class)
+    public ResponseEntity<ErrorDto> JWTDecodeException(JWTDecodeException e) {
+
+
+        logger.error("{}", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+    }
+
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResponseEntity<ErrorDto> JWTVerificationException(JWTVerificationException e) {
+
+
+        logger.error("{}", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+    }
+
+    @ExceptionHandler(SignatureGenerationException.class)
+    public ResponseEntity<ErrorDto> SignatureGenerationException(SignatureGenerationException e) {
+
+
+        logger.error("{}", e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+    }
+
+
 }

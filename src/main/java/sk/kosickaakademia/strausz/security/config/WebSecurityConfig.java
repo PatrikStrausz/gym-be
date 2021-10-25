@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import sk.kosickaakademia.strausz.repository.UserRepository;
 import sk.kosickaakademia.strausz.security.MyUserDetailsServiceImpl;
 import sk.kosickaakademia.strausz.security.jwt.JWTAuthenticationFilter;
 import sk.kosickaakademia.strausz.security.jwt.JWTAuthorizationFilter;
@@ -30,12 +29,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private final MyUserDetailsServiceImpl userDetailsService;
-    private final UserRepository userRepository;
 
 
-    public WebSecurityConfig(MyUserDetailsServiceImpl userDetailsService, UserRepository userRepository) {
+    public WebSecurityConfig(MyUserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
-        this.userRepository = userRepository;
     }
 
 
@@ -45,9 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), objectMapper(), userRepository))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), objectMapper()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
 
     @Override
@@ -69,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
+
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

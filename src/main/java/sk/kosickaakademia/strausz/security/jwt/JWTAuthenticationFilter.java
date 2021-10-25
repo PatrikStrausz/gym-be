@@ -13,10 +13,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import sk.kosickaakademia.strausz.api.rest.TokenDto;
 import sk.kosickaakademia.strausz.api.rest.UserLoginDto;
 import sk.kosickaakademia.strausz.exception.InvalidLoginDataException;
-import sk.kosickaakademia.strausz.exception.InvalidCredentialsException;
-import sk.kosickaakademia.strausz.repository.UserRepository;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -32,12 +31,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final ObjectMapper objectMapper;
 
-    private final UserRepository userRepository;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, ObjectMapper objectMapper, UserRepository userRepository) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, ObjectMapper objectMapper) {
         this.authenticationManager = authenticationManager;
         this.objectMapper = objectMapper;
-        this.userRepository = userRepository;
+
     }
 
     @Override
@@ -54,11 +52,21 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             new ArrayList<>())
             );
         } catch (IOException e) {
-            throw new InvalidLoginDataException("Error while parsing login data", e); //TODO takto nejako to ma vzyerat
-        } catch (AuthenticationException e) {
+            throw new InvalidLoginDataException("Error while parsing login data", e);
+       /* } catch (AuthenticationException e) {
 
-            throw new InvalidCredentialsException(e.getMessage()); //TODO ak je message null?
+
+            if (e.getMessage() != null) {
+                throw new InvalidCredentialsException(e.getMessage());
+            } else {
+                throw new InvalidCredentialsException("Invalid Credentials");
+            }
+            //TODO ak je message null?
+
+
+        */
         }
+
     }
 
     @Override
@@ -66,11 +74,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException {
-
-
-        String username = auth.getName();
-        sk.kosickaakademia.strausz.entity.User user = userRepository.findByUsername(username);
-
 
         User userAuth = (User) auth.getPrincipal();
 
@@ -86,9 +89,18 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         res.getWriter().write(tokenDto.getToken());
 
-        logger.info("TOKEN: " + tokenDto.getToken());
-
         res.getWriter().flush();
+
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException, ServletException {
+        logger.error("MESSAGE UNAUTHORIZED : " + failed.getMessage());
+
+
+        response.sendError(response.SC_UNAUTHORIZED, failed.getMessage());
+
 
     }
 
