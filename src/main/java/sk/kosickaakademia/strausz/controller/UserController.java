@@ -1,13 +1,10 @@
 package sk.kosickaakademia.strausz.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDto;
-import sk.kosickaakademia.strausz.configuration.RestExceptionHandler;
 import sk.kosickaakademia.strausz.service.UserService;
 
 import javax.validation.Valid;
@@ -17,9 +14,7 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-
-    Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
-
+    
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -33,6 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public UserDto getUserById(@PathVariable int id) {
 
         return userService.getUserById(id);
@@ -47,12 +43,14 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/user/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public UserDto deleteUser(@PathVariable int id) {
 
         return userService.deleteById(id);
     }
 
     @PutMapping("/user")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public UserDto patchUser(@Valid @RequestBody UserDto user) {
 
         return userService.update(user);
