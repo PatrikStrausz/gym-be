@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserDetailsMapper {
 
 
-    @Mapping(target = "userId", source = "user.id")
+    // @Mapping(target = "userId", source = "user.id")
     @Mapping(target = "dietId", source = "diet.id")
     @Mapping(target = "trainingId", source = "training.id")
     UserDetailsDto userDetailsToUserDetailsDto(UserDetails userDetails);
@@ -20,7 +20,7 @@ public interface UserDetailsMapper {
 
     List<UserDetailsDto> userDetailsListToUserDetailsDtoList(Page<UserDetails> userDetails);
 
-    @Mapping(target = "user.id", source = "userId")
+    // @Mapping(target = "user.id", source = "userId")
     @Mapping(target = "diet.id", source = "dietId")
     @Mapping(target = "training.id", source = "trainingId")
     UserDetails userDetailsDtoToUserDetails(UserDetailsDto entity);

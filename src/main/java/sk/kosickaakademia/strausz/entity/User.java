@@ -36,11 +36,12 @@ public class User {
     }
 
 
-    public User(int id, String username, String email, String password) {
+    public User(int id, String username, String email, String password, Role role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public User(String username, String email, String password) {
@@ -54,9 +55,6 @@ public class User {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

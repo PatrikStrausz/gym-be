@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import sk.kosickaakademia.strausz.exception.JWTAuthorizationExpiredException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -48,7 +49,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
-        
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
 
@@ -90,13 +91,18 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return null;
 
         } catch (SignatureVerificationException e) {
+            //error 400
             throw new SignatureVerificationException(Algorithm.HMAC512(SECRET.getBytes()), e);
         } catch (TokenExpiredException e) {
 
-            throw new TokenExpiredException(e.getMessage());
+            //TODO JWTAuthorizationException
+            //error 401
+            throw new JWTAuthorizationExpiredException("Token expired", e);
         } catch (AlgorithmMismatchException e) {
+            //error 400
             throw new AlgorithmMismatchException(e.getMessage());
         } catch (JWTVerificationException e) {
+            //error 400
             throw new JWTVerificationException(e.getMessage());
         }
 

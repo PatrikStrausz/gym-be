@@ -2,14 +2,17 @@ package sk.kosickaakademia.strausz.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
+import sk.kosickaakademia.strausz.api.rest.UserCreateUpdateDto;
 import sk.kosickaakademia.strausz.api.rest.UserDto;
 import sk.kosickaakademia.strausz.entity.Role;
 import sk.kosickaakademia.strausz.entity.User;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
+import sk.kosickaakademia.strausz.mapper.UserCreateUpdateMapper;
 import sk.kosickaakademia.strausz.mapper.UserMapper;
 import sk.kosickaakademia.strausz.repository.RoleRepository;
 import sk.kosickaakademia.strausz.repository.UserRepository;
@@ -25,13 +28,15 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserMapper userMapper;
+    private final UserCreateUpdateMapper userCreateUpdateMapper;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper, UserCreateUpdateMapper userCreateUpdateMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userMapper = userMapper;
+        this.userCreateUpdateMapper = userCreateUpdateMapper;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -57,10 +62,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserDto create(UserDto userDto) {
+    public UserCreateUpdateDto create(UserCreateUpdateDto userDto) {
 
 
-        User user = userMapper.userDtoToUser(userDto);
+        User user = userCreateUpdateMapper.userCreateUpdateDtoToUser(userDto);
 
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
@@ -72,7 +77,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(roleById);
         userRepository.save(user);
 
-        return userMapper.userToUserDto(user);
+        return userCreateUpdateMapper.userToUserCreateUpdateDto(user);
 
 
     }
@@ -91,18 +96,27 @@ public class UserServiceImpl implements UserService {
         return userMapper.userToUserDto(userById);
     }
 
+    //TODO loadByUsername instead of findById
     @Transactional
     @Override
-    public UserDto update(UserDto userDto) {
-        User userById = userRepository.findById(userDto.getId())
-                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-                        .format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
+    public UserCreateUpdateDto update(UserCreateUpdateDto userDto, Authentication authentication) {
 
-        User user = new User(userById.getId(), userDto.getUsername(), userDto.getEmail(), userDto.getPassword());
+        User userByUsername = userRepository.findByUsername(authentication.getName());
+
+//        User userById = userRepository.findById(userDto.getId())
+//                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+//                        .format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
+
+        Role role = roleRepository.findById(userDto.getRoleId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[UPDATE]: Role with ID [{0}] not found ", userDto.getRoleId())));
+
+        User user = new User(userByUsername.getId(), userDto.getUsername(), userDto.getEmail()
+                , passwordEncoder.encode(userDto.getPassword()), role);
 
         userRepository.save(user);
 
-        return userMapper.userToUserDto(user);
+        return userCreateUpdateMapper.userToUserCreateUpdateDto(user);
     }
 
 

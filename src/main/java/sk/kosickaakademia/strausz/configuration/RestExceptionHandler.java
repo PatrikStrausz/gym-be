@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
 
     @ExceptionHandler(Exception.class)
@@ -43,6 +43,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
     }
+
+//TODO create DataIntegrityViolationException vratit 400 ak je message vratit 500 ak nie je
 
 
     @ExceptionHandler(BusinessException.class)
@@ -74,7 +76,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         List<ConstraintViolationDto> constraintViolationDtos = new ArrayList<>();
         constraintViolationDtos.add(dto);
 
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage(), constraintViolationDtos));
 
@@ -83,18 +84,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<ErrorDto> handleInvalidCredentialsException(InvalidCredentialsException e) {
 
-
         logger.error("{}", e.getMessage());
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(new ErrorDto(HttpStatus.FORBIDDEN.value(), e.getMessage()));
-
     }
 
 
     @ExceptionHandler(InvalidLoginDataException.class)
     public ResponseEntity<ErrorDto> handleInvalidLoginDataException(InvalidLoginDataException e) {
-
 
         logger.warn("{}", e.getMessage());
 
@@ -120,8 +118,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler(SignatureVerificationException.class)
-    public ResponseEntity<ErrorDto> SignatureVerificationException(SignatureVerificationException e) {
+    @ExceptionHandler({SignatureVerificationException.class, AlgorithmMismatchException.class})
+    public ResponseEntity<ErrorDto> handleInvalidTokenException(Exception e) {
 
 
         logger.error("{}", e.getMessage());
@@ -132,27 +130,28 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(TokenExpiredException.class)
-    public ResponseEntity<ErrorDto> TokenExpiredException(TokenExpiredException e) {
+    public ResponseEntity<ErrorDto> handleExpiredTokenException(TokenExpiredException e) {
 
+//TODO logger
+        logger.warn("Token expired", e);
 
-        logger.error("{}", e.getMessage());
-
+        //401
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
 
     }
 
-    @ExceptionHandler(AlgorithmMismatchException.class)
-    public ResponseEntity<ErrorDto> AlgorithmMismatchException(AlgorithmMismatchException e) {
+    /*    @ExceptionHandler(AlgorithmMismatchException.class)
+        public ResponseEntity<ErrorDto> AlgorithmMismatchException(AlgorithmMismatchException e) {
 
 
-        logger.error("{}", e.getMessage());
+            logger.error("{}", e.getMessage());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
 
-    }
-
+        }
+    */
     @ExceptionHandler(InvalidClaimException.class)
     public ResponseEntity<ErrorDto> InvalidClaimException(InvalidClaimException e) {
 

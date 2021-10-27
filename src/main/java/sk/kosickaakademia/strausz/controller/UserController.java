@@ -2,8 +2,10 @@ package sk.kosickaakademia.strausz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
+import sk.kosickaakademia.strausz.api.rest.UserCreateUpdateDto;
 import sk.kosickaakademia.strausz.api.rest.UserDto;
 import sk.kosickaakademia.strausz.service.UserService;
 
@@ -14,7 +16,7 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -36,8 +38,10 @@ public class UserController {
 
     }
 
+    //TODO GetMapping("/user/detail")
+
     @PostMapping(path = "/user")
-    public UserDto createUser(@Valid @RequestBody UserDto user) {
+    public UserCreateUpdateDto createUser(@Valid @RequestBody UserCreateUpdateDto user) {
 
         return userService.create(user);
     }
@@ -51,9 +55,9 @@ public class UserController {
 
     @PutMapping("/user")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public UserDto patchUser(@Valid @RequestBody UserDto user) {
+    public UserCreateUpdateDto patchUser(@Valid @RequestBody UserCreateUpdateDto user, Authentication authentication) {
 
-        return userService.update(user);
+        return userService.update(user, authentication);
     }
 }
 
