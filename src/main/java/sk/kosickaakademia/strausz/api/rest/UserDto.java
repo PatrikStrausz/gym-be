@@ -22,9 +22,6 @@ public class UserDto {
     @Size(min = 8, message = "password.must.be.equal.or.greater.than.8.characters")
     private String password;
 
-    @NotNull(message = "roleID.cannot.be.null")
-    private Integer roleId;
-
 
     public int getId() {
         return id;
@@ -58,11 +55,5 @@ public class UserDto {
         this.password = password;
     }
 
-    public Integer getRoleId() {
-        return roleId;
-    }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
 }

@@ -1,9 +1,7 @@
 package sk.kosickaakademia.strausz.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "role")
 public class Role {
@@ -16,8 +14,17 @@ public class Role {
     private String name;
 
 
-    @OneToOne(mappedBy = "role")
-    private User user;
+//    @OneToOne(mappedBy = "role")
+//    private User user;
+
+    @ManyToMany
+            (fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> userSet;
+
 
     public Role() {
 
@@ -45,13 +52,11 @@ public class Role {
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
+    public Set<User> getUserSet() {
+        return userSet;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
     }
-
-   
 }

@@ -3,9 +3,10 @@ package sk.kosickaakademia.strausz.api.rest;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 public class UserCreateUpdateDto {
-    
+
     @NotNull(message = "username.cannot.be.null")
     @Size(min = 6, message = "login.must.be.equal.or.greater.than.6.characters")
     private String username;
@@ -19,7 +20,7 @@ public class UserCreateUpdateDto {
     private String password;
 
     @NotNull(message = "roleID.cannot.be.null")
-    private Integer roleId;
+    private Set<Integer> roleId;
 
     public String getUsername() {
         return username;
@@ -45,11 +46,11 @@ public class UserCreateUpdateDto {
         this.password = password;
     }
 
-    public Integer getRoleId() {
+    public Set<Integer> getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Set<Integer> roleId) {
         this.roleId = roleId;
     }
 }

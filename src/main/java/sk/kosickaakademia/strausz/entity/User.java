@@ -1,6 +1,7 @@
 package sk.kosickaakademia.strausz.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity(name = "users")
@@ -28,20 +29,29 @@ public class User {
     @OneToOne(mappedBy = "user")
     private UserDetails userDetails;
 
-    @OneToOne
+   /* @OneToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
+*/
+
+    @ManyToMany
+            (fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roleSet;
 
     public User() {
     }
 
 
-    public User(int id, String username, String email, String password, Role role) {
+    public User(int id, String username, String email, String password, Set<Role> roleSet) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roleSet = roleSet;
     }
 
     public User(String username, String email, String password) {
@@ -55,6 +65,9 @@ public class User {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -88,23 +101,11 @@ public class User {
         this.userDetails = userDetails;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoleSet() {
+        return roleSet;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", userDetails=" + userDetails +
-                ", role=" + role +
-                '}';
+    public void setRoleSet(Set<Role> roleSet) {
+        this.roleSet = roleSet;
     }
 }

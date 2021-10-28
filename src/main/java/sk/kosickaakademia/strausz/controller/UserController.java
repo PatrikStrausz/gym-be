@@ -39,7 +39,6 @@ public class UserController {
 
     }
 
-    //TODO GetMapping("/user/detail")
 
     @GetMapping("/user/username")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
@@ -50,6 +49,7 @@ public class UserController {
         return userService.getUserByUsername(currentPrincipalName);
 
     }
+
 
     @PostMapping(path = "/user")
     public UserCreateUpdateDto createUser(@Valid @RequestBody UserCreateUpdateDto user) {

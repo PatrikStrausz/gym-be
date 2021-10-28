@@ -145,6 +145,18 @@ CREATE TABLE nutrient
     rank         VARCHAR(100)
 );
 
+CREATE TABLE user_role
+(
+    id      SERIAL PRIMARY KEY,
+    user_id integer,
+    role_id integer
+);
+
+ALTER TABLE user_role
+    ADD CONSTRAINT ur_fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
+ALTER TABLE user_role
+    ADD CONSTRAINT ur_fk_role FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE;
+
 
 ALTER TABLE user_details
     ADD CONSTRAINT ud_fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
@@ -192,6 +204,12 @@ CREATE SEQUENCE food_diet_sequence
     INCREMENT 1
     MINVALUE 1
     OWNED BY food_diet.id;
+
+CREATE SEQUENCE user_role_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY user_role.id;
 
 
 
