@@ -2,6 +2,7 @@ package sk.kosickaakademia.strausz.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
@@ -62,7 +63,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     @Override
-    public UserDetailsDto create(UserDetailsDto userDetailsDto) {
+    public UserDetailsDto create(UserDetailsDto userDetailsDto, Authentication authentication) {
 
         UserDetails userDetails = userDetailsMapper.userDetailsDtoToUserDetails(userDetailsDto);
 
@@ -71,16 +72,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
 
-        //TODO findByUsername + security context
-        User userId = userRepository.findById(userDetailsDto.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-                        .format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
+        
+//        User userId = userRepository.findById(userDetailsDto.getUserId())
+//                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+//                        .format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
+
+        User userByUsername = userRepository.findByUsername(authentication.getName());
 
         Diet dietId = dietRepository.findById(userDetailsDto.getDietId())
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[CREATE]: DietID [{0}] not found ", userDetailsDto.getDietId())));
 
-        userDetails.setUser(userId);
+        userDetails.setUser(userByUsername);
         userDetails.setTraining(trainingById);
         userDetails.setDiet(dietId);
 

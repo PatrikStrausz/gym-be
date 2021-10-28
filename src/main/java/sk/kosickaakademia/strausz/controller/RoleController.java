@@ -1,5 +1,6 @@
 package sk.kosickaakademia.strausz.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,11 +17,13 @@ public class RoleController {
     }
 
     @GetMapping(path = "/role")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public GenericListDto<RoleDto> getRoles(@RequestParam(defaultValue = "0", required = false) int page) {
         return roleService.getRoles(page);
     }
 
     @GetMapping("/role/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public RoleDto getRoleById(@PathVariable int id) {
 
         return roleService.getRoleById(id);

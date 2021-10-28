@@ -39,6 +39,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
+
+
         String header = req.getHeader(HEADER_STRING);
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
@@ -52,6 +54,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
+
 
     }
 
@@ -69,8 +72,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 String user = decodedJWT.getSubject();
 
                 Map<String, Claim> claims = decodedJWT.getClaims();
-
-                //TODO handling pre exceptions - verify
 
                 Collection<? extends GrantedAuthority> authorities
                         = claims.get(ROLES_KEY).asList(String.class).stream()
@@ -100,10 +101,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             throw new JWTAuthorizationExpiredException("Token expired", e);
         } catch (AlgorithmMismatchException e) {
             //error 400
-            throw new AlgorithmMismatchException(e.getMessage());
+            throw new AlgorithmMismatchException("Algorithm Mismatch");
         } catch (JWTVerificationException e) {
             //error 400
-            throw new JWTVerificationException(e.getMessage());
+            throw new JWTVerificationException("JWT Verification error", e);
+
         }
 
 

@@ -2,6 +2,7 @@ package sk.kosickaakademia.strausz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDetailsDto;
@@ -36,15 +37,16 @@ public class UserDetailsController {
     }
 
     @PostMapping("/user/details")
-    public UserDetailsDto createUserDetails(@Valid @RequestBody UserDetailsDto userDetailsDto) {
+    public UserDetailsDto createUserDetails(@Valid @RequestBody UserDetailsDto userDetailsDto, Authentication authentication) {
 
-        return userDetailsService.create(userDetailsDto);
+        return userDetailsService.create(userDetailsDto, authentication);
 
 
     }
 
     @PutMapping("/user/details")
-    public UserDetailsDto patchUserDetails(@Valid @RequestBody UserDetailsDto userDetailsDto) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public UserDetailsDto putUserDetails(@Valid @RequestBody UserDetailsDto userDetailsDto) {
 
         return userDetailsService.update(userDetailsDto);
     }

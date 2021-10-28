@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.userToUserDto(userById);
     }
 
-    //TODO loadByUsername instead of findById
+
     @Transactional
     @Override
     public UserCreateUpdateDto update(UserCreateUpdateDto userDto, Authentication authentication) {
@@ -117,6 +117,14 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return userCreateUpdateMapper.userToUserCreateUpdateDto(user);
+    }
+
+    @Override
+    public UserDto getUserByUsername(String username) {
+
+        User user = userRepository.findByUsername(username);
+
+        return userMapper.userToUserDto(user);
     }
 
 

@@ -37,7 +37,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDto> handleInternalServerError(Exception e) {
 
 
-        logger.error("{}", e.getMessage());
+        logger.error("Internal server error", e);
 
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -51,7 +51,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDto> handleBusinessException(BusinessException e) {
 
 
-        logger.error("{}", e.getMessage());
+        logger.error("Business exception error", e);
 
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -64,7 +64,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDto> handleConstraintViolationException(ConstraintViolationException e) {
 
 
-        logger.warn("{}", e.getMessage());
+        logger.warn("Constraint violation error", e);
 
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         ConstraintViolation<?> next = constraintViolations.iterator().next();
@@ -84,7 +84,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<ErrorDto> handleInvalidCredentialsException(InvalidCredentialsException e) {
 
-        logger.error("{}", e.getMessage());
+        logger.error("Invalid Credentials", e);
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(new ErrorDto(HttpStatus.FORBIDDEN.value(), e.getMessage()));
@@ -94,7 +94,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidLoginDataException.class)
     public ResponseEntity<ErrorDto> handleInvalidLoginDataException(InvalidLoginDataException e) {
 
-        logger.warn("{}", e.getMessage());
+        logger.warn("Invalid Login Data", e);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
@@ -129,15 +129,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
+
     @ExceptionHandler(TokenExpiredException.class)
     public ResponseEntity<ErrorDto> handleExpiredTokenException(TokenExpiredException e) {
 
-//TODO logger
+
         logger.warn("Token expired", e);
 
-        //401
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorDto(HttpStatus.UNAUTHORIZED.value(), e.getMessage()));
 
     }
 
@@ -156,7 +157,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDto> InvalidClaimException(InvalidClaimException e) {
 
 
-        logger.error("{}", e.getMessage());
+        logger.error("Invalid claim", e);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
@@ -167,7 +168,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDto> JWTCreationException(JWTCreationException e) {
 
 
-        logger.error("{}", e.getMessage());
+        logger.error("JWT Creation error", e);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
@@ -178,7 +179,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDto> JWTDecodeException(JWTDecodeException e) {
 
 
-        logger.error("{}", e.getMessage());
+        logger.error("JWT Decoding error", e);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
@@ -189,7 +190,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDto> JWTVerificationException(JWTVerificationException e) {
 
 
-        logger.error("{}", e.getMessage());
+        logger.error("JWT Verification error", e);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
@@ -200,7 +201,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDto> SignatureGenerationException(SignatureGenerationException e) {
 
 
-        logger.error("{}", e.getMessage());
+        logger.error("Signature generation error", e);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));

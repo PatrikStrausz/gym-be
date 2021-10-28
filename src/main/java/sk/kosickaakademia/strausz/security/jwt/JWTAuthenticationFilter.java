@@ -53,18 +53,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             );
         } catch (IOException e) {
             throw new InvalidLoginDataException("Error while parsing login data", e);
-       /* } catch (AuthenticationException e) {
-
-
-            if (e.getMessage() != null) {
-                throw new InvalidCredentialsException(e.getMessage());
-            } else {
-                throw new InvalidCredentialsException("Invalid Credentials");
-            }
-            //TODO ak je message null?
-
-
-        */
         }
 
     }
@@ -82,8 +70,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim(ROLES_KEY, userAuth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
-
-
+        
         TokenDto tokenDto = new TokenDto();
         tokenDto.setToken(token);
 
@@ -98,9 +85,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                               AuthenticationException failed) throws IOException, ServletException {
         logger.error("MESSAGE UNAUTHORIZED : " + failed.getMessage());
 
-
         response.sendError(response.SC_UNAUTHORIZED, failed.getMessage());
-
 
     }
 

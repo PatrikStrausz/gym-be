@@ -1,6 +1,7 @@
 package sk.kosickaakademia.strausz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.TrainingDto;
@@ -18,11 +19,13 @@ public class TrainingController {
     }
 
     @GetMapping(path = "/training")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public GenericListDto<TrainingDto> getTrainings(@RequestParam(defaultValue = "0", required = false) int page) {
         return trainingService.getTrainings(page);
     }
 
     @GetMapping("/training/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public TrainingDto getTrainingById(@PathVariable int id) {
 
         return trainingService.getTrainingById(id);

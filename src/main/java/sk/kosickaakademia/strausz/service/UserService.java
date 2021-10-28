@@ -18,5 +18,6 @@ public interface UserService {
 
     UserCreateUpdateDto update(UserCreateUpdateDto userDto, Authentication authentication);
 
+    UserDto getUserByUsername(String username);
 
 }

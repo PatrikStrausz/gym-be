@@ -1,5 +1,6 @@
 package sk.kosickaakademia.strausz.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.ExerciseDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
@@ -18,11 +19,13 @@ public class ExerciseController {
 
 
     @GetMapping(path = "/exercise")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public GenericListDto<ExerciseDto> getExercises(@RequestParam(defaultValue = "0", required = false) int page) {
         return exerciseService.getExercises(page);
     }
 
     @GetMapping("/exercise/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ExerciseDto getExerciseById(@PathVariable int id) {
 
         return exerciseService.getExerciseById(id);

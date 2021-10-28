@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserCreateUpdateDto;
@@ -39,6 +40,16 @@ public class UserController {
     }
 
     //TODO GetMapping("/user/detail")
+
+    @GetMapping("/user/username")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public UserDto getUserByUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        return userService.getUserByUsername(currentPrincipalName);
+
+    }
 
     @PostMapping(path = "/user")
     public UserCreateUpdateDto createUser(@Valid @RequestBody UserCreateUpdateDto user) {
