@@ -4,6 +4,7 @@ import com.auth0.jwt.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,7 +46,30 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
     }
 
-//TODO create DataIntegrityViolationException vratit 400 ak je message vratit 500 ak nie je
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorDto> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+
+
+        logger.error("Data Integrity error", e);
+
+        String message;
+        int code = 500;
+
+        if (Objects.requireNonNull(e.getMessage()).contains("unq_username")) {
+            message = "Username already exists";
+            code = 400;
+        } else if (Objects.requireNonNull(e.getMessage()).contains("unq_email")) {
+            message = "Email already exists";
+            code = 400;
+        } else {
+            message = "Internal server error";
+        }
+
+
+        return ResponseEntity.status(code)
+                .body(new ErrorDto(code, message));
+    }
 
 
     @ExceptionHandler(BusinessException.class)
