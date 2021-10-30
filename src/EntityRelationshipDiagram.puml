@@ -1,0 +1,135 @@
+@startuml
+!theme reddress-darkblue
+
+hide circle
+skinparam linetype ortho
+
+entity User{
+* **id** : SERIAL <<generated>>
+* username : String
+* email : String
+* password : String
+}
+
+entity Role{
+* **id** : SERIAL <<generated>>
+*name : String
+}
+
+entity UserRole{
+* **id** : SERIAL <<generated>>
+* **user_id**: int <<FK>>
+* **role_id**: int <<FK>>
+}
+
+entity UserDetails{
+* **id** : SERIAL <<generated>>
+*firstname: String
+*lastname: String
+*height: int
+*weight: int
+*age: int
+*goal: String
+* **user_id**: int <<FK>>
+* **training_id**: int <<FK>>
+* **diet_id**: int <<FK>>
+}
+
+entity Training{
+* **id** : SERIAL <<generated>>
+* name : String
+}
+
+entity Diet{
+* **id** : SERIAL <<generated>>
+* name : String
+}
+
+entity TrainingExercise{
+* **id** : SERIAL <<generated>>
+* **exercise_id**: int <<FK>>
+* **training_id**: int <<FK>>
+
+}
+
+entity FoodDiet{
+* **id** : SERIAL <<generated>>
+* **food_id**: int <<FK>>
+* **diet_id**: int <<FK>>
+}
+
+entity Exercise{
+
+* name : String
+* exercise_type : String
+* equipment_required : String
+* mechanics : String
+* forcetype : String
+* experience_level : String
+* overview : String
+* instructions : String
+* tips : String
+* image : String
+* video : String
+}
+
+entity Food{
+* **id** : int
+* data_type : String
+* description : String
+* food_category_id : String
+* publication_date : String
+
+}
+
+entity ExerciseMuscle{
+* **id** : int
+* **muscle_id**: int <<FK>>
+* **exercise_id**: int <<FK>>
+* is_main: boolean
+}
+
+entity FoodNutrient{
+* **id** : int
+* **fdc_id**: int <<FK>>
+* **nutrient_id**: int <<FK>>
+* amount : double
+* data_points : String
+* derivation_id : String
+* min : String
+* max : String
+* median : String
+* footnote : String
+* min_year:acqured : String
+}
+
+entity Muscle{
+* **id** : int
+* name : String
+* image_small : String
+* image_big : String
+}
+
+entity Nutrient{
+* **id** : int
+* name : String
+* unit_name : String
+* nutrient_nbr : String
+* rank : String
+}
+
+User ||--|{ UserRole
+Role ||--|{ UserRole
+User ||--|| UserDetails
+Training ||--|| UserDetails
+Diet ||--|| UserDetails
+Diet ||--|{ FoodDiet
+Training ||--|{ TrainingExercise
+Exercise ||--|{ TrainingExercise
+Food ||--|{ FoodDiet
+ExerciseMuscle }|--|| Exercise
+FoodNutrient ||--|{ Food
+Muscle ||--|{ ExerciseMuscle
+Nutrient }|--|| FoodNutrient
+
+@enduml

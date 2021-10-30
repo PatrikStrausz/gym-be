@@ -48,9 +48,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
-
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
@@ -58,7 +56,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     }
 
-    // Reads the JWT from the Authorization header, and then uses JWT to validate the token
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
 
@@ -99,6 +96,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             //TODO JWTAuthorizationException
             //error 401
             throw new JWTAuthorizationExpiredException("Token expired", e);
+
         } catch (AlgorithmMismatchException e) {
             //error 400
             throw new AlgorithmMismatchException("Algorithm Mismatch");

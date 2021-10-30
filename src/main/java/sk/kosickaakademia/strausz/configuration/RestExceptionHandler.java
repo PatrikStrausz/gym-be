@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
+    public static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
 
     @ExceptionHandler(Exception.class)
@@ -167,17 +167,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-    /*    @ExceptionHandler(AlgorithmMismatchException.class)
-        public ResponseEntity<ErrorDto> AlgorithmMismatchException(AlgorithmMismatchException e) {
-
-
-            logger.error("{}", e.getMessage());
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
-
-        }
-    */
     @ExceptionHandler(InvalidClaimException.class)
     public ResponseEntity<ErrorDto> InvalidClaimException(InvalidClaimException e) {
 

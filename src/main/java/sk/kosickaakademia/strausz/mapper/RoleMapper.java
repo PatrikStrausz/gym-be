@@ -12,12 +12,9 @@ public interface RoleMapper {
 
     RoleDto roleToRoleDto(Role role);
 
-
     List<RoleDto> roleListToRoleDtoList(Page<Role> roles);
 
-
     Role roleDtoToRole(RoleDto entity);
-
 
     List<Role> roleListDtoToRoleList(List<RoleDto> roleDtoList);
 

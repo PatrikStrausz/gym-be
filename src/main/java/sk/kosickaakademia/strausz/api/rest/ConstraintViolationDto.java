@@ -10,7 +10,6 @@ public class ConstraintViolationDto {
 
     private ConstraintDescriptor<?> constraintDescriptor;
 
-
     public ConstraintViolationDto(Object invalidValue, String message, ConstraintDescriptor<?> constraintDescriptor) {
         this.invalidValue = invalidValue;
         this.message = message;

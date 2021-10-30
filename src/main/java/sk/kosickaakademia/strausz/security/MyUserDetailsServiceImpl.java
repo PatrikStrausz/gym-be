@@ -1,7 +1,6 @@
 package sk.kosickaakademia.strausz.security;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,9 +18,8 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
-
-
+    Logger logger = RestExceptionHandler.logger;
+    
     public MyUserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -37,8 +35,6 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
         }
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        //  authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
-
 
         user.getRoleSet().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));

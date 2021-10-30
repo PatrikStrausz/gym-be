@@ -72,11 +72,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
 
-        
-//        User userId = userRepository.findById(userDetailsDto.getUserId())
-//                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-//                        .format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
-
         User userByUsername = userRepository.findByUsername(authentication.getName());
 
         Diet dietId = dietRepository.findById(userDetailsDto.getDietId())

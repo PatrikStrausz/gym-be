@@ -15,7 +15,6 @@ import sk.kosickaakademia.strausz.configuration.RestExceptionHandler;
 import sk.kosickaakademia.strausz.entity.Role;
 import sk.kosickaakademia.strausz.entity.User;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
-import sk.kosickaakademia.strausz.mapper.RoleMapper;
 import sk.kosickaakademia.strausz.mapper.UserCreateUpdateMapper;
 import sk.kosickaakademia.strausz.mapper.UserMapper;
 import sk.kosickaakademia.strausz.repository.RoleRepository;
@@ -34,15 +33,14 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final UserCreateUpdateMapper userCreateUpdateMapper;
     private final PasswordEncoder passwordEncoder;
-    private final RoleMapper roleMapper;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper, UserCreateUpdateMapper userCreateUpdateMapper, PasswordEncoder passwordEncoder, RoleMapper roleMapper) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper
+            , UserCreateUpdateMapper userCreateUpdateMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userMapper = userMapper;
         this.userCreateUpdateMapper = userCreateUpdateMapper;
         this.passwordEncoder = passwordEncoder;
-        this.roleMapper = roleMapper;
     }
 
     @Transactional(readOnly = true)
@@ -74,18 +72,11 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-//        Role roleById = roleRepository.findById(userDto.getRoleId())
-//                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-//                        .format("[CREATE]: RoleID [{0}] not found ", userDto.getRoleId())));
-
-
         List<Role> roles = roleRepository.findAllById(userDto.getRoleId());
 
         for (Role r : roles) {
             logger.warn(r.getId() + "");
         }
-
-        //user.setRole(roleById);
 
         user.setRoleSet(new HashSet<>(roles));
         userRepository.save(user);
@@ -98,7 +89,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto deleteById(Integer id) {
-
 
         User userById = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
@@ -119,10 +109,6 @@ public class UserServiceImpl implements UserService {
 //        User userById = userRepository.findById(userDto.getId())
 //                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
 //                        .format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
-
-//        Role role = roleRepository.findById(userDto.getRoleId())
-//                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-//                        .format("[UPDATE]: Role with ID [{0}] not found ", userDto.getRoleId())));
 
         List<Role> roles = roleRepository.findAllById(userDto.getRoleId());
 
