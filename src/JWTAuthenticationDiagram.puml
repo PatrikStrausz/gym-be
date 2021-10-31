@@ -1,0 +1,16 @@
+@startuml
+skinparam actorStyle awesome
+actor User #red
+participant ClientApp
+participant API
+
+User->ClientApp: Login
+ClientApp->API: Sign in request
+API ->API: Generate Token
+API -> ClientApp: Returns the JWT
+ClientApp ->User: Gets access to secured endpoints
+User->ClientApp: Use secured endpoints
+ClientApp -> API: Sends JWT Token on every request
+
+
+@enduml

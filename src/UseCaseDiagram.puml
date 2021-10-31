@@ -1,0 +1,20 @@
+@startuml
+
+skinparam actorStyle awesome
+Admin --> (Admin the application)
+Admin --> (Manage users)
+Admin --> (Manage databases)
+
+
+User --> (Login)
+User --> (Register)
+User --> (Set a daily plan)
+User --> (Choose a Training)
+User --> (Choose a Diet)
+User --> (Choose a goal)
+User --> (Track calories)
+User --> (Manage profile)
+User --> (Calculate BMI)
+
+
+@enduml
