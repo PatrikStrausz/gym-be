@@ -1,6 +1,7 @@
 package sk.kosickaakademia.strausz.security;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,10 +17,9 @@ import java.util.Collection;
 @Service
 public class MyUserDetailsServiceImpl implements UserDetailsService {
 
+    private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
     private final UserRepository userRepository;
 
-    Logger logger = RestExceptionHandler.logger;
-    
     public MyUserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

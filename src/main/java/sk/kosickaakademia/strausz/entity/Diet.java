@@ -28,6 +28,11 @@ public class Diet {
     public Diet() {
     }
 
+    public Diet(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Diet(String name) {
         this.name = name;
     }

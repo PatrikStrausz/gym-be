@@ -32,7 +32,9 @@ import java.util.stream.Collectors;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    public static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
+    private static final String UNQ_USERNAME = "unq_username";
+    private static final String UNQ_EMAIL = "unq_email";
 
 
     @ExceptionHandler(Exception.class)
@@ -52,23 +54,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
         logger.error("Data Integrity error", e);
+        
 
-        String message;
-        int code = 500;
+        if (Objects.requireNonNull(e.getMessage()).contains(UNQ_USERNAME)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), "Username already exists"));
+        } else if (Objects.requireNonNull(e.getMessage()).contains(UNQ_EMAIL)) {
 
-        if (Objects.requireNonNull(e.getMessage()).contains("unq_username")) {
-            message = "Username already exists";
-            code = 400;
-        } else if (Objects.requireNonNull(e.getMessage()).contains("unq_email")) {
-            message = "Email already exists";
-            code = 400;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), "Email already exists"));
         } else {
-            message = "Internal server error";
+            return handleInternalServerError(e);
         }
 
-
-        return ResponseEntity.status(code)
-                .body(new ErrorDto(code, message));
     }
 
 
@@ -157,10 +155,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(TokenExpiredException.class)
     public ResponseEntity<ErrorDto> handleExpiredTokenException(TokenExpiredException e) {
-
-
-        logger.warn("Token expired", e);
-
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new ErrorDto(HttpStatus.UNAUTHORIZED.value(), e.getMessage()));

@@ -16,9 +16,9 @@ public interface UserService {
 
     UserDto deleteById(Integer id);
 
-    UserCreateUpdateDto update(UserCreateUpdateDto userDto, Authentication authentication);
+    UserCreateUpdateDto update(UserDto userDto, Authentication authentication);
 
-    UserDto getUserByUsername(String username);
+    UserDto getUserByUsername();
 
 
 }

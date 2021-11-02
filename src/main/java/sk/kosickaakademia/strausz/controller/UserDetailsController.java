@@ -2,7 +2,6 @@ package sk.kosickaakademia.strausz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDetailsDto;
@@ -37,9 +36,9 @@ public class UserDetailsController {
     }
 
     @PostMapping("/user/details")
-    public UserDetailsDto createUserDetails(@Valid @RequestBody UserDetailsDto userDetailsDto, Authentication authentication) {
+    public UserDetailsDto createUserDetails(@Valid @RequestBody UserDetailsDto userDetailsDto) {
 
-        return userDetailsService.create(userDetailsDto, authentication);
+        return userDetailsService.create(userDetailsDto);
 
 
     }

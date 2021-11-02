@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.api.rest;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 public class UserDto {
 
@@ -22,6 +23,8 @@ public class UserDto {
     @Size(min = 8, message = "password.must.be.equal.or.greater.than.8.characters")
     private String password;
 
+    @NotNull(message = "roleID.cannot.be.null")
+    private Set<Integer> roleId;
 
     public int getId() {
         return id;
@@ -55,5 +58,11 @@ public class UserDto {
         this.password = password;
     }
 
+    public Set<Integer> getRoleId() {
+        return roleId;
+    }
 
+    public void setRoleId(Set<Integer> roleId) {
+        this.roleId = roleId;
+    }
 }

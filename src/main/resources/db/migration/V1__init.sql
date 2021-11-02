@@ -3,14 +3,15 @@ CREATE TABLE users
     id       SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
     email    VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    role_id  integer
+    password VARCHAR(100) NOT NULL
 );
 
 ALTER TABLE users
     ADD Constraint unq_username UNIQUE (username);
 ALTER TABLE users
     ADD Constraint unq_email UNIQUE (email);
+
+
 
 CREATE TABLE role
 (
@@ -43,14 +44,14 @@ CREATE TABLE user_details
 
 CREATE TABLE diet
 (
-    id   integer PRIMARY KEY,
+    id   SERIAL PRIMARY KEY,
     name VARCHAR(100)
 );
 
 
 CREATE TABLE food_diet
 (
-    id      integer PRIMARY KEY,
+    id      SERIAL PRIMARY KEY,
     food_id integer,
     diet_id integer
 
@@ -66,7 +67,7 @@ CREATE TABLE training
 
 CREATE TABLE training_exercise
 (
-    id          integer PRIMARY KEY,
+    id          SERIAL PRIMARY KEY,
     exercise_id integer,
     training_id integer
 );
@@ -152,6 +153,8 @@ CREATE TABLE user_role
     role_id integer
 );
 
+
+
 ALTER TABLE user_role
     ADD CONSTRAINT ur_fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
 ALTER TABLE user_role
@@ -185,31 +188,37 @@ ALTER TABLE exercise_muscle
 ALTER TABLE food_nutrient
     ADD CONSTRAINT fn_fk_nutrient FOREIGN KEY (nutrient_id) REFERENCES nutrient (id) ON DELETE CASCADE;
 
-
-
 CREATE SEQUENCE user_sequence
     START 1
     INCREMENT 1
     MINVALUE 1
     OWNED BY users.id;
-
 CREATE SEQUENCE user_details_sequence
     START 1
     INCREMENT 1
     MINVALUE 1
     OWNED BY user_details.id;
-
 CREATE SEQUENCE food_diet_sequence
     START 1
     INCREMENT 1
     MINVALUE 1
     OWNED BY food_diet.id;
-
 CREATE SEQUENCE user_role_sequence
     START 1
     INCREMENT 1
     MINVALUE 1
     OWNED BY user_role.id;
+CREATE SEQUENCE diet_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY diet.id;
+CREATE SEQUENCE training_exercise_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY training_exercise.id;
+
 
 
 

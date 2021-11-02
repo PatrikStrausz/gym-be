@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final UserCreateUpdateMapper userCreateUpdateMapper;
     private final PasswordEncoder passwordEncoder;
+
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper
             , UserCreateUpdateMapper userCreateUpdateMapper, PasswordEncoder passwordEncoder) {
@@ -102,17 +104,15 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserCreateUpdateDto update(UserCreateUpdateDto userDto, Authentication authentication) {
+    public UserCreateUpdateDto update(UserDto userDto, Authentication authentication) {
 
-        User userByUsername = userRepository.findByUsername(authentication.getName());
-
-//        User userById = userRepository.findById(userDto.getId())
-//                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-//                        .format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
+        User userById = userRepository.findById(userDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
 
         List<Role> roles = roleRepository.findAllById(userDto.getRoleId());
 
-        User user = new User(userByUsername.getId(), userDto.getUsername(), userDto.getEmail()
+        User user = new User(userById.getId(), userDto.getUsername(), userDto.getEmail()
                 , passwordEncoder.encode(userDto.getPassword()), new HashSet<>(roles));
 
         userRepository.save(user);
@@ -121,9 +121,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserByUsername(String username) {
+    public UserDto getUserByUsername() {
 
-        User user = userRepository.findByUsername(username);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userRepository.findByUsername(authentication.getName());
 
         return userMapper.userToUserDto(user);
     }
