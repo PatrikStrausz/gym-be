@@ -80,7 +80,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 }
 
             } catch (Exception e) {
-                logger.warn(MessageFormat.format("Authorization error: {} {}", e.getClass(), e.getMessage()));
+                logger.warn(MessageFormat.format("Authorization error: {0} {1}", e.getClass(), e.getMessage()));
             }
 
             return null;
