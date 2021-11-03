@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -57,25 +58,29 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         if (token != null) {
 
-            DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""));
+            try {
+                DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                        .build()
+                        .verify(token.replace(TOKEN_PREFIX, ""));
+                String user = decodedJWT.getSubject();
 
-            String user = decodedJWT.getSubject();
+                Map<String, Claim> claims = decodedJWT.getClaims();
 
-            Map<String, Claim> claims = decodedJWT.getClaims();
+                Collection<? extends GrantedAuthority> authorities
+                        = claims.get(ROLES_KEY).asList(String.class).stream()
+                        .map(s -> "ROLE_" + s)
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
 
-            Collection<? extends GrantedAuthority> authorities
-                    = claims.get(ROLES_KEY).asList(String.class).stream()
-                    .map(s -> "ROLE_" + s)
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
+                logger.info("AUTHORITIES :" + authorities);
 
-            logger.info("AUTHORITIES :" + authorities);
+                if (user != null) {
 
-            if (user != null) {
+                    return new UsernamePasswordAuthenticationToken(user, null, authorities);
+                }
 
-                return new UsernamePasswordAuthenticationToken(user, null, authorities);
+            } catch (Exception e) {
+                logger.warn(MessageFormat.format("Authorization error: {} {}", e.getClass(), e.getMessage()));
             }
 
             return null;
