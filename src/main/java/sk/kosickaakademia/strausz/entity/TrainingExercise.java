@@ -1,13 +1,20 @@
 package sk.kosickaakademia.strausz.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "training_exercise")
 public class TrainingExercise {
 
     @Id
+    @SequenceGenerator(
+            name = "training_exercise_sequence",
+            sequenceName = "training_exercise_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "training_exercise_sequence"
+    )
     @Column(name = "id")
     private int id;
 

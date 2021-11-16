@@ -1,8 +1,6 @@
 package sk.kosickaakademia.strausz.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "user_role")
 public class UserRole {
@@ -10,6 +8,15 @@ public class UserRole {
 
     @Id
     @Column(name = "id")
+    @SequenceGenerator(
+            name = "user_role_sequence",
+            sequenceName = "user_role_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_role_sequence"
+    )
     private int id;
 
     @Column(name = "user_id")

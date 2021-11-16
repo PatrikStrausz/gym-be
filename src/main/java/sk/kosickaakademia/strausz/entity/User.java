@@ -29,10 +29,6 @@ public class User {
     @OneToOne(mappedBy = "user")
     private UserDetails userDetails;
 
-   /* @OneToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    private Role role;
-*/
 
     @ManyToMany
             (fetch = FetchType.EAGER)
