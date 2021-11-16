@@ -92,6 +92,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         ConstraintViolation<?> next = constraintViolations.iterator().next();
 
+        // TODO 1 ITERATOR
 
         ConstraintViolationDto dto = new ConstraintViolationDto(next.getInvalidValue()
                 , next.getMessage(), next.getConstraintDescriptor());
@@ -104,6 +105,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
+    //TODO 2 REMOVE IF EXCEPTION IS NOT THROWN
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<ErrorDto> handleInvalidCredentialsException(InvalidCredentialsException e) {
 
