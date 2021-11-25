@@ -1,6 +1,5 @@
 package sk.kosickaakademia.strausz.configuration;
 
-import com.auth0.jwt.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -16,15 +15,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import sk.kosickaakademia.strausz.api.rest.ConstraintViolationDto;
 import sk.kosickaakademia.strausz.api.rest.ErrorDto;
 import sk.kosickaakademia.strausz.exception.BusinessException;
-import sk.kosickaakademia.strausz.exception.InvalidCredentialsException;
 import sk.kosickaakademia.strausz.exception.InvalidLoginDataException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -54,7 +49,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
         logger.error("Data Integrity error", e);
-        
+
 
         if (Objects.requireNonNull(e.getMessage()).contains(UNQ_USERNAME)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -92,7 +87,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         ConstraintViolation<?> next = constraintViolations.iterator().next();
 
-        // TODO 1 ITERATOR
+        Iterator<ConstraintViolation<?>> iterator = constraintViolations.iterator();
+        while (iterator.hasNext()) {
+            ConstraintViolation<?> next1 = iterator.next();
+        }
+
 
         ConstraintViolationDto dto = new ConstraintViolationDto(next.getInvalidValue()
                 , next.getMessage(), next.getConstraintDescriptor());
@@ -103,16 +102,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage(), constraintViolationDtos));
 
-    }
-
-    //TODO 2 REMOVE IF EXCEPTION IS NOT THROWN
-    @ExceptionHandler(InvalidCredentialsException.class)
-    public ResponseEntity<ErrorDto> handleInvalidCredentialsException(InvalidCredentialsException e) {
-
-        logger.error("Invalid Credentials", e);
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(new ErrorDto(HttpStatus.FORBIDDEN.value(), e.getMessage()));
     }
 
 

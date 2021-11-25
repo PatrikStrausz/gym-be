@@ -55,6 +55,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             throw new InvalidLoginDataException("Error while parsing login data", e);
         }
 
+
     }
 
     @Override
@@ -70,7 +71,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim(ROLES_KEY, userAuth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
-        
+
         TokenDto tokenDto = new TokenDto();
         tokenDto.setToken(token);
 

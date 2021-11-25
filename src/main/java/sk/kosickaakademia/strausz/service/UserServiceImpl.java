@@ -1,5 +1,6 @@
 package sk.kosickaakademia.strausz.service;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -104,7 +105,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserCreateUpdateDto update(UserDto userDto, Authentication authentication) {
+    public UserCreateUpdateDto update(UserDto userDto) {
 
         User userById = userRepository.findById(userDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat

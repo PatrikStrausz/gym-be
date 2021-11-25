@@ -3,13 +3,11 @@ package sk.kosickaakademia.strausz;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 import sk.kosickaakademia.strausz.api.rest.UserCreateUpdateDto;
 import sk.kosickaakademia.strausz.api.rest.UserDto;
 import sk.kosickaakademia.strausz.entity.User;
@@ -21,9 +19,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+//@SpringBootTest(
+//        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@ActiveProfiles("test")
 //@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class UserServiceUnitTest {
 

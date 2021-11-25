@@ -188,61 +188,39 @@ ALTER TABLE exercise_muscle
 ALTER TABLE food_nutrient
     ADD CONSTRAINT fn_fk_nutrient FOREIGN KEY (nutrient_id) REFERENCES nutrient (id) ON DELETE CASCADE;
 
--- CREATE SEQUENCE user_sequence
---     START 1
---     INCREMENT 1
---     MINVALUE 1
---     OWNED BY users.id;
--- CREATE SEQUENCE user_details_sequence
---     START 1
---     INCREMENT 1
---     MINVALUE 1
---     OWNED BY user_details.id;
--- CREATE SEQUENCE food_diet_sequence
---     START 1
---     INCREMENT 1
---     MINVALUE 1
---     OWNED BY food_diet.id;
--- CREATE SEQUENCE user_role_sequence
---     START 1
---     INCREMENT 1
---     MINVALUE 1
---     OWNED BY user_role.id;
--- CREATE SEQUENCE diet_sequence
---     START 1
---     INCREMENT 1
---     MINVALUE 1
---     OWNED BY diet.id;
--- CREATE SEQUENCE training_exercise_sequence
---     START 1
---     INCREMENT 1
---     MINVALUE 1
---     OWNED BY training_exercise.id;
+CREATE SEQUENCE user_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY users.id;
+CREATE SEQUENCE user_details_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY user_details.id;
+CREATE SEQUENCE food_diet_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY food_diet.id;
+CREATE SEQUENCE user_role_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY user_role.id;
+CREATE SEQUENCE diet_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY diet.id;
+CREATE SEQUENCE training_exercise_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY training_exercise.id;
 
 
-create sequence IF NOT EXISTS user_sequence minvalue 0 increment 1 minvalue 1 start 1;
-alter table users
-    alter column id set default nextval('user_sequence');
 
-create sequence IF NOT EXISTS user_details_sequence minvalue 0 increment 1 minvalue 1 start 1;
-alter table user_details
-    alter column id set default nextval('user_details_sequence');
-
-create sequence IF NOT EXISTS food_diet_sequence minvalue 0 increment 1 minvalue 1 start 1;
-alter table food_diet
-    alter column id set default nextval('food_diet_sequence');
-
-create sequence IF NOT EXISTS user_role_sequence minvalue 0 increment 1 minvalue 1 start 1;
-alter table user_role
-    alter column id set default nextval('user_role_sequence');
-
-create sequence IF NOT EXISTS diet_sequence minvalue 0 increment 1 minvalue 1 start 1;
-alter table diet
-    alter column id set default nextval('diet_sequence');
-
-create sequence IF NOT EXISTS training_exercise_sequence minvalue 0 increment 1 minvalue 1 start 1;
-alter table training_exercise
-    alter column id set default nextval('training_exercise_sequence');
 
 
 

@@ -1,6 +1,5 @@
 package sk.kosickaakademia.strausz.service;
 
-import org.springframework.security.core.Authentication;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserCreateUpdateDto;
 import sk.kosickaakademia.strausz.api.rest.UserDto;
@@ -16,7 +15,7 @@ public interface UserService {
 
     UserDto deleteById(Integer id);
 
-    UserCreateUpdateDto update(UserDto userDto, Authentication authentication);
+    UserCreateUpdateDto update(UserDto userDto);
 
     UserDto getUserByUsername();
 

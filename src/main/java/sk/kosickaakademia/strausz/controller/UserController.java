@@ -1,8 +1,8 @@
 package sk.kosickaakademia.strausz.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserCreateUpdateDto;
@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;
@@ -42,7 +43,7 @@ public class UserController {
     @GetMapping("/user/username")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public UserDto getUserByUsername() {
-        
+
         return userService.getUserByUsername();
 
     }
@@ -63,9 +64,9 @@ public class UserController {
 
     @PutMapping("/user")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public UserCreateUpdateDto patchUser(@Valid @RequestBody UserDto user, Authentication authentication) {
+    public UserCreateUpdateDto patchUser(@Valid @RequestBody UserDto user) {
 
-        return userService.update(user, authentication);
+        return userService.update(user);
     }
 }
 
