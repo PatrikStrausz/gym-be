@@ -13,6 +13,9 @@ public class Muscle {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "image_small")
     private String imageSmall;
 
@@ -55,5 +58,13 @@ public class Muscle {
 
     public void setExerciseSet(Set<Exercise> exerciseSet) {
         this.exerciseSet = exerciseSet;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
