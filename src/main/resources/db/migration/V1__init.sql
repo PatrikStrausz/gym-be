@@ -74,18 +74,20 @@ CREATE TABLE training_exercise
 
 CREATE TABLE exercise
 (
-    id                 integer PRIMARY KEY,
-    name               VARCHAR(100),
-    exercise_type      VARCHAR(100),
-    equipment_required VARCHAR(100),
-    mechanics          VARCHAR(100),
-    forcetype          VARCHAR(100),
-    experience_level   VARCHAR(100),
-    overview           TEXT,
-    instructions       TEXT,
-    tips               TEXT,
-    image              TEXT,
-    video              TEXT
+    id                  integer PRIMARY KEY,
+    name                VARCHAR(100),
+    target_muscle_group VARCHAR(100),
+    exercise_type       VARCHAR(100),
+    equipment_required  VARCHAR(100),
+    mechanics           VARCHAR(100),
+    forcetype           VARCHAR(100),
+    experience_level    VARCHAR(100),
+    secondary_muscles   VARCHAR(100),
+    overview            TEXT,
+    instructions        TEXT,
+    tips                TEXT,
+    video               TEXT,
+    image               TEXT
 );
 
 

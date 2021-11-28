@@ -10,6 +10,9 @@ public class Exercise {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "target_muscle_group")
+    private String targetMuscleGroup;
+
     @Column(name = "exercise_type")
     private String exerciseType;
 
@@ -24,6 +27,9 @@ public class Exercise {
 
     @Column(name = "experience_level")
     private String experienceLevel;
+
+    @Column(name = "secondary_muscles")
+    private String secondaryMuscles;
 
     @Column(name = "overview")
     private String overview;
@@ -55,18 +61,6 @@ public class Exercise {
     public Exercise() {
     }
 
-    public Exercise(String exerciseType, String equipmentRequired, String mechanics, String forcetype, String experienceLevel, String overview, String instructions, String tips, String image, String video) {
-        this.exerciseType = exerciseType;
-        this.equipmentRequired = equipmentRequired;
-        this.mechanics = mechanics;
-        this.forcetype = forcetype;
-        this.experienceLevel = experienceLevel;
-        this.overview = overview;
-        this.instructions = instructions;
-        this.tips = tips;
-        this.image = image;
-        this.video = video;
-    }
 
     public int getId() {
         return id;
@@ -170,5 +164,21 @@ public class Exercise {
 
     public void setTrainingSet(Set<Training> trainingSet) {
         this.trainingSet = trainingSet;
+    }
+
+    public String getTargetMuscleGroup() {
+        return targetMuscleGroup;
+    }
+
+    public void setTargetMuscleGroup(String targetMuscleGroup) {
+        this.targetMuscleGroup = targetMuscleGroup;
+    }
+
+    public String getSecondaryMuscles() {
+        return secondaryMuscles;
+    }
+
+    public void setSecondaryMuscles(String secondaryMuscles) {
+        this.secondaryMuscles = secondaryMuscles;
     }
 }

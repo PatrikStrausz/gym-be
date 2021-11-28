@@ -10,6 +10,9 @@ public class ExerciseDto {
     @NotNull(message = "name.cannot.be.null")
     private String name;
 
+    @NotNull(message = "name.cannot.be.null")
+    private String targetMuscleGroup;
+
     @NotNull(message = "exerciseType.cannot.be.null")
     private String exerciseType;
 
@@ -24,6 +27,9 @@ public class ExerciseDto {
 
     @NotNull(message = "experienceLevel.cannot.be.null")
     private String experienceLevel;
+
+    @NotNull(message = "secondary_muscles.cannot.be.null")
+    private String secondaryMuscles;
 
     @NotNull(message = "overview.cannot.be.null")
     private String overview;
@@ -40,14 +46,18 @@ public class ExerciseDto {
     @NotNull(message = "video.cannot.be.null")
     private String video;
 
-    public ExerciseDto(Integer id, String name, String exerciseType, String equipmentRequired, String mechanics, String forcetype, String experienceLevel, String overview, String instructions, String tips, String image, String video) {
+    public ExerciseDto(Integer id, String name, String targetMuscleGroup, String exerciseType, String equipmentRequired,
+                       String mechanics, String forcetype, String experienceLevel, String secondaryMuscles,
+                       String overview, String instructions, String tips, String image, String video) {
         this.id = id;
         this.name = name;
+        this.targetMuscleGroup = targetMuscleGroup;
         this.exerciseType = exerciseType;
         this.equipmentRequired = equipmentRequired;
         this.mechanics = mechanics;
         this.forcetype = forcetype;
         this.experienceLevel = experienceLevel;
+        this.secondaryMuscles = secondaryMuscles;
         this.overview = overview;
         this.instructions = instructions;
         this.tips = tips;
@@ -149,5 +159,21 @@ public class ExerciseDto {
 
     public void setVideo(String video) {
         this.video = video;
+    }
+
+    public String getTargetMuscleGroup() {
+        return targetMuscleGroup;
+    }
+
+    public void setTargetMuscleGroup(String targetMuscleGroup) {
+        this.targetMuscleGroup = targetMuscleGroup;
+    }
+
+    public String getSecondaryMuscles() {
+        return secondaryMuscles;
+    }
+
+    public void setSecondaryMuscles(String secondaryMuscles) {
+        this.secondaryMuscles = secondaryMuscles;
     }
 }
