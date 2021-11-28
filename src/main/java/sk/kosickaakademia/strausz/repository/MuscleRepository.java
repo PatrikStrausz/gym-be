@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import sk.kosickaakademia.strausz.entity.Muscle;
 
 @Repository
-public interface MuscleRepository extends JpaRepository<Muscle,Integer> {
+public interface MuscleRepository extends JpaRepository<Muscle, Integer> {
 }

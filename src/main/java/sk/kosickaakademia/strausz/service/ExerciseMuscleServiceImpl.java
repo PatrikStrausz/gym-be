@@ -44,4 +44,6 @@ public class ExerciseMuscleServiceImpl implements ExerciseMuscleService {
 
         return exerciseMuscleMapper.exerciseMuscleToExerciseMuscleDto(exerciseMuscleById);
     }
+
+
 }

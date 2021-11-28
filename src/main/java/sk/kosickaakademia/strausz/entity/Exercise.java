@@ -10,6 +10,9 @@ public class Exercise {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "target_muscle_group")
     private String targetMuscleGroup;
 
@@ -180,5 +183,13 @@ public class Exercise {
 
     public void setSecondaryMuscles(String secondaryMuscles) {
         this.secondaryMuscles = secondaryMuscles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

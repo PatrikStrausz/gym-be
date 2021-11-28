@@ -1,6 +1,8 @@
 package sk.kosickaakademia.strausz.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity(name = "exercise_muscle")
 public class ExerciseMuscle {
@@ -16,16 +18,13 @@ public class ExerciseMuscle {
     private int exerciseID;
 
 
-    @Column(name = "is_main")
-    private boolean isMain;
-
     public ExerciseMuscle() {
     }
 
-    public ExerciseMuscle(int muscleId, int exerciseID, boolean isMain) {
+    public ExerciseMuscle(int muscleId, int exerciseID) {
         this.muscleId = muscleId;
         this.exerciseID = exerciseID;
-        this.isMain = isMain;
+
     }
 
     public int getId() {
@@ -36,13 +35,6 @@ public class ExerciseMuscle {
         this.id = id;
     }
 
-    public boolean isMain() {
-        return isMain;
-    }
-
-    public void setMain(boolean main) {
-        isMain = main;
-    }
 
     public int getMuscleId() {
         return muscleId;

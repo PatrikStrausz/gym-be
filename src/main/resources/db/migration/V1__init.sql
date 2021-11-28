@@ -106,8 +106,7 @@ CREATE TABLE exercise_muscle
 (
     id          integer PRIMARY KEY,
     muscle_id   integer NOT NULL,
-    exercise_id integer NOT NULL,
-    is_main     boolean NOT NULL
+    exercise_id integer NOT NULL
 
 );
 

@@ -55,4 +55,13 @@ public class TrainingExercise {
     public void setTrainingId(int trainingId) {
         this.trainingId = trainingId;
     }
+
+    @Override
+    public String toString() {
+        return "TrainingExercise{" +
+                "id=" + id +
+                ", exerciseId=" + exerciseId +
+                ", trainingId=" + trainingId +
+                '}';
+    }
 }

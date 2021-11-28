@@ -14,14 +14,11 @@ public class ExerciseMuscleDto {
     private int exerciseID;
 
 
-    @NotNull(message = "isMain.cannot.be.null")
-    private boolean isMain;
-
-    public ExerciseMuscleDto(int id, int muscleId, int exerciseID, boolean isMain) {
+    public ExerciseMuscleDto(int id, int muscleId, int exerciseID) {
         this.id = id;
         this.muscleId = muscleId;
         this.exerciseID = exerciseID;
-        this.isMain = isMain;
+
     }
 
     public int getId() {
@@ -48,11 +45,5 @@ public class ExerciseMuscleDto {
         this.exerciseID = exerciseID;
     }
 
-    public boolean isMain() {
-        return isMain;
-    }
 
-    public void setMain(boolean main) {
-        isMain = main;
-    }
 }

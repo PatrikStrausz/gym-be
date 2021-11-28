@@ -24,6 +24,12 @@ public class ExerciseController {
         return exerciseService.getExercises(page);
     }
 
+    @GetMapping(path = "/exercise/by/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public GenericListDto<ExerciseDto> getExercisesByMuscle(@PathVariable int id) {
+        return exerciseService.getExercisesByMuscle(id);
+    }
+
     @GetMapping("/exercise/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ExerciseDto getExerciseById(@PathVariable int id) {

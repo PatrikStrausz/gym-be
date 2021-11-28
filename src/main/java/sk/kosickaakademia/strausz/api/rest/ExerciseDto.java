@@ -46,6 +46,9 @@ public class ExerciseDto {
     @NotNull(message = "video.cannot.be.null")
     private String video;
 
+    public ExerciseDto() {
+    }
+
     public ExerciseDto(Integer id, String name, String targetMuscleGroup, String exerciseType, String equipmentRequired,
                        String mechanics, String forcetype, String experienceLevel, String secondaryMuscles,
                        String overview, String instructions, String tips, String image, String video) {
