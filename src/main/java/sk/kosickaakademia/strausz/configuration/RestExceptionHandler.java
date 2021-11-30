@@ -81,23 +81,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorDto> handleConstraintViolationException(ConstraintViolationException e) {
 
-
         logger.warn("Constraint violation error", e);
 
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
-        ConstraintViolation<?> next = constraintViolations.iterator().next();
 
         Iterator<ConstraintViolation<?>> iterator = constraintViolations.iterator();
-        while (iterator.hasNext()) {
-            ConstraintViolation<?> next1 = iterator.next();
-        }
-
-
-        ConstraintViolationDto dto = new ConstraintViolationDto(next.getInvalidValue()
-                , next.getMessage(), next.getConstraintDescriptor());
-
         List<ConstraintViolationDto> constraintViolationDtos = new ArrayList<>();
-        constraintViolationDtos.add(dto);
+
+        while (iterator.hasNext()) {
+            ConstraintViolation<?> next = iterator.next();
+            ConstraintViolationDto dto = new ConstraintViolationDto(next.getInvalidValue()
+                    , next.getMessage(), next.getConstraintDescriptor());
+            constraintViolationDtos.add(dto);
+        }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage(), constraintViolationDtos));

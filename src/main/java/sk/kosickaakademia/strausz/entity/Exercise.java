@@ -49,7 +49,7 @@ public class Exercise {
     @Column(name = "video")
     private String video;
 
-
+    //TODO zmenit na manytoOne
     @ManyToMany
     @JoinTable(
             name = "exercise_muscle",

@@ -8,7 +8,11 @@ public interface ExerciseService {
     GenericListDto<ExerciseDto> getExercises(int page);
 
 
-    GenericListDto<ExerciseDto> getExercisesByMuscle(Integer id);
+    GenericListDto<ExerciseDto> getExercisesByMuscle(Integer id, Integer pageIndex, Integer pageSize);
 
     ExerciseDto getExerciseById(Integer id);
+
+    Integer getExercisesByMuscleCount(Integer id);
+
+
 }

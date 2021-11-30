@@ -9,48 +9,44 @@ public class ExerciseMuscle {
 
     @Id
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "muscle_id")
-    private int muscleId;
+    private Integer muscleId;
 
     @Column(name = "exercise_id")
-    private int exerciseID;
+    private Integer exerciseID;
 
 
     public ExerciseMuscle() {
     }
 
-    public ExerciseMuscle(int muscleId, int exerciseID) {
+    public ExerciseMuscle(Integer muscleId, Integer exerciseID) {
         this.muscleId = muscleId;
         this.exerciseID = exerciseID;
-
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-
-    public int getMuscleId() {
+    public Integer getMuscleId() {
         return muscleId;
     }
 
-    public void setMuscleId(int muscleId) {
+    public void setMuscleId(Integer muscleId) {
         this.muscleId = muscleId;
     }
 
-    public int getExerciseID() {
+    public Integer getExerciseID() {
         return exerciseID;
     }
 
-    public void setExerciseID(int exerciseID) {
+    public void setExerciseID(Integer exerciseID) {
         this.exerciseID = exerciseID;
     }
-
-
 }
