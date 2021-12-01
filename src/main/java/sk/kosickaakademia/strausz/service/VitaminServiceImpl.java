@@ -1,8 +1,6 @@
 package sk.kosickaakademia.strausz.service;
 
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
@@ -30,7 +28,7 @@ public class VitaminServiceImpl implements VitaminService {
     @Transactional(readOnly = true)
     @Override
     public GenericListDto<VitaminDto> getVitamins(int page) {
-        Page<Vitamin> vitamins = vitaminRepository.findAll(PageRequest.of(page, 20));
+        List<Vitamin> vitamins = vitaminRepository.findAll();
 
         List<VitaminDto> vitaminDtoList = vitaminMapper.vitaminListToVitaminListDto(vitamins);
 

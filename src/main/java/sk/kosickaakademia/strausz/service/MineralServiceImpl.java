@@ -1,7 +1,5 @@
 package sk.kosickaakademia.strausz.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
@@ -29,7 +27,7 @@ public class MineralServiceImpl implements MineralService {
     @Transactional(readOnly = true)
     @Override
     public GenericListDto<MineralDto> getMinerals(int page) {
-        Page<Mineral> minerals = mineralRepository.findAll(PageRequest.of(page, 20));
+        List<Mineral> minerals = mineralRepository.findAll();
 
         List<MineralDto> vitaminDtoList = mineralMapper.mineralListToMineralListDto(minerals);
 

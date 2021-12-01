@@ -1,6 +1,6 @@
 package sk.kosickaakademia.strausz.api.rest;
 
-public class ENumberDto {
+public class PreservativeDto {
 
     private Integer id;
 

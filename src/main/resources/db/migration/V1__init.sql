@@ -168,10 +168,12 @@ CREATE TABLE vitamin
 
 CREATE TABLE mineral
 (
-    id           integer PRIMARY KEY,
-    name         VARCHAR(100),
-    function     TEXT,
-    food_sources TEXT
+    id                 integer PRIMARY KEY,
+    name               VARCHAR(100),
+    benefits           TEXT,
+    recommended_amount TEXT,
+    upper_limit        TEXT,
+    food_sources       TEXT
 );
 
 CREATE TABLE e_number

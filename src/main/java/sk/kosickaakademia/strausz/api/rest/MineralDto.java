@@ -7,7 +7,11 @@ public class MineralDto {
 
     private String name;
 
-    private String function;
+    private String benefits;
+
+    private String recommendedAmount;
+
+    private String upperLimit;
 
     private String foodSources;
 
@@ -27,12 +31,28 @@ public class MineralDto {
         this.name = name;
     }
 
-    public String getFunction() {
-        return function;
+    public String getBenefits() {
+        return benefits;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public void setBenefits(String benefits) {
+        this.benefits = benefits;
+    }
+
+    public String getRecommendedAmount() {
+        return recommendedAmount;
+    }
+
+    public void setRecommendedAmount(String recommendedAmount) {
+        this.recommendedAmount = recommendedAmount;
+    }
+
+    public String getUpperLimit() {
+        return upperLimit;
+    }
+
+    public void setUpperLimit(String upperLimit) {
+        this.upperLimit = upperLimit;
     }
 
     public String getFoodSources() {

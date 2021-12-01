@@ -14,8 +14,14 @@ public class Mineral {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "function")
-    private String function;
+    @Column(name = "benefits")
+    private String benefits;
+
+    @Column(name = "recommended_amount")
+    private String recommendedAmount;
+
+    @Column(name = "upper_limit")
+    private String upperLimit;
 
     @Column(name = "food_sources")
     private String foodSources;
@@ -23,9 +29,12 @@ public class Mineral {
     public Mineral() {
     }
 
-    public Mineral(String name, String function, String foodSources) {
+
+    public Mineral(String name, String benefits, String recommendedAmount, String upperLimit, String foodSources) {
         this.name = name;
-        this.function = function;
+        this.benefits = benefits;
+        this.recommendedAmount = recommendedAmount;
+        this.upperLimit = upperLimit;
         this.foodSources = foodSources;
     }
 
@@ -45,12 +54,28 @@ public class Mineral {
         this.name = name;
     }
 
-    public String getFunction() {
-        return function;
+    public String getBenefits() {
+        return benefits;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public void setBenefits(String benefits) {
+        this.benefits = benefits;
+    }
+
+    public String getRecommendedAmount() {
+        return recommendedAmount;
+    }
+
+    public void setRecommendedAmount(String recommendedAmount) {
+        this.recommendedAmount = recommendedAmount;
+    }
+
+    public String getUpperLimit() {
+        return upperLimit;
+    }
+
+    public void setUpperLimit(String upperLimit) {
+        this.upperLimit = upperLimit;
     }
 
     public String getFoodSources() {
