@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.ExerciseDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.configuration.RestExceptionHandler;
@@ -39,6 +40,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         this.muscleMapper = muscleMapper;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public GenericListDto<ExerciseDto> getExercises(int page) {
         Page<Exercise> exercises = exerciseRepository.findAll(PageRequest.of(page, 20));
@@ -48,6 +50,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         return new GenericListDto<>(exerciseDtoList);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public GenericListDto<ExerciseDto> getExercisesByMuscle(Integer id, Integer pageIndex, Integer pageSize) {
         Muscle muscle = muscleRepository.findById(id)
@@ -64,6 +67,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         return new GenericListDto<>(exerciseDtoList);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Integer getExercisesByMuscleCount(Integer id) {
         Muscle muscle = muscleRepository.findById(id)
@@ -77,6 +81,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         return exerciseDto.size();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ExerciseDto getExerciseById(Integer id) {
         Exercise exerciseById = exerciseRepository.findById(id)

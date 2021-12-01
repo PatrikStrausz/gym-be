@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.FoodDietDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.entity.FoodDiet;
@@ -26,6 +27,7 @@ public class FoodDietServiceImpl implements FoodDietService {
     }
 
 
+    @Transactional(readOnly = true)
     @Override
     public GenericListDto<FoodDietDto> getFoodDiets(int page) {
         Page<FoodDiet> foods = foodDietRepository.findAll(PageRequest.of(page, 20));
@@ -35,6 +37,7 @@ public class FoodDietServiceImpl implements FoodDietService {
         return new GenericListDto<>(foodListDto);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public FoodDietDto getFoodDietById(Integer id) {
         FoodDiet foodById = foodDietRepository.findById(id)

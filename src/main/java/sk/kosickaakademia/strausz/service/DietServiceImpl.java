@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.DietCreateUpdateDto;
 import sk.kosickaakademia.strausz.api.rest.DietDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
@@ -29,6 +30,7 @@ public class DietServiceImpl implements DietService {
         this.dietCreateUpdateMapper = dietCreateUpdateMapper;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public GenericListDto<DietDto> getDiets(int page) {
         Page<Diet> diets = dietRepository.findAll(PageRequest.of(page, 20));
@@ -38,6 +40,7 @@ public class DietServiceImpl implements DietService {
         return new GenericListDto<>(dietDtoList);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public DietDto getDietById(Integer id) {
         Diet dietById = dietRepository.findById(id)
@@ -47,6 +50,7 @@ public class DietServiceImpl implements DietService {
         return dietMapper.dietToDietDto(dietById);
     }
 
+    @Transactional
     @Override
     public DietCreateUpdateDto create(DietCreateUpdateDto dietCreateUpdateDto) {
         Diet diet = dietCreateUpdateMapper.dietDtoToDiet(dietCreateUpdateDto);
@@ -56,6 +60,7 @@ public class DietServiceImpl implements DietService {
         return dietCreateUpdateMapper.dietToDietDto(diet);
     }
 
+    @Transactional
     @Override
     public DietCreateUpdateDto update(DietDto dietDto) {
 
@@ -70,6 +75,7 @@ public class DietServiceImpl implements DietService {
         return dietCreateUpdateMapper.dietToDietDto(diet);
     }
 
+    @Transactional
     @Override
     public DietDto deleteById(Integer id) {
         Diet dietById = dietRepository.findById(id)

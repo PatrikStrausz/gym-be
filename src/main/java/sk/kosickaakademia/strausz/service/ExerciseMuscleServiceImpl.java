@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.ExerciseMuscleDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.entity.ExerciseMuscle;
@@ -26,6 +27,7 @@ public class ExerciseMuscleServiceImpl implements ExerciseMuscleService {
         this.exerciseMuscleMapper = exerciseMuscleMapper;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public GenericListDto<ExerciseMuscleDto> getExerciseMuscles(int page) {
         Page<ExerciseMuscle> exercises = exerciseMuscleRepository.findAll(PageRequest.of(page, 20));
@@ -36,6 +38,7 @@ public class ExerciseMuscleServiceImpl implements ExerciseMuscleService {
         return new GenericListDto<>(exerciseDtoList);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ExerciseMuscleDto getExerciseMuscleById(Integer id) {
         ExerciseMuscle exerciseMuscleById = exerciseMuscleRepository.findById(id)

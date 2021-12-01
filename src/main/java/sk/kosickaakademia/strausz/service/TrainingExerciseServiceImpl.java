@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.TrainingExerciseDto;
 import sk.kosickaakademia.strausz.entity.TrainingExercise;
@@ -26,6 +27,7 @@ public class TrainingExerciseServiceImpl implements TrainingExerciseService {
         this.trainingExerciseMapper = trainingExerciseMapper;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public GenericListDto<TrainingExerciseDto> getTrainingExercises(int page) {
         Page<TrainingExercise> trainingExercises = trainingExerciseRepository.findAll(PageRequest.of(page, 20));
@@ -36,6 +38,7 @@ public class TrainingExerciseServiceImpl implements TrainingExerciseService {
         return new GenericListDto<>(trainingExerciseDtoList);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public TrainingExerciseDto getTrainingExerciseById(Integer id) {
         TrainingExercise trainingExerciseById = trainingExerciseRepository.findById(id)

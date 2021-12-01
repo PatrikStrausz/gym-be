@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.FoodNutrientDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.entity.FoodNutrient;
@@ -26,6 +27,7 @@ public class FoodNutrientServiceImpl implements FoodNutrientService {
         this.foodNutrientMapper = foodNutrientMapper;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public GenericListDto<FoodNutrientDto> getFoodNutrients(int page) {
         Page<FoodNutrient> foodNutrients = foodNutrientRepository.findAll(PageRequest.of(page, 20));
@@ -36,6 +38,7 @@ public class FoodNutrientServiceImpl implements FoodNutrientService {
         return new GenericListDto<>(foodNutrientDtoList);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public FoodNutrientDto getFoodNutrientById(Integer id) {
         FoodNutrient foodNutrientById = foodNutrientRepository.findById(id)

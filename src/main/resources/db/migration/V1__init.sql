@@ -155,6 +155,33 @@ CREATE TABLE user_role
 );
 
 
+CREATE TABLE vitamin
+(
+    id                 integer PRIMARY KEY,
+    name               VARCHAR(100),
+    benefits           TEXT,
+    recommended_amount TEXT,
+    upper_limit        TEXT,
+    food_sources       TEXT
+);
+
+
+CREATE TABLE mineral
+(
+    id           integer PRIMARY KEY,
+    name         VARCHAR(100),
+    function     TEXT,
+    food_sources TEXT
+);
+
+CREATE TABLE e_number
+(
+    id              integer PRIMARY KEY,
+    name            VARCHAR(100),
+    dangerous_level integer
+);
+
+
 
 ALTER TABLE user_role
     ADD CONSTRAINT ur_fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
