@@ -1,28 +1,41 @@
 package sk.kosickaakademia.strausz.api.rest;
 
-import javax.validation.constraints.NotNull;
-
 public class FoodListDto {
 
-    @NotNull(message = "id.cannot.be.null")
+
     private Long id;
 
-    @NotNull(message = "description.cannot.be.null")
-    private String description;
+    private String name;
 
-    @NotNull(message = "foodCategoryId.cannot.be.null")
-    private String foodCategoryId;
+    private int energyValue;
 
-    @NotNull(message = "publicationDate.cannot.be.null")
-    private String publicationDate;
+    private String details;
 
+    private double protein;
 
-    public FoodListDto(Long id, String description, String foodCategoryId, String publicationDate) {
-        this.id = id;
-        this.description = description;
-        this.foodCategoryId = foodCategoryId;
-        this.publicationDate = publicationDate;
-    }
+    private double carbohydrates;
+
+    private double fats;
+
+    private double saturatedFattyAcids;
+
+    private double transFattyAcids;
+
+    private double monounsaturated;
+
+    private double semiSaturated;
+
+    private double cholesterol;
+
+    private double fiber;
+
+    private double salt;
+
+    private double water;
+
+    private double calcium;
+
+    private double phe;
 
     public Long getId() {
         return id;
@@ -32,27 +45,131 @@ public class FoodListDto {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getFoodCategoryId() {
-        return foodCategoryId;
+    public int getEnergyValue() {
+        return energyValue;
     }
 
-    public void setFoodCategoryId(String foodCategoryId) {
-        this.foodCategoryId = foodCategoryId;
+    public void setEnergyValue(int energyValue) {
+        this.energyValue = energyValue;
     }
 
-    public String getPublicationDate() {
-        return publicationDate;
+    public String getDetails() {
+        return details;
     }
 
-    public void setPublicationDate(String publicationDate) {
-        this.publicationDate = publicationDate;
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public double getProtein() {
+        return protein;
+    }
+
+    public void setProtein(double protein) {
+        this.protein = protein;
+    }
+
+    public double getCarbohydrates() {
+        return carbohydrates;
+    }
+
+    public void setCarbohydrates(double carbohydrates) {
+        this.carbohydrates = carbohydrates;
+    }
+
+    public double getFats() {
+        return fats;
+    }
+
+    public void setFats(double fats) {
+        this.fats = fats;
+    }
+
+    public double getSaturatedFattyAcids() {
+        return saturatedFattyAcids;
+    }
+
+    public void setSaturatedFattyAcids(double saturatedFattyAcids) {
+        this.saturatedFattyAcids = saturatedFattyAcids;
+    }
+
+    public double getTransFattyAcids() {
+        return transFattyAcids;
+    }
+
+    public void setTransFattyAcids(double transFattyAcids) {
+        this.transFattyAcids = transFattyAcids;
+    }
+
+    public double getMonounsaturated() {
+        return monounsaturated;
+    }
+
+    public void setMonounsaturated(double monounsaturated) {
+        this.monounsaturated = monounsaturated;
+    }
+
+    public double getSemiSaturated() {
+        return semiSaturated;
+    }
+
+    public void setSemiSaturated(double semiSaturated) {
+        this.semiSaturated = semiSaturated;
+    }
+
+    public double getCholesterol() {
+        return cholesterol;
+    }
+
+    public void setCholesterol(double cholesterol) {
+        this.cholesterol = cholesterol;
+    }
+
+    public double getFiber() {
+        return fiber;
+    }
+
+    public void setFiber(double fiber) {
+        this.fiber = fiber;
+    }
+
+    public double getSalt() {
+        return salt;
+    }
+
+    public void setSalt(double salt) {
+        this.salt = salt;
+    }
+
+    public double getWater() {
+        return water;
+    }
+
+    public void setWater(double water) {
+        this.water = water;
+    }
+
+    public double getCalcium() {
+        return calcium;
+    }
+
+    public void setCalcium(double calcium) {
+        this.calcium = calcium;
+    }
+
+    public double getPhe() {
+        return phe;
+    }
+
+    public void setPhe(double phe) {
+        this.phe = phe;
     }
 }

@@ -93,11 +93,26 @@ CREATE TABLE exercise
 
 CREATE TABLE food
 (
-    fdc_id           bigint PRIMARY KEY,
-    data_type        VARCHAR(100),
-    description      VARCHAR(100),
-    food_category_id VARCHAR(100),
-    publication_date VARCHAR(100)
+    id                    bigint PRIMARY KEY,
+    name                  VARCHAR(100),
+    energy_value          integer,
+    protein               double precision,
+    carbohydrates         double precision,
+    sugars                double precision,
+    fats                  double precision,
+    saturated_fatty_acids double precision,
+    trans_fatty_acids     double precision,
+    monounsaturated       double precision,
+    semi_saturated        double precision,
+    cholesterol           double precision,
+    fiber                 double precision,
+    salt                  double precision,
+    water                 double precision,
+    calcium               double precision,
+    phe                   double precision,
+    details               TEXT
+
+
 );
 
 
@@ -107,23 +122,6 @@ CREATE TABLE exercise_muscle
     id          integer PRIMARY KEY,
     muscle_id   integer NOT NULL,
     exercise_id integer NOT NULL
-
-);
-
-
-CREATE TABLE food_nutrient
-(
-    id               integer PRIMARY KEY,
-    fdc_id           integer NOT NULL,
-    nutrient_id      integer NOT NULL,
-    amount           double precision,
-    data_points      VARCHAR(100),
-    derivation_id    VARCHAR(100),
-    min              VARCHAR(100),
-    max              VARCHAR(100),
-    median           VARCHAR(100),
-    footnote         VARCHAR(100),
-    min_year_acqured VARCHAR(100)
 
 );
 
@@ -138,14 +136,7 @@ CREATE TABLE muscle
     image_big   TEXT         NOT NULL
 );
 
-CREATE TABLE nutrient
-(
-    id           integer PRIMARY KEY,
-    name         VARCHAR(100),
-    unit_name    VARCHAR(100),
-    nutrient_nbr VARCHAR(100),
-    rank         VARCHAR(100)
-);
+
 
 CREATE TABLE user_role
 (
@@ -176,11 +167,25 @@ CREATE TABLE mineral
     food_sources       TEXT
 );
 
-CREATE TABLE e_number
+CREATE TABLE preservative
 (
     id              integer PRIMARY KEY,
     name            VARCHAR(100),
     dangerous_level integer
+);
+
+CREATE table food_vitamin
+(
+    id         SERIAL PRIMARY KEY,
+    food_id    integer,
+    vitamin_id integer
+);
+
+CREATE table food_mineral
+(
+    id         SERIAL PRIMARY KEY,
+    food_id    integer,
+    mineral_id integer
 );
 
 
@@ -200,7 +205,7 @@ ALTER TABLE user_details
 
 
 ALTER TABLE food_diet
-    ADD CONSTRAINT fd_fk_food FOREIGN KEY (food_id) REFERENCES food (fdc_id) ON DELETE CASCADE;
+    ADD CONSTRAINT fd_fk_food FOREIGN KEY (food_id) REFERENCES food (id) ON DELETE CASCADE;
 ALTER TABLE food_diet
     ADD CONSTRAINT fd_fk_diet FOREIGN KEY (diet_id) REFERENCES diet (id) ON DELETE CASCADE;
 
@@ -215,8 +220,17 @@ ALTER TABLE exercise_muscle
 ALTER TABLE exercise_muscle
     ADD CONSTRAINT em_exercise FOREIGN KEY (exercise_id) REFERENCES exercise (id) ON DELETE CASCADE;
 
-ALTER TABLE food_nutrient
-    ADD CONSTRAINT fn_fk_nutrient FOREIGN KEY (nutrient_id) REFERENCES nutrient (id) ON DELETE CASCADE;
+ALTER TABLE food_vitamin
+    ADD CONSTRAINT fv_fk_food FOREIGN KEY (food_id) REFERENCES food (id) ON DELETE CASCADE;
+ALTER TABLE food_vitamin
+    ADD CONSTRAINT fv_fk_vitamin FOREIGN KEY (vitamin_id) REFERENCES vitamin (id) ON DELETE CASCADE;
+
+ALTER TABLE food_mineral
+    ADD CONSTRAINT fm_fk_food FOREIGN KEY (food_id) REFERENCES food (id) ON DELETE CASCADE;
+ALTER TABLE food_mineral
+    ADD CONSTRAINT fm_fk_mineral FOREIGN KEY (mineral_id) REFERENCES mineral (id) ON DELETE CASCADE;
+
+
 
 CREATE SEQUENCE user_sequence
     START 1
@@ -248,6 +262,18 @@ CREATE SEQUENCE training_exercise_sequence
     INCREMENT 1
     MINVALUE 1
     OWNED BY training_exercise.id;
+CREATE SEQUENCE food_vitamin_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY food_vitamin.id;
+CREATE SEQUENCE food_mineral_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY food_mineral.id;
+
+
 
 
 

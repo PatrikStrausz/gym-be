@@ -5,5 +5,6 @@ import org.springframework.stereotype.Repository;
 import sk.kosickaakademia.strausz.entity.Food;
 
 @Repository
-public interface FoodRepository extends JpaRepository<Food,Long> {
+public interface FoodRepository extends JpaRepository<Food, Long> {
+
 }

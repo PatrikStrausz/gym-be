@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name = "e_number")
+@Entity(name = "preservative")
 public class Preservative {
 
     @Id

@@ -33,4 +33,10 @@ public class VitaminController {
 
     }
 
+    @GetMapping(path = "/vitamin/by/food/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public GenericListDto<VitaminDto> getVitaminsByFood(@PathVariable long id) {
+        return vitaminService.getVitaminsByFood(id);
+    }
+
 }

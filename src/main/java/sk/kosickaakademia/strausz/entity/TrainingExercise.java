@@ -19,15 +19,15 @@ public class TrainingExercise {
     private int id;
 
     @Column(name = "exercise_id")
-    private int exerciseId;
+    private Integer exerciseId;
 
     @Column(name = "training_id")
-    private int trainingId;
+    private Integer trainingId;
 
     public TrainingExercise() {
     }
 
-    public TrainingExercise(int exerciseId, int trainingId) {
+    public TrainingExercise(Integer exerciseId, Integer trainingId) {
         this.exerciseId = exerciseId;
         this.trainingId = trainingId;
     }
@@ -40,19 +40,19 @@ public class TrainingExercise {
         this.id = id;
     }
 
-    public int getExerciseId() {
+    public Integer getExerciseId() {
         return exerciseId;
     }
 
-    public void setExerciseId(int exerciseId) {
+    public void setExerciseId(Integer exerciseId) {
         this.exerciseId = exerciseId;
     }
 
-    public int getTrainingId() {
+    public Integer getTrainingId() {
         return trainingId;
     }
 
-    public void setTrainingId(int trainingId) {
+    public void setTrainingId(Integer trainingId) {
         this.trainingId = trainingId;
     }
 

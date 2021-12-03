@@ -13,12 +13,6 @@ public class TrainingExerciseDto {
     @NotNull(message = "trainingId.cannot.be.null")
     private Integer trainingId;
 
-    public TrainingExerciseDto(int id, Integer exerciseId, Integer trainingId) {
-        this.id = id;
-        this.exerciseId = exerciseId;
-        this.trainingId = trainingId;
-    }
-
 
     public int getId() {
         return id;

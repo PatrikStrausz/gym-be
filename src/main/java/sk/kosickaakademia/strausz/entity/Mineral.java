@@ -3,6 +3,8 @@ package sk.kosickaakademia.strausz.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.Set;
 
 @Entity(name = "mineral")
 public class Mineral {
@@ -25,6 +27,9 @@ public class Mineral {
 
     @Column(name = "food_sources")
     private String foodSources;
+
+    @ManyToMany(mappedBy = "mineralSet")
+    private Set<Food> foodSet;
 
     public Mineral() {
     }
@@ -84,5 +89,13 @@ public class Mineral {
 
     public void setFoodSources(String foodSources) {
         this.foodSources = foodSources;
+    }
+
+    public Set<Food> getFoodSet() {
+        return foodSet;
+    }
+
+    public void setFoodSet(Set<Food> foodSet) {
+        this.foodSet = foodSet;
     }
 }

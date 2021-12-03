@@ -8,4 +8,6 @@ public interface VitaminService {
     GenericListDto<VitaminDto> getVitamins(int page);
 
     VitaminDto getVitaminById(Integer id);
+
+    GenericListDto<VitaminDto> getVitaminsByFood(Long foodId);
 }
