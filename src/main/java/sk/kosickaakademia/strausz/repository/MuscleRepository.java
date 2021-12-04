@@ -6,4 +6,5 @@ import sk.kosickaakademia.strausz.entity.Muscle;
 
 @Repository
 public interface MuscleRepository extends JpaRepository<Muscle, Integer> {
+
 }

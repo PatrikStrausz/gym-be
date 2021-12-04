@@ -12,5 +12,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
 
     @Query("SELECT a from Exercise a  INNER JOIN a.muscleSet b WHERE b.id = :muscleId")
     Page<Exercise> findAllByMuscleSet(Pageable page, int muscleId);
+    
 
 }

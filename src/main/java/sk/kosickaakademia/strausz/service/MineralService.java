@@ -8,4 +8,6 @@ public interface MineralService {
     GenericListDto<MineralDto> getMinerals(int page);
 
     MineralDto getMineralById(Integer id);
+
+    GenericListDto<MineralDto> getMineralsByFood(Long foodId);
 }

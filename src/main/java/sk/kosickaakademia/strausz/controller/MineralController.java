@@ -28,7 +28,12 @@ public class MineralController {
     public MineralDto getMineralById(@PathVariable int id) {
 
         return mineralService.getMineralById(id);
-
-
     }
+
+    @GetMapping(path = "/mineral/by/food/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public GenericListDto<MineralDto> getMinerealsByFood(@PathVariable long id) {
+        return mineralService.getMineralsByFood(id);
+    }
+
 }

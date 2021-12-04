@@ -8,4 +8,6 @@ public interface MuscleService {
     GenericListDto<MuscleDto> getMuscles(int page);
 
     MuscleDto getMuscleById(Integer id);
+
+
 }
