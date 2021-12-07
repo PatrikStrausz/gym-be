@@ -4,7 +4,7 @@ public class FoodDto {
 
 
     private Long id;
-    
+
     private String name;
 
     private int energyValue;
@@ -14,6 +14,8 @@ public class FoodDto {
     private double protein;
 
     private double carbohydrates;
+
+    private double sugars;
 
     private double fats;
 
@@ -171,5 +173,13 @@ public class FoodDto {
 
     public void setPhe(double phe) {
         this.phe = phe;
+    }
+
+    public double getSugars() {
+        return sugars;
+    }
+
+    public void setSugars(double sugars) {
+        this.sugars = sugars;
     }
 }

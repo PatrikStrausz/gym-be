@@ -15,6 +15,8 @@ public class FoodListDto {
 
     private double carbohydrates;
 
+    private double sugars;
+
     private double fats;
 
     private double saturatedFattyAcids;
@@ -171,5 +173,13 @@ public class FoodListDto {
 
     public void setPhe(double phe) {
         this.phe = phe;
+    }
+
+    public double getSugars() {
+        return sugars;
+    }
+
+    public void setSugars(double sugars) {
+        this.sugars = sugars;
     }
 }

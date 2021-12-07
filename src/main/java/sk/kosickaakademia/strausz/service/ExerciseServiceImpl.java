@@ -60,26 +60,18 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         Pageable firstPageWithTwoElements = PageRequest.of(pageIndex, pageSize);
 
+
         Page<Exercise> exerciseDto = exerciseRepository.findAllByMuscleSet(firstPageWithTwoElements, muscle.getId());
+
 
         List<ExerciseDto> exerciseDtoList = exerciseMapper.exerciseListToExerciseListDto(exerciseDto);
 
-        return new GenericListDto<>(exerciseDtoList);
+        GenericListDto<ExerciseDto> exerciseDtoGenericListDto = new GenericListDto<>(exerciseDtoList);
+        exerciseDtoGenericListDto.setTotalElements(exerciseDto.getTotalElements());
+
+        return exerciseDtoGenericListDto;
     }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Integer getExercisesByMuscleCount(Integer id) {
-        Muscle muscle = muscleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-                        .format("[GET] Muscle with ID [{0}] not found ", id)));
-
-
-        List<ExerciseDto> exerciseDto = exerciseMapper.exerciseListToExerciseListDtos(muscle.getExerciseSet());
-
-
-        return exerciseDto.size();
-    }
+    
 
     @Transactional(readOnly = true)
     @Override

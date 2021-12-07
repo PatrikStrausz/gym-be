@@ -12,7 +12,5 @@ public interface ExerciseService {
 
     ExerciseDto getExerciseById(Integer id);
 
-    Integer getExercisesByMuscleCount(Integer id);
-
 
 }

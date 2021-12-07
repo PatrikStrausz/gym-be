@@ -26,6 +26,9 @@ public class Food {
     @Column(name = "carbohydrates")
     private double carbohydrates;
 
+    @Column(name = "sugars")
+    private double sugars;
+
     @Column(name = "fats")
     private double fats;
 
@@ -167,6 +170,10 @@ public class Food {
         return semiSaturated;
     }
 
+    public void setSemiSaturated(double semiSaturated) {
+        this.semiSaturated = semiSaturated;
+    }
+
     public void setSemi_saturated(double semiSaturated) {
         this.semiSaturated = semiSaturated;
     }
@@ -241,5 +248,13 @@ public class Food {
 
     public void setMineralSet(Set<Mineral> mineralSet) {
         this.mineralSet = mineralSet;
+    }
+
+    public double getSugars() {
+        return sugars;
+    }
+
+    public void setSugars(double sugars) {
+        this.sugars = sugars;
     }
 }
