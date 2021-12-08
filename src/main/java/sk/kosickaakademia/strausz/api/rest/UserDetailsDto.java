@@ -34,9 +34,6 @@ public class UserDetailsDto {
     @NotNull(message = "trainingId.cannot.be.null")
     private Integer trainingId;
 
-    @NotNull(message = "dietId.cannot.be.null")
-    private Integer dietId;
-
 
     public int getId() {
         return id;
@@ -111,11 +108,5 @@ public class UserDetailsDto {
         this.trainingId = trainingId;
     }
 
-    public Integer getDietId() {
-        return dietId;
-    }
 
-    public void setDietId(Integer dietId) {
-        this.dietId = dietId;
-    }
 }

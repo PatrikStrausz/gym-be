@@ -1,6 +1,7 @@
 package sk.kosickaakademia.strausz.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "user_details")
 public class UserDetails {
@@ -45,10 +46,13 @@ public class UserDetails {
     @JoinColumn(name = "training_id", referencedColumnName = "id")
     private Training training;
 
-    @OneToOne
-    @JoinColumn(name = "diet_id", referencedColumnName = "id")
-    private Diet diet;
-
+    @ManyToMany
+            (fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_details_food",
+            joinColumns = @JoinColumn(name = "user_details_id"),
+            inverseJoinColumns = @JoinColumn(name = "food_id"))
+    private Set<Food> foodSet;
 
     public UserDetails() {
     }
@@ -61,16 +65,6 @@ public class UserDetails {
         this.weight = weight;
         this.age = age;
         this.goal = goal;
-    }
-
-    public UserDetails(String firstname, String lastname, int height, int weight, int age, String goal) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.height = height;
-        this.weight = weight;
-        this.age = age;
-        this.goal = goal;
-
     }
 
     public int getId() {
@@ -146,27 +140,11 @@ public class UserDetails {
         this.training = training;
     }
 
-    public Diet getDiet() {
-        return diet;
+    public Set<Food> getFoodSet() {
+        return foodSet;
     }
 
-    public void setDiet(Diet diet) {
-        this.diet = diet;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDetails{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", height=" + height +
-                ", weight=" + weight +
-                ", age=" + age +
-                ", goal='" + goal + '\'' +
-                ", user=" + user +
-                ", training=" + training +
-                ", diet=" + diet +
-                '}';
+    public void setFoodSet(Set<Food> foodSet) {
+        this.foodSet = foodSet;
     }
 }

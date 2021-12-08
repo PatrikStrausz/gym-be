@@ -64,7 +64,7 @@ public class Food {
 
 
     @ManyToMany(mappedBy = "foodSet", fetch = FetchType.EAGER)
-    private Set<Diet> dietSet;
+    private Set<UserDetails> foodSet;
 
 
     @ManyToMany
@@ -226,13 +226,6 @@ public class Food {
         this.phe = phe;
     }
 
-    public Set<Diet> getDietSet() {
-        return dietSet;
-    }
-
-    public void setDietSet(Set<Diet> dietSet) {
-        this.dietSet = dietSet;
-    }
 
     public Set<Vitamin> getVitaminSet() {
         return vitaminSet;
@@ -256,5 +249,13 @@ public class Food {
 
     public void setSugars(double sugars) {
         this.sugars = sugars;
+    }
+
+    public Set<UserDetails> getFoodSet() {
+        return foodSet;
+    }
+
+    public void setFoodSet(Set<UserDetails> foodSet) {
+        this.foodSet = foodSet;
     }
 }

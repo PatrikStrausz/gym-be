@@ -36,24 +36,21 @@ CREATE TABLE user_details
     age         integer      NOT NULL,
     goal        VARCHAR(100) NOT NULL,
     user_id     integer      NOT NULL,
-    training_id integer,
-    diet_id     integer
+    training_id integer
 
 );
 
 
-CREATE TABLE diet
-(
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR(100)
-);
 
-
-CREATE TABLE food_diet
+CREATE TABLE user_details_food
 (
-    id      SERIAL PRIMARY KEY,
-    food_id integer,
-    diet_id integer
+    id              SERIAL PRIMARY KEY,
+    food_id         integer,
+    user_details_id integer,
+    amount          double precision,
+    time_of_the_day VARCHAR(100),
+    date            DATE
+
 
 );
 
@@ -200,14 +197,15 @@ ALTER TABLE user_details
     ADD CONSTRAINT ud_fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
 ALTER TABLE user_details
     ADD CONSTRAINT ud_fk_training FOREIGN KEY (training_id) REFERENCES training (id) ON DELETE CASCADE;
-ALTER TABLE user_details
-    ADD CONSTRAINT ud_fk_diet FOREIGN KEY (diet_id) REFERENCES diet (id) ON DELETE CASCADE;
 
 
-ALTER TABLE food_diet
-    ADD CONSTRAINT fd_fk_food FOREIGN KEY (food_id) REFERENCES food (id) ON DELETE CASCADE;
-ALTER TABLE food_diet
-    ADD CONSTRAINT fd_fk_diet FOREIGN KEY (diet_id) REFERENCES diet (id) ON DELETE CASCADE;
+
+ALTER TABLE user_details_food
+    ADD CONSTRAINT udf_fk_user_details FOREIGN KEY (user_details_id) REFERENCES user_details (id) ON DELETE CASCADE;
+ALTER TABLE user_details_food
+    ADD CONSTRAINT udf_fk_food FOREIGN KEY (food_id) REFERENCES food (id) ON DELETE CASCADE;
+
+
 
 ALTER TABLE training_exercise
     ADD CONSTRAINT te_fk_exercise FOREIGN KEY (exercise_id) REFERENCES exercise (id) ON DELETE CASCADE;
@@ -242,21 +240,16 @@ CREATE SEQUENCE user_details_sequence
     INCREMENT 1
     MINVALUE 1
     OWNED BY user_details.id;
-CREATE SEQUENCE food_diet_sequence
+CREATE SEQUENCE user_details_food_sequence
     START 1
     INCREMENT 1
     MINVALUE 1
-    OWNED BY food_diet.id;
+    OWNED BY user_details_food.id;
 CREATE SEQUENCE user_role_sequence
     START 1
     INCREMENT 1
     MINVALUE 1
     OWNED BY user_role.id;
-CREATE SEQUENCE diet_sequence
-    START 1
-    INCREMENT 1
-    MINVALUE 1
-    OWNED BY diet.id;
 CREATE SEQUENCE training_exercise_sequence
     START 1
     INCREMENT 1

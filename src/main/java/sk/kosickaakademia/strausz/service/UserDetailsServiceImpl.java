@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDetailsDto;
-import sk.kosickaakademia.strausz.entity.Diet;
 import sk.kosickaakademia.strausz.entity.Training;
 import sk.kosickaakademia.strausz.entity.User;
 import sk.kosickaakademia.strausz.entity.UserDetails;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.UserDetailsMapper;
-import sk.kosickaakademia.strausz.repository.DietRepository;
 import sk.kosickaakademia.strausz.repository.TrainingRepository;
 import sk.kosickaakademia.strausz.repository.UserDetailsRepository;
 import sk.kosickaakademia.strausz.repository.UserRepository;
@@ -28,16 +26,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserDetailsRepository userDetailsRepository;
     private final UserRepository userRepository;
     private final TrainingRepository trainingRepository;
-    private final DietRepository dietRepository;
+
 
     private final UserDetailsMapper userDetailsMapper;
 
     public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository, UserRepository userRepository
-            , TrainingRepository trainingRepository, DietRepository dietRepository, UserDetailsMapper userDetailsMapper) {
+            , TrainingRepository trainingRepository, UserDetailsMapper userDetailsMapper) {
         this.userDetailsRepository = userDetailsRepository;
         this.userRepository = userRepository;
         this.trainingRepository = trainingRepository;
-        this.dietRepository = dietRepository;
         this.userDetailsMapper = userDetailsMapper;
     }
 
@@ -77,13 +74,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         User userByUsername = userRepository.findByUsername(authentication.getName());
 
-        Diet dietId = dietRepository.findById(userDetailsDto.getDietId())
-                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-                        .format("[CREATE]: DietID [{0}] not found ", userDetailsDto.getDietId())));
 
         userDetails.setUser(userByUsername);
         userDetails.setTraining(trainingById);
-        userDetails.setDiet(dietId);
 
         userDetailsRepository.save(userDetails);
 
