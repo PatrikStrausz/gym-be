@@ -49,7 +49,9 @@ CREATE TABLE user_details_food
     user_details_id integer,
     amount          double precision,
     time_of_the_day VARCHAR(100),
-    date            DATE
+    date            DATE,
+    food_name       VARCHAR(100),
+    total_calories  double precision
 
 
 );

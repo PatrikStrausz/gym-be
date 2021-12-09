@@ -5,6 +5,8 @@ import sk.kosickaakademia.strausz.api.rest.UserDetailsDto;
 
 public interface UserDetailsService {
 
+    UserDetailsDto findByUser();
+
     GenericListDto<UserDetailsDto> getUserDetails(int page);
 
     UserDetailsDto getUserDetailsById(Integer id);

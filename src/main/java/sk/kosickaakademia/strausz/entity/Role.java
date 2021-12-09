@@ -14,9 +14,6 @@ public class Role {
     private String name;
 
 
-//    @OneToOne(mappedBy = "role")
-//    private User user;
-
     @ManyToMany
             (fetch = FetchType.EAGER)
     @JoinTable(

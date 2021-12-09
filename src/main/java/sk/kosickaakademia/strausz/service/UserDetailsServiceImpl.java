@@ -23,11 +23,10 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+
     private final UserDetailsRepository userDetailsRepository;
     private final UserRepository userRepository;
     private final TrainingRepository trainingRepository;
-
-
     private final UserDetailsMapper userDetailsMapper;
 
     public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository, UserRepository userRepository
@@ -36,6 +35,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
         this.trainingRepository = trainingRepository;
         this.userDetailsMapper = userDetailsMapper;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public UserDetailsDto findByUser() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User userByUsername = userRepository.findByUsername(authentication.getName());
+
+        UserDetails userDetails = userDetailsRepository.findAllByUser(userByUsername.getId());
+
+        return userDetailsMapper.userDetailsToUserDetailsDto(userDetails);
+
     }
 
     @Transactional(readOnly = true)
@@ -62,6 +74,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     @Override
     public UserDetailsDto create(UserDetailsDto userDetailsDto) {
+
 
         UserDetails userDetails = userDetailsMapper.userDetailsDtoToUserDetails(userDetailsDto);
 
@@ -99,4 +112,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return userDetailsMapper.userDetailsToUserDetailsDto(updateUserDetails);
     }
+
+
 }

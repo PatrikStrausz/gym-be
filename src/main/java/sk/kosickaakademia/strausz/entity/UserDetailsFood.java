@@ -35,6 +35,12 @@ public class UserDetailsFood {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "food_name")
+    private String foodName;
+
+    @Column(name = "total_calories")
+    private double totalCalories;
+
 
     public UserDetailsFood() {
     }
@@ -87,5 +93,21 @@ public class UserDetailsFood {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getFoodName() {
+        return foodName;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
+
+    public double getTotalCalories() {
+        return totalCalories;
+    }
+
+    public void setTotalCalories(double totalCalories) {
+        this.totalCalories = totalCalories;
     }
 }

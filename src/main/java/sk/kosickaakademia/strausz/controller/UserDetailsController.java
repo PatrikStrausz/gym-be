@@ -50,4 +50,14 @@ public class UserDetailsController {
         return userDetailsService.update(userDetailsDto);
     }
 
+    @GetMapping("/user/details/by/user")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public UserDetailsDto getUserDetailsByUser() {
+
+        return userDetailsService.findByUser();
+
+
+    }
+
+
 }

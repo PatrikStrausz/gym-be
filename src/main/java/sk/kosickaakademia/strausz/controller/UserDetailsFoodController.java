@@ -40,4 +40,21 @@ public class UserDetailsFoodController {
         return userDetailsFoodService.create(userDetailsFoodDto);
 
     }
+
+    @GetMapping("/user/details/food/by/user/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public GenericListDto<UserDetailsFoodDto> findByUserDetailsId(@PathVariable int id) {
+
+        return userDetailsFoodService.findAllByUserDetailsId(id);
+
+    }
+
+    @DeleteMapping("/user/details/food/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public UserDetailsFoodDto deleteById(@PathVariable int id) {
+
+        return userDetailsFoodService.deleteById(id);
+
+    }
+
 }

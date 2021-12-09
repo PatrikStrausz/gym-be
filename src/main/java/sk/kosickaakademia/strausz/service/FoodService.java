@@ -10,4 +10,8 @@ public interface FoodService {
 
     FoodDto getFoodById(Long id);
 
+    GenericListDto<FoodDto> getFoodsByUserDetails(Integer userDetailsId);
+
+    GenericListDto<FoodDto> findAllFoodsByTimeOfTheDay(String timeOfTheDay, Integer userDetailsId);
+
 }

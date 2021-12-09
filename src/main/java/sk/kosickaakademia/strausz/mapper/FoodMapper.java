@@ -8,19 +8,21 @@ import sk.kosickaakademia.strausz.entity.Food;
 
 import java.util.List;
 
-@Mapper(componentModel="spring")
+@Mapper(componentModel = "spring")
 public interface FoodMapper {
 
 
     FoodDto foodToFoodDto(Food food);
 
 
-    List<FoodListDto> foodListToFoodListDto(Page<Food> food);
+    List<FoodListDto> foodPageToFoodListDto(Page<Food> food);
+
+    List<FoodDto> foodListToFoodListDto(List<Food> food);
 
 
     Food foodDtoToFood(FoodDto entity);
 
 
-    List<Food> foodListDtoToFoodList (List<FoodListDto> food);
+    List<Food> foodListDtoToFoodList(List<FoodListDto> food);
 
 }

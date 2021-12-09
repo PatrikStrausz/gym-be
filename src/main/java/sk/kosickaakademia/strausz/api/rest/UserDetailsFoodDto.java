@@ -26,6 +26,12 @@ public class UserDetailsFoodDto {
     @NotNull(message = "date.cannot.be.null")
     private Date date;
 
+    @NotNull(message = "foodName.cannot.be.null")
+    private String foodName;
+
+    @NotNull(message = "totalCalories.cannot.be.null")
+    private double totalCalories;
+
 
     public int getId() {
         return id;
@@ -75,5 +81,19 @@ public class UserDetailsFoodDto {
         this.date = date;
     }
 
- 
+    public String getFoodName() {
+        return foodName;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
+
+    public double getTotalCalories() {
+        return totalCalories;
+    }
+
+    public void setTotalCalories(double totalCalories) {
+        this.totalCalories = totalCalories;
+    }
 }

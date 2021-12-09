@@ -35,4 +35,18 @@ public class FoodController {
 
     }
 
+    @GetMapping(path = "/food/by/user/details/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public GenericListDto<FoodDto> getFoodsByUserDetails(@PathVariable int id) {
+        return foodService.getFoodsByUserDetails(id);
+    }
+
+
+    @GetMapping(path = "/food/by/timeOfTheDay/{timeOfTheDay}/{userDetailsId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public GenericListDto<FoodDto> getAllFoodsByTimeOfTheDay(@PathVariable String timeOfTheDay, @PathVariable int userDetailsId) {
+        return foodService.findAllFoodsByTimeOfTheDay(timeOfTheDay, userDetailsId);
+    }
+
+
 }

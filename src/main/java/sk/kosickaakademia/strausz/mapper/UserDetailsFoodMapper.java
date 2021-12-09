@@ -15,6 +15,8 @@ public interface UserDetailsFoodMapper {
 
     List<UserDetailsFoodDto> foodDietListToFoodDietListDto(Page<UserDetailsFood> foodDiets);
 
+    List<UserDetailsFoodDto> foodDietListsToFoodDietListDto(List<UserDetailsFood> foodDiets);
+
 
     UserDetailsFood foodDietDtoToFoodDiet(UserDetailsFoodDto entity);
 

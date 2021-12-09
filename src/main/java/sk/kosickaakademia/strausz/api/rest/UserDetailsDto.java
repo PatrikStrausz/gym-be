@@ -108,5 +108,18 @@ public class UserDetailsDto {
         this.trainingId = trainingId;
     }
 
-
+    @Override
+    public String toString() {
+        return "UserDetailsDto{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", age=" + age +
+                ", goal='" + goal + '\'' +
+                ", userId=" + userId +
+                ", trainingId=" + trainingId +
+                '}';
+    }
 }

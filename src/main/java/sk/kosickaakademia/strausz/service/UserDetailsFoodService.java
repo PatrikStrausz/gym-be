@@ -10,4 +10,8 @@ public interface UserDetailsFoodService {
     UserDetailsFoodDto getFoodDietById(Integer id);
 
     UserDetailsFoodDto create(UserDetailsFoodDto userDetailsFoodDto);
+
+    GenericListDto<UserDetailsFoodDto> findAllByUserDetailsId(Integer userDetailsId);
+
+    UserDetailsFoodDto deleteById(Integer id);
 }
