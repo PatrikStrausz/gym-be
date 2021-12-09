@@ -2,6 +2,7 @@ package sk.kosickaakademia.strausz.service;
 
 import sk.kosickaakademia.strausz.api.rest.FoodDto;
 import sk.kosickaakademia.strausz.api.rest.FoodListDto;
+import sk.kosickaakademia.strausz.api.rest.FoodNutrientsDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 
 public interface FoodService {
@@ -12,6 +13,6 @@ public interface FoodService {
 
     GenericListDto<FoodDto> getFoodsByUserDetails(Integer userDetailsId);
 
-    GenericListDto<FoodDto> findAllFoodsByTimeOfTheDay(String timeOfTheDay, Integer userDetailsId);
+    GenericListDto<FoodNutrientsDto> findAllFoodsByDate(Integer userDetailsId, String date);
 
 }

@@ -1,9 +1,6 @@
 package sk.kosickaakademia.strausz.api.rest;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 public class UserDetailsFoodDto {
 
@@ -22,9 +19,9 @@ public class UserDetailsFoodDto {
     @NotNull(message = "timeOfTheDay.cannot.be.null")
     private String timeOfTheDay;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
     @NotNull(message = "date.cannot.be.null")
-    private Date date;
+    private String date;
 
     @NotNull(message = "foodName.cannot.be.null")
     private String foodName;
@@ -73,11 +70,12 @@ public class UserDetailsFoodDto {
         this.timeOfTheDay = timeOfTheDay;
     }
 
-    public Date getDate() {
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

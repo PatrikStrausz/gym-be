@@ -41,6 +41,7 @@ public class UserDetailsFoodController {
 
     }
 
+
     @GetMapping("/user/details/food/by/user/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public GenericListDto<UserDetailsFoodDto> findByUserDetailsId(@PathVariable int id) {

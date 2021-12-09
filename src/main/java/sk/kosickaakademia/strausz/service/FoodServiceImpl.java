@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.FoodDto;
 import sk.kosickaakademia.strausz.api.rest.FoodListDto;
+import sk.kosickaakademia.strausz.api.rest.FoodNutrientsDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.entity.Food;
 import sk.kosickaakademia.strausz.entity.UserDetails;
@@ -70,17 +71,17 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public GenericListDto<FoodDto> findAllFoodsByTimeOfTheDay(String timeOfTheDay, Integer userDetailsId) {
+    public GenericListDto<FoodNutrientsDto> findAllFoodsByDate(Integer userDetailsId, String date) {
 
         UserDetails userDetails = userDetailsRepository.findById(userDetailsId)
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format(" UserDetails with ID [{0}] not found ", userDetailsId)));
 
-        List<Food> foodList = foodRepository.findAllFoodsByTimeOfTheDay(timeOfTheDay, userDetails.getId());
+        List<FoodNutrientsDto> foodList = foodRepository.findAllFoodsByDay(userDetails.getId(), date);
 
-        List<FoodDto> foodDtoList = foodMapper.foodListToFoodListDto(foodList);
+//        List<FoodNutrientsDto> foodDtoList = foodMapper.foodListToFoodListDto(foodList);
 
-        return new GenericListDto<>(foodDtoList);
+        return new GenericListDto<>(foodList);
     }
 
 }

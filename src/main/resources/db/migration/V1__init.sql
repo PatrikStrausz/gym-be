@@ -49,12 +49,13 @@ CREATE TABLE user_details_food
     user_details_id integer,
     amount          double precision,
     time_of_the_day VARCHAR(100),
-    date            DATE,
+    date            VARCHAR(100),
     food_name       VARCHAR(100),
     total_calories  double precision
 
 
 );
+
 
 
 CREATE TABLE training
@@ -187,6 +188,24 @@ CREATE table food_mineral
     mineral_id integer
 );
 
+CREATE TABLE macros
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE user_details_macros
+(
+    id              SERIAL PRIMARY KEY,
+    user_details_id integer,
+    macros_id       integer,
+    totalAmount     double precision
+);
+
+
+
+insert into training(id, name)
+VALUES (1, 'my');
 
 
 ALTER TABLE user_role
@@ -230,6 +249,11 @@ ALTER TABLE food_mineral
 ALTER TABLE food_mineral
     ADD CONSTRAINT fm_fk_mineral FOREIGN KEY (mineral_id) REFERENCES mineral (id) ON DELETE CASCADE;
 
+ALTER TABLE user_details_macros
+    ADD CONSTRAINT udm_fk_user_details FOREIGN KEY (user_details_id) REFERENCES user_details (id) ON DELETE CASCADE;
+ALTER TABLE user_details_macros
+    ADD CONSTRAINT udm_fk_macros FOREIGN KEY (macros_id) REFERENCES macros (id) ON DELETE CASCADE;
+
 
 
 CREATE SEQUENCE user_sequence
@@ -267,6 +291,12 @@ CREATE SEQUENCE food_mineral_sequence
     INCREMENT 1
     MINVALUE 1
     OWNED BY food_mineral.id;
+CREATE SEQUENCE user_details_macros_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY user_details_macros.id;
+
 
 
 

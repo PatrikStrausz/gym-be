@@ -4,6 +4,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sk.kosickaakademia.strausz.api.rest.FoodDto;
 import sk.kosickaakademia.strausz.api.rest.FoodListDto;
+import sk.kosickaakademia.strausz.api.rest.FoodNutrientsDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.service.FoodService;
 
@@ -42,10 +43,10 @@ public class FoodController {
     }
 
 
-    @GetMapping(path = "/food/by/timeOfTheDay/{timeOfTheDay}/{userDetailsId}")
+    @GetMapping(path = "/food/by/date/{userDetailsId}/{date}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public GenericListDto<FoodDto> getAllFoodsByTimeOfTheDay(@PathVariable String timeOfTheDay, @PathVariable int userDetailsId) {
-        return foodService.findAllFoodsByTimeOfTheDay(timeOfTheDay, userDetailsId);
+    public GenericListDto<FoodNutrientsDto> getAllFoodsByDate(@PathVariable int userDetailsId, @PathVariable String date) {
+        return foodService.findAllFoodsByDate(userDetailsId, date);
     }
 
 

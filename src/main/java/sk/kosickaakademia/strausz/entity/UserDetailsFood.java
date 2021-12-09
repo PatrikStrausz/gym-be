@@ -1,7 +1,6 @@
 package sk.kosickaakademia.strausz.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity(name = "user_details_food")
 public class UserDetailsFood {
@@ -33,7 +32,7 @@ public class UserDetailsFood {
 
 
     @Column(name = "date")
-    private Date date;
+    private String date;
 
     @Column(name = "food_name")
     private String foodName;
@@ -87,11 +86,11 @@ public class UserDetailsFood {
         this.timeOfTheDay = timeOfTheDay;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

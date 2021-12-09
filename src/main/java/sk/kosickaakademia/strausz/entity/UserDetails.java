@@ -54,6 +54,15 @@ public class UserDetails {
             inverseJoinColumns = @JoinColumn(name = "food_id"))
     private Set<Food> foodSet;
 
+
+    @ManyToMany
+            (fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_details_macros",
+            joinColumns = @JoinColumn(name = "user_details_id"),
+            inverseJoinColumns = @JoinColumn(name = "macros_id"))
+    private Set<Macros> macrosSet;
+
     public UserDetails() {
     }
 
@@ -146,5 +155,13 @@ public class UserDetails {
 
     public void setFoodSet(Set<Food> foodSet) {
         this.foodSet = foodSet;
+    }
+
+    public Set<Macros> getMacrosSet() {
+        return macrosSet;
+    }
+
+    public void setMacrosSet(Set<Macros> macrosSet) {
+        this.macrosSet = macrosSet;
     }
 }
