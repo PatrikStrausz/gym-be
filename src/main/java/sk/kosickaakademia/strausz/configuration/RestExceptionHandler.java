@@ -30,6 +30,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
     private static final String UNQ_USERNAME = "unq_username";
     private static final String UNQ_EMAIL = "unq_email";
+    private static final String UNQ_USER_DETAILS_USER_ID = "user_details_user_id_key";
 
 
     @ExceptionHandler(Exception.class)
@@ -58,6 +59,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), "Email already exists"));
+        } else if (Objects.requireNonNull(e.getMessage()).contains(UNQ_USER_DETAILS_USER_ID)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorDto(HttpStatus.BAD_REQUEST.value(), "User details with this user id already exists"));
         } else {
             return handleInternalServerError(e);
         }

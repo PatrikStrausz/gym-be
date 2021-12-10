@@ -35,7 +35,9 @@ CREATE TABLE user_details
     weight      integer      NOT NULL,
     age         integer      NOT NULL,
     goal        VARCHAR(100) NOT NULL,
-    user_id     integer      NOT NULL,
+    sex         VARCHAR(100),
+    activity    VARCHAR(100),
+    user_id     integer      NOT NULL UNIQUE,
     training_id integer
 
 );

@@ -83,12 +83,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        User userByUsername = userRepository.findByUsername(authentication.getName());
 
-        User userByUsername = userRepository.findByUsername(authentication.getName());
+        User userById = userRepository.findById(userDetailsDto.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
 
-
-        userDetails.setUser(userByUsername);
+        userDetails.setUser(userById);
         userDetails.setTraining(trainingById);
 
         userDetailsRepository.save(userDetails);
@@ -105,7 +108,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UserDetails updateUserDetails =
                 new UserDetails(userDetailsById.getId(), userDetailsDto.getFirstname(), userDetailsDto.getLastname()
-                        , userDetailsDto.getHeight(), userDetailsDto.getWeight(), userDetailsDto.getAge(), userDetailsDto.getGoal());
+                        , userDetailsDto.getHeight(), userDetailsDto.getWeight(), userDetailsDto.getAge(),
+                        userDetailsDto.getGoal(), userDetailsDto.getSex(), userDetailsDto.getActivity());
 
 
         userDetailsRepository.save(updateUserDetails);

@@ -7,6 +7,7 @@ import sk.kosickaakademia.strausz.api.rest.UserDetailsMacrosDto;
 import sk.kosickaakademia.strausz.service.UserDetailsMacrosService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -28,10 +29,16 @@ public class UserDetailsMacrosController {
     }
 
     @PostMapping("/user/details/macros")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public UserDetailsMacrosDto create(@Valid @RequestBody UserDetailsMacrosDto userDetailsMacrosDto) {
 
         return userDetailsMacrosService.create(userDetailsMacrosDto);
+
+    }
+
+    @PostMapping("/user/details/macros/create/all")
+    public GenericListDto<UserDetailsMacrosDto> createAll(@Valid @RequestBody List<UserDetailsMacrosDto> userDetailsMacrosDto) {
+
+        return userDetailsMacrosService.createAll(userDetailsMacrosDto);
 
     }
 

@@ -44,6 +44,20 @@ public class UserDetailsMacrosServiceImpl implements UserDetailsMacrosService {
         return userDetailsMacrosMapper.userDetailsMacrosToUserDetailsMacrosDto(userDetailsMacros);
     }
 
+    @Override
+    public GenericListDto<UserDetailsMacrosDto> createAll(List<UserDetailsMacrosDto> userDetailsMacrosDto) {
+
+        List<UserDetailsMacros> userDetailsMacrosList = userDetailsMacrosMapper
+                .userDetailsMacrosListDtoToUserDetailsMacrosList(userDetailsMacrosDto);
+
+        userDetailsMacrosRepository.saveAll(userDetailsMacrosList);
+
+        List<UserDetailsMacrosDto> userDetailsMacrosDtos = userDetailsMacrosMapper
+                .userDetailsMacrosListToUserDetailsMacrosDtoList(userDetailsMacrosList);
+
+        return new GenericListDto<>(userDetailsMacrosDtos);
+    }
+
     @Transactional(readOnly = true)
     @Override
     public GenericListDto<UserDetailsMacrosDto> findAllByUserDetailsId(Integer userDetailsId) {

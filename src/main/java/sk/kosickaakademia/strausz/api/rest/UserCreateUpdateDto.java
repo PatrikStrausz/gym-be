@@ -7,6 +7,9 @@ import java.util.Set;
 
 public class UserCreateUpdateDto {
 
+ 
+    private Integer id;
+
     @NotNull(message = "username.cannot.be.null")
     @Size(min = 6, message = "login.must.be.equal.or.greater.than.6.characters")
     private String username;
@@ -52,5 +55,13 @@ public class UserCreateUpdateDto {
 
     public void setRoleId(Set<Integer> roleId) {
         this.roleId = roleId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

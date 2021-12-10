@@ -37,6 +37,12 @@ public class UserDetails {
     @Column(name = "goal")
     private String goal;
 
+    @Column(name = "sex")
+    private String sex;
+
+    @Column(name = "activity")
+    private String activity;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -66,7 +72,7 @@ public class UserDetails {
     public UserDetails() {
     }
 
-    public UserDetails(int id, String firstname, String lastname, int height, int weight, int age, String goal) {
+    public UserDetails(int id, String firstname, String lastname, int height, int weight, int age, String goal, String sex, String activity) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -74,6 +80,8 @@ public class UserDetails {
         this.weight = weight;
         this.age = age;
         this.goal = goal;
+        this.sex = sex;
+        this.activity = activity;
     }
 
     public int getId() {
@@ -163,5 +171,21 @@ public class UserDetails {
 
     public void setMacrosSet(Set<Macros> macrosSet) {
         this.macrosSet = macrosSet;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
 }

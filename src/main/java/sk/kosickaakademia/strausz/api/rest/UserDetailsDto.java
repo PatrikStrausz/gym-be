@@ -27,6 +27,10 @@ public class UserDetailsDto {
     private String goal;
 
 
+    private String sex;
+
+    private String activity;
+
     @NotNull(message = "userId.cannot.be.null")
     private Integer userId;
 
@@ -108,18 +112,19 @@ public class UserDetailsDto {
         this.trainingId = trainingId;
     }
 
-    @Override
-    public String toString() {
-        return "UserDetailsDto{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", height=" + height +
-                ", weight=" + weight +
-                ", age=" + age +
-                ", goal='" + goal + '\'' +
-                ", userId=" + userId +
-                ", trainingId=" + trainingId +
-                '}';
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
 }
