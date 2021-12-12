@@ -4,10 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sk.kosickaakademia.strausz.api.rest.FoodDto;
-import sk.kosickaakademia.strausz.api.rest.FoodListDto;
-import sk.kosickaakademia.strausz.api.rest.FoodNutrientsDto;
-import sk.kosickaakademia.strausz.api.rest.GenericListDto;
+import sk.kosickaakademia.strausz.api.rest.*;
 import sk.kosickaakademia.strausz.entity.Food;
 import sk.kosickaakademia.strausz.entity.UserDetails;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
@@ -26,6 +23,7 @@ public class FoodServiceImpl implements FoodService {
     private final UserDetailsRepository userDetailsRepository;
 
     private final FoodMapper foodMapper;
+
 
     public FoodServiceImpl(FoodRepository foodRepository, UserDetailsRepository userDetailsRepository, FoodMapper foodMapper) {
         this.foodRepository = foodRepository;
@@ -70,6 +68,7 @@ public class FoodServiceImpl implements FoodService {
         return new GenericListDto<>(foodDtoList);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public GenericListDto<FoodNutrientsDto> findAllFoodsByDate(Integer userDetailsId, String date) {
 
@@ -77,9 +76,21 @@ public class FoodServiceImpl implements FoodService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format(" UserDetails with ID [{0}] not found ", userDetailsId)));
 
-        List<FoodNutrientsDto> foodList = foodRepository.findAllFoodsByDay(userDetails.getId(), date);
+        List<FoodNutrientsDto> foodNutrientsDtos = foodRepository.findAllFoodsByDay(userDetails.getId(), date);
 
-//        List<FoodNutrientsDto> foodDtoList = foodMapper.foodListToFoodListDto(foodList);
+
+        return new GenericListDto<>(foodNutrientsDtos);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public GenericListDto<UserFoodDetailsDto> findAllFoodsByUserDetailsId(Integer userDetailsId) {
+        UserDetails userDetails = userDetailsRepository.findById(userDetailsId)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format(" UserDetails with ID [{0}] not found ", userDetailsId)));
+
+        List<UserFoodDetailsDto> foodList = foodRepository.findAllFoodsByUserDetailsId(userDetails.getId());
+
 
         return new GenericListDto<>(foodList);
     }

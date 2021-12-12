@@ -1,7 +1,6 @@
 package sk.kosickaakademia.strausz.api.rest;
 
-
-public interface FoodNutrientsDto {
+public interface UserFoodDetailsDto {
 
     Integer getEnergy_value();
 
@@ -15,5 +14,5 @@ public interface FoodNutrientsDto {
 
     double getAmount();
 
-
+    String getDate();
 }
