@@ -11,5 +11,7 @@ public interface UserDetailsMacrosService {
 
     GenericListDto<UserDetailsMacrosDto> createAll(List<UserDetailsMacrosDto> userDetailsMacrosDto);
 
+    GenericListDto<UserDetailsMacrosDto> updateAll(List<UserDetailsMacrosDto> userDetailsMacrosDto);
+
     GenericListDto<UserDetailsMacrosDto> findAllByUserDetailsId(Integer userDetailsId);
 }

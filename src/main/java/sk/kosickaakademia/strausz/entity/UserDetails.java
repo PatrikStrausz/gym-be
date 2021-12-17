@@ -72,7 +72,8 @@ public class UserDetails {
     public UserDetails() {
     }
 
-    public UserDetails(int id, String firstname, String lastname, int height, int weight, int age, String goal, String sex, String activity) {
+    public UserDetails(int id, String firstname, String lastname, int height, int weight, int age,
+                       String goal, String sex, String activity, User user, Training training) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -82,6 +83,8 @@ public class UserDetails {
         this.goal = goal;
         this.sex = sex;
         this.activity = activity;
+        this.user = user;
+        this.training = training;
     }
 
     public int getId() {
@@ -188,4 +191,6 @@ public class UserDetails {
     public void setActivity(String activity) {
         this.activity = activity;
     }
+
+
 }

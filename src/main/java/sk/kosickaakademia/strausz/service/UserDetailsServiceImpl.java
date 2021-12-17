@@ -29,6 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final TrainingRepository trainingRepository;
     private final UserDetailsMapper userDetailsMapper;
 
+
     public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository, UserRepository userRepository
             , TrainingRepository trainingRepository, UserDetailsMapper userDetailsMapper) {
         this.userDetailsRepository = userDetailsRepository;
@@ -46,7 +47,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UserDetails userDetails = userDetailsRepository.findAllByUser(userByUsername.getId());
 
-        return userDetailsMapper.userDetailsToUserDetailsDto(userDetails);
+        UserDetailsDto userDetailsDto = userDetailsMapper.userDetailsToUserDetailsDto(userDetails);
+        userDetailsDto.setUserId(userDetails.getUser().getId());
+        userDetailsDto.setTrainingId(userDetails.getTraining().getId());
+
+        return userDetailsDto;
 
     }
 
@@ -65,10 +70,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetailsDto getUserDetailsById(Integer id) {
         UserDetails userDetailsById = userDetailsRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-                        .format("[GET]: User with ID [{0}] not found ", id)));
+                        .format("[GET]: UserDetails with ID [{0}] not found ", id)));
 
 
-        return userDetailsMapper.userDetailsToUserDetailsDto(userDetailsById);
+        UserDetailsDto userDetailsDto = userDetailsMapper.userDetailsToUserDetailsDto(userDetailsById);
+        userDetailsDto.setUserId(userDetailsById.getUser().getId());
+        userDetailsDto.setTrainingId(userDetailsById.getTraining().getId());
+        return userDetailsDto;
     }
 
     @Transactional
@@ -94,6 +102,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userDetails.setUser(userById);
         userDetails.setTraining(trainingById);
 
+
         userDetailsRepository.save(userDetails);
 
         return userDetailsMapper.userDetailsToUserDetailsDto(userDetails);
@@ -104,12 +113,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetailsDto update(UserDetailsDto userDetailsDto) {
         UserDetails userDetailsById = userDetailsRepository.findById(userDetailsDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-                        .format("[UPDATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
+                        .format("[UPDATE]: UserDetailsID [{0}] not found ", userDetailsDto.getId())));
+
+        Training trainingById = trainingRepository.findById(userDetailsDto.getTrainingId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
+
+        User userById = userRepository.findById(userDetailsDto.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getUserId())));
 
         UserDetails updateUserDetails =
                 new UserDetails(userDetailsById.getId(), userDetailsDto.getFirstname(), userDetailsDto.getLastname()
                         , userDetailsDto.getHeight(), userDetailsDto.getWeight(), userDetailsDto.getAge(),
-                        userDetailsDto.getGoal(), userDetailsDto.getSex(), userDetailsDto.getActivity());
+                        userDetailsDto.getGoal(), userDetailsDto.getSex(), userDetailsDto.getActivity(), userById, trainingById);
 
 
         userDetailsRepository.save(updateUserDetails);

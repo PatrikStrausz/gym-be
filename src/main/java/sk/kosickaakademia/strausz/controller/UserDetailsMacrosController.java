@@ -42,5 +42,12 @@ public class UserDetailsMacrosController {
 
     }
 
+    @PutMapping("/user/details/macros/update/all")
+    public GenericListDto<UserDetailsMacrosDto> updateAll(@Valid @RequestBody List<UserDetailsMacrosDto> userDetailsMacrosDto) {
+
+        return userDetailsMacrosService.updateAll(userDetailsMacrosDto);
+
+    }
+
 
 }

@@ -56,4 +56,5 @@ public class Role {
     public void setUserSet(Set<User> userSet) {
         this.userSet = userSet;
     }
+
 }

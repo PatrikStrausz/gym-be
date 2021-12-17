@@ -8,4 +8,6 @@ import sk.kosickaakademia.strausz.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByUsername(String username);
+
+
 }

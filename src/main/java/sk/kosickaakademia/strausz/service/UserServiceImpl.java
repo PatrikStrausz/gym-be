@@ -25,6 +25,7 @@ import sk.kosickaakademia.strausz.repository.UserRepository;
 import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -63,7 +64,8 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[GET]:  User with ID [{0}] not found ", id)));
 
-        return userMapper.userToUserDto(userById);
+
+        return getUserDto(userById);
     }
 
     @Transactional
@@ -76,10 +78,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         List<Role> roles = roleRepository.findAllById(userDto.getRoleId());
-
-        for (Role r : roles) {
-            logger.warn(r.getId() + "");
-        }
 
         user.setRoleSet(new HashSet<>(roles));
         userRepository.save(user);
@@ -128,7 +126,21 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByUsername(authentication.getName());
 
-        return userMapper.userToUserDto(user);
+        return getUserDto(user);
+    }
+
+    private UserDto getUserDto(User user) {
+        UserDto userDto = userMapper.userToUserDto(user);
+
+        Set<Integer> roleIds = new HashSet<>();
+        for (Role role : user.getRoleSet()) {
+            roleIds.add(role.getId());
+
+        }
+        userDto.setRoleId(roleIds);
+
+
+        return userDto;
     }
 
 

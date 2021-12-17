@@ -31,11 +31,10 @@ public class UserDetailsDto {
 
     private String activity;
 
-    @NotNull(message = "userId.cannot.be.null")
+
     private Integer userId;
 
 
-    @NotNull(message = "trainingId.cannot.be.null")
     private Integer trainingId;
 
 
@@ -96,14 +95,6 @@ public class UserDetailsDto {
     }
 
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     public Integer getTrainingId() {
         return trainingId;
     }
@@ -120,6 +111,14 @@ public class UserDetailsDto {
         this.sex = sex;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String getActivity() {
         return activity;
     }
@@ -127,4 +126,6 @@ public class UserDetailsDto {
     public void setActivity(String activity) {
         this.activity = activity;
     }
+
+
 }
