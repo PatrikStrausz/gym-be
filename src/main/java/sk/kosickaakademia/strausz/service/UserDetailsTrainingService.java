@@ -10,4 +10,6 @@ public interface UserDetailsTrainingService {
     UserDetailsTrainingDto getUserDetailsTrainingById(Integer id);
 
     UserDetailsTrainingDto create(UserDetailsTrainingDto userDetailsTrainingDto);
+
+    GenericListDto<UserDetailsTrainingDto> getUserDetailsTrainingByUserDetailsId(Integer userDetailsId);
 }

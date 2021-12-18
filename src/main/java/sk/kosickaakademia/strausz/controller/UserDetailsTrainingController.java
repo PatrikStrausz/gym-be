@@ -42,4 +42,13 @@ public class UserDetailsTrainingController {
 
 
     }
+
+
+    @GetMapping(path = "/user/details/training/by/user/details/{userDetailsId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public GenericListDto<UserDetailsTrainingDto> getUserDetailsTrainingsByUserDetailsId(@PathVariable int userDetailsId) {
+
+        return userDetailsTrainingService.getUserDetailsTrainingByUserDetailsId(userDetailsId);
+    }
+
 }

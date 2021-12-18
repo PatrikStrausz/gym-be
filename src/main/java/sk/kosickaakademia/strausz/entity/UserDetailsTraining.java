@@ -34,7 +34,7 @@ public class UserDetailsTraining {
     private Integer sets;
 
     @Column(name = "reps")
-    private Integer reps;
+    private ArrayList<Integer> reps;
 
     @Column(name = "weight")
     private ArrayList<Integer> weight;
@@ -77,11 +77,11 @@ public class UserDetailsTraining {
         this.sets = sets;
     }
 
-    public Integer getReps() {
+    public ArrayList<Integer> getReps() {
         return reps;
     }
 
-    public void setReps(Integer reps) {
+    public void setReps(ArrayList<Integer> reps) {
         this.reps = reps;
     }
 

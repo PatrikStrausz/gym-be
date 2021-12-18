@@ -14,7 +14,7 @@ public class UserDetailsTrainingDto {
 
     private Integer sets;
 
-    private Integer reps;
+    private ArrayList<Integer> reps;
 
     private ArrayList<Integer> weight;
 
@@ -52,11 +52,11 @@ public class UserDetailsTrainingDto {
         this.sets = sets;
     }
 
-    public Integer getReps() {
+    public ArrayList<Integer> getReps() {
         return reps;
     }
 
-    public void setReps(Integer reps) {
+    public void setReps(ArrayList<Integer> reps) {
         this.reps = reps;
     }
 
