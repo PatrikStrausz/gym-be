@@ -1,7 +1,6 @@
 package sk.kosickaakademia.strausz.mapper;
 
 import org.mapstruct.Mapper;
-import org.springframework.data.domain.Page;
 import sk.kosickaakademia.strausz.api.rest.UserDetailsTrainingDto;
 import sk.kosickaakademia.strausz.entity.UserDetailsTraining;
 
@@ -13,9 +12,9 @@ public interface UserDetailsTrainingMapper {
 
     UserDetailsTrainingDto userDetailsTrainingToUserDetailsTrainingDto(UserDetailsTraining user);
 
-    List<UserDetailsTrainingDto> userDetailsTrainingListToUserDetailsTrainingDtoList(Page<UserDetailsTraining> users);
+    List<UserDetailsTrainingDto> userDetailsTrainingListToUserDetailsTrainingDtoList(List<UserDetailsTraining> users);
 
-    UserDetailsTraining userDetailsTrainingDtoToUserDetailsTraining(UserDetailsTraining entity);
+    UserDetailsTraining userDetailsTrainingDtoToUserDetailsTraining(UserDetailsTrainingDto entity);
 
     List<UserDetailsTraining> userDetailsTrainingListDtoToUserDetailsTrainingList(List<UserDetailsTraining> userDtoList);
 }

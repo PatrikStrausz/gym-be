@@ -62,9 +62,11 @@ CREATE TABLE user_details_training
     id              SERIAL PRIMARY KEY,
     training_id     integer,
     user_details_id integer,
+    name            VARCHAR(100),
     reps            integer,
     sets            integer,
-    weight          integer ARRAY
+    weight          integer ARRAY,
+    date            VARCHAR(100)
 
 
 );

@@ -5,7 +5,9 @@ import sk.kosickaakademia.strausz.api.rest.UserDetailsTrainingDto;
 
 public interface UserDetailsTrainingService {
 
-    GenericListDto<UserDetailsTrainingDto> getUserDetailsTrainings(int page);
+    GenericListDto<UserDetailsTrainingDto> getUserDetailsTrainings();
 
     UserDetailsTrainingDto getUserDetailsTrainingById(Integer id);
+
+    UserDetailsTrainingDto create(UserDetailsTrainingDto userDetailsTrainingDto);
 }

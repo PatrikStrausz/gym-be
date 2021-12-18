@@ -20,9 +20,9 @@ public class UserDetailsTrainingController {
     @GetMapping(path = "/user/details/training")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public GenericListDto<UserDetailsTrainingDto>
-    getUserDetailsTrainings(@RequestParam(defaultValue = "0", required = false) int page) {
+    getUserDetailsTrainings() {
 
-        return userDetailsTrainingService.getUserDetailsTrainings(page);
+        return userDetailsTrainingService.getUserDetailsTrainings();
     }
 
     @GetMapping("/user/details/training/{id}")
@@ -30,6 +30,15 @@ public class UserDetailsTrainingController {
     public UserDetailsTrainingDto getUserDetailsTrainingById(@PathVariable int id) {
 
         return userDetailsTrainingService.getUserDetailsTrainingById(id);
+
+
+    }
+
+    @PostMapping("/user/details/training")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public UserDetailsTrainingDto createUserDetailsTraining(@RequestBody UserDetailsTrainingDto userDetailsTrainingDto) {
+
+        return userDetailsTrainingService.create(userDetailsTrainingDto);
 
 
     }

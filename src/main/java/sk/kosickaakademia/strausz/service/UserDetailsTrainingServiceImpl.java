@@ -1,7 +1,5 @@
 package sk.kosickaakademia.strausz.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
@@ -28,8 +26,8 @@ public class UserDetailsTrainingServiceImpl implements UserDetailsTrainingServic
 
     @Transactional(readOnly = true)
     @Override
-    public GenericListDto<UserDetailsTrainingDto> getUserDetailsTrainings(int page) {
-        Page<UserDetailsTraining> userDetailsTrainings = userDetailsTrainingRepository.findAll(PageRequest.of(page, 20));
+    public GenericListDto<UserDetailsTrainingDto> getUserDetailsTrainings() {
+        List<UserDetailsTraining> userDetailsTrainings = userDetailsTrainingRepository.findAll();
 
         List<UserDetailsTrainingDto> userDetailsTrainingDtos =
                 userDetailsTrainingMapper.userDetailsTrainingListToUserDetailsTrainingDtoList(userDetailsTrainings);
@@ -45,5 +43,17 @@ public class UserDetailsTrainingServiceImpl implements UserDetailsTrainingServic
                         .format("[GET] UserDetailsTraining with ID [{0}] not found ", id)));
 
         return userDetailsTrainingMapper.userDetailsTrainingToUserDetailsTrainingDto(foodById);
+    }
+
+    @Transactional
+    @Override
+    public UserDetailsTrainingDto create(UserDetailsTrainingDto userDetailsTrainingDto) {
+        UserDetailsTraining userDetailsTraining = userDetailsTrainingMapper
+                .userDetailsTrainingDtoToUserDetailsTraining(userDetailsTrainingDto);
+
+
+        userDetailsTrainingRepository.save(userDetailsTraining);
+
+        return userDetailsTrainingMapper.userDetailsTrainingToUserDetailsTrainingDto(userDetailsTraining);
     }
 }

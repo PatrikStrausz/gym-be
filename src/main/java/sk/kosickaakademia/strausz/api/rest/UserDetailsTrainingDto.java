@@ -1,10 +1,12 @@
 package sk.kosickaakademia.strausz.api.rest;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class UserDetailsTrainingDto {
 
     private Integer id;
+
+    private String name;
 
     private Integer trainingId;
 
@@ -14,7 +16,9 @@ public class UserDetailsTrainingDto {
 
     private Integer reps;
 
-    private List<Integer> weight;
+    private ArrayList<Integer> weight;
+
+    private String date;
 
     public Integer getId() {
         return id;
@@ -56,11 +60,27 @@ public class UserDetailsTrainingDto {
         this.reps = reps;
     }
 
-    public List<Integer> getWeight() {
+    public ArrayList<Integer> getWeight() {
         return weight;
     }
 
-    public void setWeight(List<Integer> weight) {
+    public void setWeight(ArrayList<Integer> weight) {
         this.weight = weight;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

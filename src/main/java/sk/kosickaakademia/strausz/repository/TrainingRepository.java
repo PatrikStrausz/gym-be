@@ -5,5 +5,6 @@ import org.springframework.stereotype.Repository;
 import sk.kosickaakademia.strausz.entity.Training;
 
 @Repository
-public interface TrainingRepository extends JpaRepository<Training,Integer> {
+public interface TrainingRepository extends JpaRepository<Training, Integer> {
+    
 }
