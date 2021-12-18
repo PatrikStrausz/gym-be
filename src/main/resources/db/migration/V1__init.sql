@@ -28,17 +28,16 @@ VALUES (2, 'USER');
 
 CREATE TABLE user_details
 (
-    id          SERIAL PRIMARY KEY,
-    firstname   VARCHAR(100) NOT NULL,
-    lastname    VARCHAR(100) NOT NULL,
-    height      integer      NOT NULL,
-    weight      integer      NOT NULL,
-    age         integer      NOT NULL,
-    goal        VARCHAR(100) NOT NULL,
-    sex         VARCHAR(100),
-    activity    VARCHAR(100),
-    user_id     integer      NOT NULL UNIQUE,
-    training_id integer
+    id        SERIAL PRIMARY KEY,
+    firstname VARCHAR(100) NOT NULL,
+    lastname  VARCHAR(100) NOT NULL,
+    height    integer      NOT NULL,
+    weight    integer      NOT NULL,
+    age       integer      NOT NULL,
+    goal      VARCHAR(100) NOT NULL,
+    sex       VARCHAR(100),
+    activity  VARCHAR(100),
+    user_id   integer      NOT NULL UNIQUE
 
 );
 
@@ -58,11 +57,23 @@ CREATE TABLE user_details_food
 
 );
 
+CREATE TABLE user_details_training
+(
+    id              SERIAL PRIMARY KEY,
+    training_id     integer,
+    user_details_id integer,
+    reps            integer,
+    sets            integer,
+    weight          integer ARRAY
+
+
+);
+
 
 
 CREATE TABLE training
 (
-    id   integer PRIMARY KEY,
+    id   SERIAL PRIMARY KEY,
     name VARCHAR(100)
 );
 
@@ -72,6 +83,7 @@ CREATE TABLE training_exercise
     id          SERIAL PRIMARY KEY,
     exercise_id integer,
     training_id integer
+
 );
 
 CREATE TABLE exercise
@@ -218,8 +230,6 @@ ALTER TABLE user_role
 
 ALTER TABLE user_details
     ADD CONSTRAINT ud_fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
-ALTER TABLE user_details
-    ADD CONSTRAINT ud_fk_training FOREIGN KEY (training_id) REFERENCES training (id) ON DELETE CASCADE;
 
 
 
@@ -227,6 +237,12 @@ ALTER TABLE user_details_food
     ADD CONSTRAINT udf_fk_user_details FOREIGN KEY (user_details_id) REFERENCES user_details (id) ON DELETE CASCADE;
 ALTER TABLE user_details_food
     ADD CONSTRAINT udf_fk_food FOREIGN KEY (food_id) REFERENCES food (id) ON DELETE CASCADE;
+
+
+ALTER TABLE user_details_training
+    ADD CONSTRAINT udt_fk_training FOREIGN KEY (training_id) REFERENCES training (id) ON DELETE CASCADE;
+ALTER TABLE user_details_training
+    ADD CONSTRAINT udt_fk_user_details FOREIGN KEY (user_details_id) REFERENCES user_details (id) ON DELETE CASCADE;
 
 
 
@@ -294,6 +310,16 @@ CREATE SEQUENCE food_mineral_sequence
     MINVALUE 1
     OWNED BY food_mineral.id;
 CREATE SEQUENCE user_details_macros_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY user_details_macros.id;
+CREATE SEQUENCE training_sequence
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    OWNED BY training.id;
+CREATE SEQUENCE user_details_training_sequence
     START 1
     INCREMENT 1
     MINVALUE 1

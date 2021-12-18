@@ -48,10 +48,6 @@ public class UserDetails {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "training_id", referencedColumnName = "id")
-    private Training training;
-
     @ManyToMany
             (fetch = FetchType.EAGER)
     @JoinTable(
@@ -69,11 +65,20 @@ public class UserDetails {
             inverseJoinColumns = @JoinColumn(name = "macros_id"))
     private Set<Macros> macrosSet;
 
+
+    @ManyToMany
+            (fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_details_training",
+            joinColumns = @JoinColumn(name = "user_details_id"),
+            inverseJoinColumns = @JoinColumn(name = "training_id"))
+    private Set<Training> trainingSet;
+
     public UserDetails() {
     }
 
     public UserDetails(int id, String firstname, String lastname, int height, int weight, int age,
-                       String goal, String sex, String activity, User user, Training training) {
+                       String goal, String sex, String activity, User user) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -84,7 +89,7 @@ public class UserDetails {
         this.sex = sex;
         this.activity = activity;
         this.user = user;
-        this.training = training;
+
     }
 
     public int getId() {
@@ -152,13 +157,6 @@ public class UserDetails {
         this.user = user;
     }
 
-    public Training getTraining() {
-        return training;
-    }
-
-    public void setTraining(Training training) {
-        this.training = training;
-    }
 
     public Set<Food> getFoodSet() {
         return foodSet;
@@ -192,5 +190,11 @@ public class UserDetails {
         this.activity = activity;
     }
 
+    public Set<Training> getTrainingSet() {
+        return trainingSet;
+    }
 
+    public void setTrainingSet(Set<Training> trainingSet) {
+        this.trainingSet = trainingSet;
+    }
 }

@@ -121,7 +121,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         User userById = userRepository.findById(userDetailsDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-                        .format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getUserId())));
+                        .format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
 
         UserDetails updateUserDetails =
                 new UserDetails(userDetailsById.getId(), userDetailsDto.getFirstname(), userDetailsDto.getLastname()

@@ -8,6 +8,15 @@ public class Training {
 
     @Id
     @Column(name = "id")
+    @SequenceGenerator(
+            name = "training_sequence",
+            sequenceName = "training_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "training_sequence"
+    )
     private int id;
 
     @Column(name = "name")
@@ -20,8 +29,10 @@ public class Training {
             inverseJoinColumns = @JoinColumn(name = "exercise_id"))
     private Set<Exercise> exerciseSet;
 
-    @OneToOne(mappedBy = "training")
-    private UserDetails userDetails;
+
+    @ManyToMany(mappedBy = "trainingSet")
+    private Set<UserDetails> userDetailsSet;
+
 
     public Training() {
     }
@@ -55,11 +66,11 @@ public class Training {
         this.exerciseSet = exerciseSet;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public Set<UserDetails> getUserDetailsSet() {
+        return userDetailsSet;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setUserDetailsSet(Set<UserDetails> userDetailsSet) {
+        this.userDetailsSet = userDetailsSet;
     }
 }

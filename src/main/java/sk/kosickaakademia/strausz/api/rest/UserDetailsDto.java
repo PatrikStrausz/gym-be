@@ -35,9 +35,6 @@ public class UserDetailsDto {
     private Integer userId;
 
 
-    private Integer trainingId;
-
-
     public int getId() {
         return id;
     }
@@ -94,14 +91,6 @@ public class UserDetailsDto {
         this.goal = goal;
     }
 
-
-    public Integer getTrainingId() {
-        return trainingId;
-    }
-
-    public void setTrainingId(Integer trainingId) {
-        this.trainingId = trainingId;
-    }
 
     public String getSex() {
         return sex;
