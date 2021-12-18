@@ -24,12 +24,20 @@ public class ExerciseController {
         return exerciseService.getExercises(page);
     }
 
+
+    @GetMapping(path = "/exercises/by/page")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public GenericListDto<ExerciseDto> getExercisesByPage(int pageIndex, int pageSize) {
+        return exerciseService.getAllExercisesByPage(pageIndex, pageSize);
+    }
+
+
     @GetMapping(path = "/exercises/by/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public GenericListDto<ExerciseDto> getExercisesByMuscle(@PathVariable int id, Integer pageIndex, Integer pageSize) {
         return exerciseService.getExercisesByMuscle(id, pageIndex, pageSize);
     }
-    
+
 
     @GetMapping("/exercise/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")

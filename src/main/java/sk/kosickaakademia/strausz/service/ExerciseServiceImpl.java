@@ -1,7 +1,5 @@
 package sk.kosickaakademia.strausz.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.ExerciseDto;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
-import sk.kosickaakademia.strausz.configuration.RestExceptionHandler;
 import sk.kosickaakademia.strausz.entity.Exercise;
 import sk.kosickaakademia.strausz.entity.Muscle;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
@@ -25,7 +22,7 @@ import java.util.List;
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
 
-    private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
+
     private final ExerciseRepository exerciseRepository;
     private final MuscleRepository muscleRepository;
     private final TrainingExerciseRepository trainingExerciseRepository;
@@ -52,6 +49,24 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Transactional(readOnly = true)
     @Override
+    public GenericListDto<ExerciseDto> getAllExercisesByPage(Integer pageIndex, Integer pageSize) {
+
+        Pageable firstPageWithTwoElements = PageRequest.of(pageIndex, pageSize);
+
+
+        Page<Exercise> exerciseDto = exerciseRepository.findAll(firstPageWithTwoElements);
+
+
+        List<ExerciseDto> exerciseDtoList = exerciseMapper.exerciseListToExerciseListDto(exerciseDto);
+
+        GenericListDto<ExerciseDto> exerciseDtoGenericListDto = new GenericListDto<>(exerciseDtoList);
+        exerciseDtoGenericListDto.setTotalElements(exerciseDto.getTotalElements());
+
+        return exerciseDtoGenericListDto;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public GenericListDto<ExerciseDto> getExercisesByMuscle(Integer id, Integer pageIndex, Integer pageSize) {
         Muscle muscle = muscleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
@@ -71,7 +86,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         return exerciseDtoGenericListDto;
     }
-    
+
 
     @Transactional(readOnly = true)
     @Override
