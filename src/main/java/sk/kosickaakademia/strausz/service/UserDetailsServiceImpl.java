@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDetailsDto;
-import sk.kosickaakademia.strausz.entity.Training;
 import sk.kosickaakademia.strausz.entity.User;
 import sk.kosickaakademia.strausz.entity.UserDetails;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
@@ -49,7 +48,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UserDetailsDto userDetailsDto = userDetailsMapper.userDetailsToUserDetailsDto(userDetails);
         userDetailsDto.setUserId(userDetails.getUser().getId());
-        userDetailsDto.setTrainingId(userDetails.getTraining().getId());
 
         return userDetailsDto;
 
@@ -75,7 +73,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UserDetailsDto userDetailsDto = userDetailsMapper.userDetailsToUserDetailsDto(userDetailsById);
         userDetailsDto.setUserId(userDetailsById.getUser().getId());
-        userDetailsDto.setTrainingId(userDetailsById.getTraining().getId());
+
         return userDetailsDto;
     }
 
@@ -87,10 +85,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserDetails userDetails = userDetailsMapper.userDetailsDtoToUserDetails(userDetailsDto);
 
 
-        Training trainingById = trainingRepository.findById(userDetailsDto.getTrainingId())
-                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-                        .format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
-
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //
 //        User userByUsername = userRepository.findByUsername(authentication.getName());
@@ -100,7 +94,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                         .format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
 
         userDetails.setUser(userById);
-        userDetails.setTraining(trainingById);
 
 
         userDetailsRepository.save(userDetails);
@@ -115,9 +108,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[UPDATE]: UserDetailsID [{0}] not found ", userDetailsDto.getId())));
 
-        Training trainingById = trainingRepository.findById(userDetailsDto.getTrainingId())
-                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
-                        .format("[CREATE]: TrainingID [{0}] not found ", userDetailsDto.getTrainingId())));
 
         User userById = userRepository.findById(userDetailsDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
@@ -126,7 +116,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserDetails updateUserDetails =
                 new UserDetails(userDetailsById.getId(), userDetailsDto.getFirstname(), userDetailsDto.getLastname()
                         , userDetailsDto.getHeight(), userDetailsDto.getWeight(), userDetailsDto.getAge(),
-                        userDetailsDto.getGoal(), userDetailsDto.getSex(), userDetailsDto.getActivity(), userById, trainingById);
+                        userDetailsDto.getGoal(), userDetailsDto.getSex(), userDetailsDto.getActivity(), userById);
 
 
         userDetailsRepository.save(updateUserDetails);
