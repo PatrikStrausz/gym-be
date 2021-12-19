@@ -51,4 +51,12 @@ public class UserDetailsTrainingController {
         return userDetailsTrainingService.getUserDetailsTrainingByUserDetailsId(userDetailsId);
     }
 
+    @DeleteMapping(path = "/user/details/training/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public UserDetailsTrainingDto deleteById(@PathVariable int id) {
+
+        return userDetailsTrainingService.deleteById(id);
+    }
+
+
 }

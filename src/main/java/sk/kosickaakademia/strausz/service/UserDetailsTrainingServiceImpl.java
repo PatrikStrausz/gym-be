@@ -76,4 +76,16 @@ public class UserDetailsTrainingServiceImpl implements UserDetailsTrainingServic
 
         return new GenericListDto<>(userDetailsTrainingDtos);
     }
+
+    @Transactional
+    @Override
+    public UserDetailsTrainingDto deleteById(Integer id) {
+        UserDetailsTraining userDetailsTraining = userDetailsTrainingRepository
+                .findById(id).orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[GET] UserDetailsTraining with ID [{0}] not found ", id)));
+
+        userDetailsTrainingRepository.deleteById(userDetailsTraining.getId());
+
+        return userDetailsTrainingMapper.userDetailsTrainingToUserDetailsTrainingDto(userDetailsTraining);
+    }
 }

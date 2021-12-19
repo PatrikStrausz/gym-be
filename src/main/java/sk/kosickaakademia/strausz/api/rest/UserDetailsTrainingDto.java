@@ -1,6 +1,6 @@
 package sk.kosickaakademia.strausz.api.rest;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class UserDetailsTrainingDto {
 
@@ -14,9 +14,9 @@ public class UserDetailsTrainingDto {
 
     private Integer sets;
 
-    private ArrayList<Integer> reps;
+    private List<Integer> reps;
 
-    private ArrayList<Integer> weight;
+    private List<Integer> weight;
 
     private String date;
 
@@ -52,19 +52,19 @@ public class UserDetailsTrainingDto {
         this.sets = sets;
     }
 
-    public ArrayList<Integer> getReps() {
+    public List<Integer> getReps() {
         return reps;
     }
 
-    public void setReps(ArrayList<Integer> reps) {
+    public void setReps(List<Integer> reps) {
         this.reps = reps;
     }
 
-    public ArrayList<Integer> getWeight() {
+    public List<Integer> getWeight() {
         return weight;
     }
 
-    public void setWeight(ArrayList<Integer> weight) {
+    public void setWeight(List<Integer> weight) {
         this.weight = weight;
     }
 

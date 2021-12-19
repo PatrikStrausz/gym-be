@@ -1,10 +1,18 @@
 package sk.kosickaakademia.strausz.entity;
 
 
+import com.vladmihalcea.hibernate.type.array.ListArrayType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "user_details_training")
+@TypeDef(
+        name = "list-array",
+        typeClass = ListArrayType.class
+)
 public class UserDetailsTraining {
 
     @Id
@@ -33,11 +41,13 @@ public class UserDetailsTraining {
     @Column(name = "sets")
     private Integer sets;
 
+    @Type(type = "list-array")
     @Column(name = "reps")
-    private ArrayList<Integer> reps;
+    private List<Integer> reps;
 
+    @Type(type = "list-array")
     @Column(name = "weight")
-    private ArrayList<Integer> weight;
+    private List<Integer> weight;
 
     @Column(name = "date")
     private String date;
@@ -77,19 +87,19 @@ public class UserDetailsTraining {
         this.sets = sets;
     }
 
-    public ArrayList<Integer> getReps() {
+    public List<Integer> getReps() {
         return reps;
     }
 
-    public void setReps(ArrayList<Integer> reps) {
+    public void setReps(List<Integer> reps) {
         this.reps = reps;
     }
 
-    public ArrayList<Integer> getWeight() {
+    public List<Integer> getWeight() {
         return weight;
     }
 
-    public void setWeight(ArrayList<Integer> weight) {
+    public void setWeight(List<Integer> weight) {
         this.weight = weight;
     }
 

@@ -63,9 +63,9 @@ CREATE TABLE user_details_training
     training_id     integer,
     user_details_id integer,
     name            VARCHAR(100),
-    reps            integer ARRAY,
+    reps            integer[],
     sets            integer,
-    weight          integer ARRAY,
+    weight          integer[],
     date            VARCHAR(100)
 
 

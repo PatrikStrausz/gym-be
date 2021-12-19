@@ -12,4 +12,6 @@ public interface UserDetailsTrainingService {
     UserDetailsTrainingDto create(UserDetailsTrainingDto userDetailsTrainingDto);
 
     GenericListDto<UserDetailsTrainingDto> getUserDetailsTrainingByUserDetailsId(Integer userDetailsId);
+
+    UserDetailsTrainingDto deleteById(Integer id);
 }
