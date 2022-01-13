@@ -2,6 +2,7 @@ package sk.kosickaakademia.strausz.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.*;
@@ -93,6 +94,23 @@ public class FoodServiceImpl implements FoodService {
 
 
         return new GenericListDto<>(foodList);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public GenericListDto<FoodDto> getAllFoodsByPage(Integer pageIndex, Integer pageSize) {
+        Pageable firstPageWithTwoElements = PageRequest.of(pageIndex, pageSize);
+
+
+        Page<Food> foods = foodRepository.findAll(firstPageWithTwoElements);
+
+
+        List<FoodDto> foodDtoList = foodMapper.foodListToFoodListDto(foods);
+
+        GenericListDto<FoodDto> exerciseDtoGenericListDto = new GenericListDto<>(foodDtoList);
+        exerciseDtoGenericListDto.setTotalElements(foods.getTotalElements());
+
+        return exerciseDtoGenericListDto;
     }
 
 }

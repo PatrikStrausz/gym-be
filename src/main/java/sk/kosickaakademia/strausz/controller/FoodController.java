@@ -53,4 +53,11 @@ public class FoodController {
     }
 
 
+    @GetMapping(path = "/food/by/page")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public GenericListDto<FoodDto> getExercisesByPage(int pageIndex, int pageSize) {
+        return foodService.getAllFoodsByPage(pageIndex, pageSize);
+    }
+
+
 }

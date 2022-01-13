@@ -14,5 +14,7 @@ public interface FoodService {
 
     GenericListDto<UserFoodDetailsDto> findAllFoodsByUserDetailsId(Integer userDetailsId);
 
+    GenericListDto<FoodDto> getAllFoodsByPage(Integer pageIndex, Integer pageSize);
+
 
 }

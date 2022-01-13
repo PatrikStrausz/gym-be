@@ -25,4 +25,6 @@ public interface FoodMapper {
 
     List<Food> foodListDtoToFoodList(List<FoodListDto> food);
 
+    List<FoodDto> foodListToFoodListDto(Page<Food> foods);
+
 }
