@@ -3,6 +3,7 @@ package sk.kosickaakademia.strausz.security.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static sk.kosickaakademia.strausz.security.SecurityConstants.*;
@@ -86,7 +89,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                               AuthenticationException failed) throws IOException, ServletException {
         logger.error("MESSAGE UNAUTHORIZED : " + failed.getMessage());
 
-        response.sendError(response.SC_UNAUTHORIZED, failed.getMessage());
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("error", failed.getMessage());
+        
+        response.getWriter().write(objectMapper.writeValueAsString(body));
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setContentType("application/json");
 
     }
 
