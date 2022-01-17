@@ -11,6 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import sk.kosickaakademia.strausz.api.rest.ErrorDto;
 import sk.kosickaakademia.strausz.api.rest.TokenDto;
 import sk.kosickaakademia.strausz.api.rest.UserLoginDto;
 import sk.kosickaakademia.strausz.exception.InvalidLoginDataException;
@@ -22,8 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static sk.kosickaakademia.strausz.security.SecurityConstants.*;
@@ -89,10 +88,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                               AuthenticationException failed) throws IOException, ServletException {
         logger.error("MESSAGE UNAUTHORIZED : " + failed.getMessage());
 
-        Map<String, Object> body = new HashMap<String, Object>();
-        body.put("error", failed.getMessage());
-        
-        response.getWriter().write(objectMapper.writeValueAsString(body));
+
+        ErrorDto error = new ErrorDto(HttpStatus.UNAUTHORIZED.value(), failed.getMessage());
+
+        response.getWriter().write(objectMapper.writeValueAsString(error));
+
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json");
 
