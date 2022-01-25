@@ -109,12 +109,10 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
 
-        List<Role> roles = roleRepository.findAllById(userDto.getRoleId());
+        userById.setEmail(userDto.getEmail());
+        userById.setPassword(userDto.getPassword());
 
-        User user = new User(userById.getId(), userDto.getUsername(), userDto.getEmail()
-                , passwordEncoder.encode(userDto.getPassword()), new HashSet<>(roles));
-
-        userRepository.save(user);
+        User user = userRepository.save(userById);
 
         return userCreateUpdateMapper.userToUserCreateUpdateDto(user);
     }

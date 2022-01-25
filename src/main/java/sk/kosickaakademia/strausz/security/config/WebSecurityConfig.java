@@ -21,6 +21,7 @@ import sk.kosickaakademia.strausz.security.jwt.JWTAuthenticationFilter;
 import sk.kosickaakademia.strausz.security.jwt.JWTAuthorizationFilter;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static sk.kosickaakademia.strausz.security.SecurityConstants.SIGN_UP_URL;
 
@@ -86,7 +87,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
+        configuration.setAllowedOrigins(List.of(
                         "http://localhost:4200"
                 )
         );

@@ -2,6 +2,7 @@ package sk.kosickaakademia.strausz.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.RoleDto;
@@ -13,6 +14,7 @@ import sk.kosickaakademia.strausz.repository.RoleRepository;
 import java.text.MessageFormat;
 import java.util.List;
 
+@Service
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;

@@ -84,11 +84,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UserDetails userDetails = userDetailsMapper.userDetailsDtoToUserDetails(userDetailsDto);
 
-
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//        User userByUsername = userRepository.findByUsername(authentication.getName());
-
         User userById = userRepository.findById(userDetailsDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
@@ -113,13 +108,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[CREATE]: UserID [{0}] not found ", userDetailsDto.getUserId())));
 
-        UserDetails updateUserDetails =
-                new UserDetails(userDetailsById.getId(), userDetailsDto.getFirstname(), userDetailsDto.getLastname()
-                        , userDetailsDto.getHeight(), userDetailsDto.getWeight(), userDetailsDto.getAge(),
-                        userDetailsDto.getGoal(), userDetailsDto.getSex(), userDetailsDto.getActivity(), userById);
+        userDetailsById.setFirstname(userDetailsDto.getFirstname());
+        userDetailsById.setLastname(userDetailsDto.getLastname());
+        userDetailsById.setHeight(userDetailsDto.getHeight());
+        userDetailsById.setWeight(userDetailsDto.getWeight());
+        userDetailsById.setAge(userDetailsDto.getAge());
+        userDetailsById.setGoal(userDetailsDto.getGoal());
+        userDetailsById.setSex(userDetailsDto.getSex());
+        userDetailsById.setActivity(userDetailsDto.getActivity());
+        userDetailsById.setUser(userById);
 
-
-        userDetailsRepository.save(updateUserDetails);
+        UserDetails updateUserDetails = userDetailsRepository.save(userDetailsById);
 
         return userDetailsMapper.userDetailsToUserDetailsDto(updateUserDetails);
     }

@@ -9,7 +9,6 @@ import sk.kosickaakademia.strausz.api.rest.MuscleDto;
 import sk.kosickaakademia.strausz.entity.Muscle;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.MuscleMapper;
-import sk.kosickaakademia.strausz.repository.ExerciseRepository;
 import sk.kosickaakademia.strausz.repository.MuscleRepository;
 
 import java.text.MessageFormat;
@@ -19,13 +18,12 @@ import java.util.List;
 public class MuscleServiceImpl implements MuscleService {
 
     private final MuscleRepository muscleRepository;
-    private final ExerciseRepository exerciseRepository;
+
 
     private final MuscleMapper muscleMapper;
 
-    public MuscleServiceImpl(MuscleRepository muscleRepository, ExerciseRepository exerciseRepository, MuscleMapper muscleMapper) {
+    public MuscleServiceImpl(MuscleRepository muscleRepository, MuscleMapper muscleMapper) {
         this.muscleRepository = muscleRepository;
-        this.exerciseRepository = exerciseRepository;
         this.muscleMapper = muscleMapper;
     }
 
@@ -49,5 +47,5 @@ public class MuscleServiceImpl implements MuscleService {
         return muscleMapper.muscleToMuscleDto(muscleById);
     }
 
-   
+
 }
