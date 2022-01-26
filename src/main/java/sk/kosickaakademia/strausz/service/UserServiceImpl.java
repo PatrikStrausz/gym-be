@@ -1,8 +1,6 @@
 package sk.kosickaakademia.strausz.service;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
@@ -13,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserCreateUpdateDto;
 import sk.kosickaakademia.strausz.api.rest.UserDto;
-import sk.kosickaakademia.strausz.configuration.RestExceptionHandler;
 import sk.kosickaakademia.strausz.entity.Role;
 import sk.kosickaakademia.strausz.entity.User;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
@@ -30,13 +27,12 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
     private final UserCreateUpdateMapper userCreateUpdateMapper;
     private final PasswordEncoder passwordEncoder;
-
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper
             , UserCreateUpdateMapper userCreateUpdateMapper, PasswordEncoder passwordEncoder) {
@@ -45,6 +41,14 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
         this.userCreateUpdateMapper = userCreateUpdateMapper;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Boolean isPasswordMatching(String enteredPassword, String encodedPassword) {
+
+
+        return passwordEncoder.matches(enteredPassword, encodedPassword);
     }
 
     @Transactional(readOnly = true)

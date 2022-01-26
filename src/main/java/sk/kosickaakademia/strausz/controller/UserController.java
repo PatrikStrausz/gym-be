@@ -47,6 +47,13 @@ public class UserController {
 
     }
 
+    @GetMapping("/user/password")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public Boolean isPasswordMatching(@RequestParam String enteredPassword, @RequestParam String encodedPassword) {
+
+        return userService.isPasswordMatching(enteredPassword, encodedPassword);
+
+    }
 
     @PostMapping(path = "/user")
     public UserCreateUpdateDto createUser(@Valid @RequestBody UserCreateUpdateDto user) {

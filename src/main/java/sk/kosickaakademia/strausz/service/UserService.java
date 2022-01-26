@@ -7,6 +7,8 @@ import sk.kosickaakademia.strausz.api.rest.UserDto;
 public interface UserService {
 
 
+    Boolean isPasswordMatching(String enteredPassword, String encodedPassword);
+
     GenericListDto<UserDto> getUsers(int page);
 
     UserDto getUserById(Integer id);
@@ -18,6 +20,5 @@ public interface UserService {
     UserCreateUpdateDto update(UserDto userDto);
 
     UserDto getUserByUsername();
-
 
 }
