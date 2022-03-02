@@ -47,5 +47,12 @@ public class MuscleServiceImpl implements MuscleService {
         return muscleMapper.muscleToMuscleDto(muscleById);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public MuscleDto getMuscleByExerciseId(Integer exerciseId) {
+        Muscle muscle = muscleRepository.getMuscleByExerciseId(exerciseId);
+        return muscleMapper.muscleToMuscleDto(muscle);
+    }
+
 
 }

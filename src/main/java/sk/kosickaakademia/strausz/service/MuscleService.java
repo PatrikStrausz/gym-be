@@ -9,5 +9,7 @@ public interface MuscleService {
 
     MuscleDto getMuscleById(Integer id);
 
+    MuscleDto getMuscleByExerciseId(Integer exerciseId);
+
 
 }

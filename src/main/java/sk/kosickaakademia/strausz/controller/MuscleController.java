@@ -33,5 +33,14 @@ public class MuscleController {
 
     }
 
+    @GetMapping("/muscle/by/exercise/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public MuscleDto getMuscleByExerciseId(@PathVariable int id) {
+
+        return muscleService.getMuscleByExerciseId(id);
+
+
+    }
+
 
 }
