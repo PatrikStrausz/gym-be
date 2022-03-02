@@ -98,7 +98,7 @@ CREATE TABLE exercise
     mechanics           VARCHAR(100),
     forcetype           VARCHAR(100),
     experience_level    VARCHAR(100),
-    secondary_muscles   VARCHAR(100),
+    secondary_muscles   VARCHAR(255),
     overview            TEXT,
     instructions        TEXT,
     tips                TEXT,
