@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface UserDetailsTrainingRepository extends JpaRepository<UserDetailsTraining, Integer> {
 
-    @Query(value = "SELECT * from user_details_training INNER JOIN user_details on user_details_training.user_details_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT * from user_details_training INNER JOIN user_details on user_details_training.user_details_id = ?1", nativeQuery = true)
     List<UserDetailsTraining> findAllByUserDetailsId(int userDetailsId);
 }

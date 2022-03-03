@@ -114,8 +114,8 @@ public class UserServiceImpl implements UserService {
                         .format("[UPDATE]: User with ID [{0}] not found ", userDto.getId())));
 
         userById.setEmail(userDto.getEmail());
-        userById.setPassword(userDto.getPassword());
-
+        userById.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        
         User user = userRepository.save(userById);
 
         return userCreateUpdateMapper.userToUserCreateUpdateDto(user);
