@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[DELETE]: User with ID [{0}] not found ", id)));
 
-        userRepository.deleteById(userById.getId());
+        userRepository.delete(userById);
 
         return userMapper.userToUserDto(userById);
     }
@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
 
         userById.setEmail(userDto.getEmail());
         userById.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        
+
         User user = userRepository.save(userById);
 
         return userCreateUpdateMapper.userToUserCreateUpdateDto(user);

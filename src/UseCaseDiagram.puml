@@ -9,12 +9,15 @@ Admin --> (Manage databases)
 User --> (Login)
 User --> (Register)
 User --> (Set a daily plan)
-User --> (Choose a Training)
+User --> (Choose a daily training)
 User --> (Choose a Diet)
 User --> (Choose a goal)
 User --> (Track calories)
 User --> (Manage profile)
-User --> (Calculate BMI)
+User --> (Edit profile)
+User --> (Track stats)
+User --> (Browse an exercise database)
+User --> (Browse a diet database)
 
 
 @enduml
