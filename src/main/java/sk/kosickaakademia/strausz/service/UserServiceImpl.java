@@ -20,6 +20,7 @@ import sk.kosickaakademia.strausz.repository.RoleRepository;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+
     private final UserMapper userMapper;
     private final UserCreateUpdateMapper userCreateUpdateMapper;
     private final PasswordEncoder passwordEncoder;
@@ -38,9 +40,24 @@ public class UserServiceImpl implements UserService {
             , UserCreateUpdateMapper userCreateUpdateMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+
         this.userMapper = userMapper;
         this.userCreateUpdateMapper = userCreateUpdateMapper;
         this.passwordEncoder = passwordEncoder;
+
+        if(userRepository.findByUsername("admin") == null) {
+            User user = new User("admin", "admin@gmail.com", "admin123");
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            List<Role> roleList = new ArrayList<>();
+            roleList.add(new Role(1, "ADMIN"));
+            roleList.add(new Role(2, "USER"));
+            user.setRoleSet(new HashSet<>(new HashSet<>(roleList) {
+            }));
+            userRepository.save(user);
+        }
+
+
     }
 
     @Transactional(readOnly = true)

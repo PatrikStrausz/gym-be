@@ -10,6 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 public class ProjectGymApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(ProjectGymApplication.class, args);
 

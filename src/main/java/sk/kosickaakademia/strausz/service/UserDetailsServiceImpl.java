@@ -35,6 +35,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
         this.trainingRepository = trainingRepository;
         this.userDetailsMapper = userDetailsMapper;
+
+
+
     }
 
     @Transactional(readOnly = true)

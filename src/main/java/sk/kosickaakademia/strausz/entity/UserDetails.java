@@ -92,6 +92,18 @@ public class UserDetails {
 
     }
 
+    public UserDetails(String firstname, String lastname, int height, int weight, int age, String goal, String sex, String activity, User user) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.goal = goal;
+        this.sex = sex;
+        this.activity = activity;
+        this.user = user;
+    }
+
     public int getId() {
         return id;
     }
