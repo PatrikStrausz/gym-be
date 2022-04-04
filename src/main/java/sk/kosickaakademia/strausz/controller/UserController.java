@@ -61,7 +61,7 @@ public class UserController {
         return userService.create(user);
     }
 
-    @DeleteMapping(path = "/user/{id}")
+    @DeleteMapping(path = "/user/delete/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public UserDto deleteUser(@PathVariable int id) {
 

@@ -20,7 +20,6 @@ import sk.kosickaakademia.strausz.repository.RoleRepository;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,17 +44,7 @@ public class UserServiceImpl implements UserService {
         this.userCreateUpdateMapper = userCreateUpdateMapper;
         this.passwordEncoder = passwordEncoder;
 
-        if(userRepository.findByUsername("admin") == null) {
-            User user = new User("admin", "admin@gmail.com", "admin123");
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-            List<Role> roleList = new ArrayList<>();
-            roleList.add(new Role(1, "ADMIN"));
-            roleList.add(new Role(2, "USER"));
-            user.setRoleSet(new HashSet<>(new HashSet<>(roleList) {
-            }));
-            userRepository.save(user);
-        }
+      
 
 
     }
@@ -108,6 +97,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+
     @Transactional
     @Override
     public UserDto deleteById(Integer id) {
@@ -116,7 +106,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat
                         .format("[DELETE]: User with ID [{0}] not found ", id)));
 
-        userRepository.delete(userById);
+
+
+         userRepository.deleteWithId(userById.getId());
 
         return userMapper.userToUserDto(userById);
     }
