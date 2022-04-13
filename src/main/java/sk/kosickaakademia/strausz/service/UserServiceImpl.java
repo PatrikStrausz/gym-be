@@ -19,7 +19,9 @@ import sk.kosickaakademia.strausz.mapper.UserMapper;
 import sk.kosickaakademia.strausz.repository.RoleRepository;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
+import javax.annotation.PostConstruct;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,6 +49,23 @@ public class UserServiceImpl implements UserService {
       
 
 
+    }
+
+
+    @PostConstruct
+    public void addFirstUser(){
+        User user = new User("admin@admin.com","admin@admin.com", passwordEncoder.encode("admin123"));
+
+
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleRepository.findById(1) .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                .format("[DELETE]: User with ID [{0}] not found ", 1))));
+        roles.add(roleRepository.findById(2) .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                .format("[DELETE]: User with ID [{0}] not found ", 2))));
+
+
+        user.setRoleSet(new HashSet<>(roles));
+        userRepository.save(user);
     }
 
     @Transactional(readOnly = true)

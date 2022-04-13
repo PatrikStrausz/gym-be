@@ -10,13 +10,17 @@ import sk.kosickaakademia.strausz.api.rest.GenericListDto;
 import sk.kosickaakademia.strausz.api.rest.UserDetailsDto;
 import sk.kosickaakademia.strausz.entity.User;
 import sk.kosickaakademia.strausz.entity.UserDetails;
+import sk.kosickaakademia.strausz.entity.UserDetailsMacros;
 import sk.kosickaakademia.strausz.exception.EntityNotFoundException;
 import sk.kosickaakademia.strausz.mapper.UserDetailsMapper;
 import sk.kosickaakademia.strausz.repository.TrainingRepository;
+import sk.kosickaakademia.strausz.repository.UserDetailsMacrosRepository;
 import sk.kosickaakademia.strausz.repository.UserDetailsRepository;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
+import javax.annotation.PostConstruct;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,20 +28,50 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
     private final UserDetailsRepository userDetailsRepository;
+    private final UserDetailsMacrosRepository userDetailsMacrosRepository;
     private final UserRepository userRepository;
     private final TrainingRepository trainingRepository;
     private final UserDetailsMapper userDetailsMapper;
 
 
-    public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository, UserRepository userRepository
+    public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository, UserDetailsMacrosRepository userDetailsMacrosRepository, UserRepository userRepository
             , TrainingRepository trainingRepository, UserDetailsMapper userDetailsMapper) {
         this.userDetailsRepository = userDetailsRepository;
+        this.userDetailsMacrosRepository = userDetailsMacrosRepository;
         this.userRepository = userRepository;
         this.trainingRepository = trainingRepository;
         this.userDetailsMapper = userDetailsMapper;
 
 
 
+    }
+
+    @PostConstruct
+    public void addFirstUser(){
+        User userById = userRepository.findById(1)
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat
+                        .format("[CREATE]: UserID [{0}] not found ", 1)));
+
+        UserDetails userDetails =
+                new UserDetails(1,"admin","admin",180,80,20,"Gain muscle",
+                        "Male","moderate exercise 2-3 time a week",userById);
+
+        UserDetailsMacros userDetailsMacros1 = new UserDetailsMacros(1,1,1,2000);
+        UserDetailsMacros userDetailsMacros2 = new UserDetailsMacros(2,1,2,200);
+        UserDetailsMacros userDetailsMacros3= new UserDetailsMacros(3,1,3,300);
+        UserDetailsMacros userDetailsMacros4 = new UserDetailsMacros(4,1,4,100);
+
+
+        userDetails.setUser(userById);
+
+        List<UserDetailsMacros> list = new ArrayList<>();
+        list.add(userDetailsMacros1);
+        list.add(userDetailsMacros2);
+        list.add(userDetailsMacros3);
+        list.add(userDetailsMacros4);
+
+        userDetailsRepository.save(userDetails);
+        userDetailsMacrosRepository.saveAll(list);
     }
 
     @Transactional(readOnly = true)

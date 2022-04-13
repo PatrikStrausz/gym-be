@@ -30,6 +30,13 @@ public class UserDetailsMacros {
     public UserDetailsMacros() {
     }
 
+    public UserDetailsMacros(int id, Integer userDetailsId, Integer macrosId, double totalAmount) {
+        this.id = id;
+        this.userDetailsId = userDetailsId;
+        this.macrosId = macrosId;
+        this.totalAmount = totalAmount;
+    }
+
     public int getId() {
         return id;
     }
