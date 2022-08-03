@@ -19,7 +19,6 @@ import sk.kosickaakademia.strausz.mapper.UserMapper;
 import sk.kosickaakademia.strausz.repository.RoleRepository;
 import sk.kosickaakademia.strausz.repository.UserRepository;
 
-import javax.annotation.PostConstruct;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @PostConstruct
+ //   @PostConstruct
     public void addFirstUser(){
         User user = new User("admin@admin.com","admin@admin.com", passwordEncoder.encode("admin123"));
 
